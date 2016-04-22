@@ -9,12 +9,42 @@
 /* Begin PBXBuildFile section */
 		276B83971CCA3FF000B9989C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83961CCA3FF000B9989C /* main.m */; };
 		276B839A1CCA3FF000B9989C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83991CCA3FF000B9989C /* AppDelegate.m */; };
-		276B839D1CCA3FF000B9989C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B839C1CCA3FF000B9989C /* ViewController.m */; };
 		276B83A01CCA3FF000B9989C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 276B839E1CCA3FF000B9989C /* Main.storyboard */; };
 		276B83A21CCA3FF000B9989C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B83A11CCA3FF000B9989C /* Assets.xcassets */; };
 		276B83A51CCA3FF000B9989C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 276B83A31CCA3FF000B9989C /* LaunchScreen.storyboard */; };
 		276B83B01CCA3FF000B9989C /* Survey_TemplateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83AF1CCA3FF000B9989C /* Survey_TemplateTests.m */; };
 		276B83BB1CCA3FF000B9989C /* Survey_TemplateUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83BA1CCA3FF000B9989C /* Survey_TemplateUITests.m */; };
+		276B83D41CCA400600B9989C /* APNumberButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83CA1CCA400600B9989C /* APNumberButton.m */; };
+		276B83D51CCA400600B9989C /* APNumberPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83CC1CCA400600B9989C /* APNumberPad.m */; };
+		276B83D61CCA400600B9989C /* APNumberPadDefaultStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83CE1CCA400600B9989C /* APNumberPadDefaultStyle.m */; };
+		276B83D81CCA400600B9989C /* UIFont+AppFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83D31CCA400600B9989C /* UIFont+AppFonts.m */; };
+		276B83DE1CCA401200B9989C /* LICENCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 276B83DA1CCA401200B9989C /* LICENCE.txt */; };
+		276B83DF1CCA401200B9989C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83DC1CCA401200B9989C /* Reachability.m */; };
+		276B83E01CCA401200B9989C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 276B83DD1CCA401200B9989C /* README.md */; };
+		276B83E71CCA402F00B9989C /* UIColor+AppColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83E21CCA402F00B9989C /* UIColor+AppColors.m */; };
+		276B83E81CCA402F00B9989C /* UIFont+AppFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83E41CCA402F00B9989C /* UIFont+AppFonts.m */; };
+		276B83E91CCA402F00B9989C /* UIFont+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83E61CCA402F00B9989C /* UIFont+Custom.m */; };
+		276B83EC1CCA403F00B9989C /* apnumberpad_backspace_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B83EA1CCA403F00B9989C /* apnumberpad_backspace_icon.png */; };
+		276B83ED1CCA403F00B9989C /* apnumberpad_backspace_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B83EB1CCA403F00B9989C /* apnumberpad_backspace_icon@2x.png */; };
+		276B83EF1CCA404800B9989C /* Background Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B83EE1CCA404800B9989C /* Background Image.png */; };
+		276B83F11CCA405400B9989C /* headerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B83F01CCA405400B9989C /* headerBackground.png */; };
+		276B83F31CCA406900B9989C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 276B83F21CCA406900B9989C /* Info.plist */; };
+		276B83FA1CCA409200B9989C /* MultiSelectSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83F51CCA409200B9989C /* MultiSelectSegmentedControl.m */; };
+		276B83FB1CCA409200B9989C /* NGAParallaxMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83F71CCA409200B9989C /* NGAParallaxMotion.m */; };
+		276B83FC1CCA409200B9989C /* NSString+AppFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83F91CCA409200B9989C /* NSString+AppFunctions.m */; };
+		276B83FE1CCA40A100B9989C /* questionaire_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B83FD1CCA40A100B9989C /* questionaire_background.png */; };
+		276B84021CCA40C500B9989C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84011CCA40C500B9989C /* ViewController.m */; };
+		276B84171CCA40D400B9989C /* PQSAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84041CCA40D400B9989C /* PQSAlertAction.m */; };
+		276B84181CCA40D400B9989C /* PQSAnswerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84061CCA40D400B9989C /* PQSAnswerView.m */; };
+		276B84191CCA40D400B9989C /* PQSLocalSubmitSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84081CCA40D400B9989C /* PQSLocalSubmitSuccessView.m */; };
+		276B841A1CCA40D400B9989C /* PQSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B840A1CCA40D400B9989C /* PQSQuestion.m */; };
+		276B841B1CCA40D400B9989C /* PQSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B840C1CCA40D400B9989C /* PQSQuestionView.m */; };
+		276B841C1CCA40D400B9989C /* PQSReferenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B840E1CCA40D400B9989C /* PQSReferenceManager.m */; };
+		276B841D1CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84101CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.m */; };
+		276B841E1CCA40D400B9989C /* PQSSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84121CCA40D400B9989C /* PQSSegmentedControl.m */; };
+		276B841F1CCA40D400B9989C /* PQSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84141CCA40D400B9989C /* PQSTableViewCell.m */; };
+		276B84201CCA40D400B9989C /* PQSTextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84161CCA40D400B9989C /* PQSTextInputView.m */; };
+		276B84221CCA410400B9989C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B84211CCA410400B9989C /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,18 +69,69 @@
 		276B83961CCA3FF000B9989C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		276B83981CCA3FF000B9989C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		276B83991CCA3FF000B9989C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		276B839B1CCA3FF000B9989C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		276B839C1CCA3FF000B9989C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		276B839F1CCA3FF000B9989C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		276B83A11CCA3FF000B9989C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		276B83A41CCA3FF000B9989C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		276B83A61CCA3FF000B9989C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		276B83AB1CCA3FF000B9989C /* Survey TemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Survey TemplateTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276B83AF1CCA3FF000B9989C /* Survey_TemplateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Survey_TemplateTests.m; sourceTree = "<group>"; };
 		276B83B11CCA3FF000B9989C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		276B83B61CCA3FF000B9989C /* Survey TemplateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Survey TemplateUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276B83BA1CCA3FF000B9989C /* Survey_TemplateUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Survey_TemplateUITests.m; sourceTree = "<group>"; };
 		276B83BC1CCA3FF000B9989C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		276B83C91CCA400600B9989C /* APNumberButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APNumberButton.h; sourceTree = "<group>"; };
+		276B83CA1CCA400600B9989C /* APNumberButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APNumberButton.m; sourceTree = "<group>"; };
+		276B83CB1CCA400600B9989C /* APNumberPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APNumberPad.h; sourceTree = "<group>"; };
+		276B83CC1CCA400600B9989C /* APNumberPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APNumberPad.m; sourceTree = "<group>"; };
+		276B83CD1CCA400600B9989C /* APNumberPadDefaultStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APNumberPadDefaultStyle.h; sourceTree = "<group>"; };
+		276B83CE1CCA400600B9989C /* APNumberPadDefaultStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APNumberPadDefaultStyle.m; sourceTree = "<group>"; };
+		276B83CF1CCA400600B9989C /* APNumberPadStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APNumberPadStyle.h; sourceTree = "<group>"; };
+		276B83D21CCA400600B9989C /* UIFont+AppFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AppFonts.h"; sourceTree = "<group>"; };
+		276B83D31CCA400600B9989C /* UIFont+AppFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AppFonts.m"; sourceTree = "<group>"; };
+		276B83DA1CCA401200B9989C /* LICENCE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE.txt; sourceTree = "<group>"; };
+		276B83DB1CCA401200B9989C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		276B83DC1CCA401200B9989C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		276B83DD1CCA401200B9989C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		276B83E11CCA402F00B9989C /* UIColor+AppColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+AppColors.h"; sourceTree = "<group>"; };
+		276B83E21CCA402F00B9989C /* UIColor+AppColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AppColors.m"; sourceTree = "<group>"; };
+		276B83E31CCA402F00B9989C /* UIFont+AppFonts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+AppFonts.h"; sourceTree = "<group>"; };
+		276B83E41CCA402F00B9989C /* UIFont+AppFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+AppFonts.m"; sourceTree = "<group>"; };
+		276B83E51CCA402F00B9989C /* UIFont+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Custom.h"; sourceTree = "<group>"; };
+		276B83E61CCA402F00B9989C /* UIFont+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Custom.m"; sourceTree = "<group>"; };
+		276B83EA1CCA403F00B9989C /* apnumberpad_backspace_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apnumberpad_backspace_icon.png; sourceTree = "<group>"; };
+		276B83EB1CCA403F00B9989C /* apnumberpad_backspace_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "apnumberpad_backspace_icon@2x.png"; sourceTree = "<group>"; };
+		276B83EE1CCA404800B9989C /* Background Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Background Image.png"; sourceTree = "<group>"; };
+		276B83F01CCA405400B9989C /* headerBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headerBackground.png; sourceTree = "<group>"; };
+		276B83F21CCA406900B9989C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		276B83F41CCA409200B9989C /* MultiSelectSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiSelectSegmentedControl.h; sourceTree = "<group>"; };
+		276B83F51CCA409200B9989C /* MultiSelectSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiSelectSegmentedControl.m; sourceTree = "<group>"; };
+		276B83F61CCA409200B9989C /* NGAParallaxMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NGAParallaxMotion.h; sourceTree = "<group>"; };
+		276B83F71CCA409200B9989C /* NGAParallaxMotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NGAParallaxMotion.m; sourceTree = "<group>"; };
+		276B83F81CCA409200B9989C /* NSString+AppFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AppFunctions.h"; sourceTree = "<group>"; };
+		276B83F91CCA409200B9989C /* NSString+AppFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AppFunctions.m"; sourceTree = "<group>"; };
+		276B83FD1CCA40A100B9989C /* questionaire_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = questionaire_background.png; sourceTree = "<group>"; };
+		276B84001CCA40C500B9989C /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		276B84011CCA40C500B9989C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		276B84031CCA40D400B9989C /* PQSAlertAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSAlertAction.h; sourceTree = "<group>"; };
+		276B84041CCA40D400B9989C /* PQSAlertAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSAlertAction.m; sourceTree = "<group>"; };
+		276B84051CCA40D400B9989C /* PQSAnswerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSAnswerView.h; sourceTree = "<group>"; };
+		276B84061CCA40D400B9989C /* PQSAnswerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSAnswerView.m; sourceTree = "<group>"; };
+		276B84071CCA40D400B9989C /* PQSLocalSubmitSuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSLocalSubmitSuccessView.h; sourceTree = "<group>"; };
+		276B84081CCA40D400B9989C /* PQSLocalSubmitSuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSLocalSubmitSuccessView.m; sourceTree = "<group>"; };
+		276B84091CCA40D400B9989C /* PQSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSQuestion.h; sourceTree = "<group>"; };
+		276B840A1CCA40D400B9989C /* PQSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSQuestion.m; sourceTree = "<group>"; };
+		276B840B1CCA40D400B9989C /* PQSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSQuestionView.h; sourceTree = "<group>"; };
+		276B840C1CCA40D400B9989C /* PQSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSQuestionView.m; sourceTree = "<group>"; };
+		276B840D1CCA40D400B9989C /* PQSReferenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSReferenceManager.h; sourceTree = "<group>"; };
+		276B840E1CCA40D400B9989C /* PQSReferenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSReferenceManager.m; sourceTree = "<group>"; };
+		276B840F1CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSRemoteSubmissionSuccessView.h; sourceTree = "<group>"; };
+		276B84101CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSRemoteSubmissionSuccessView.m; sourceTree = "<group>"; };
+		276B84111CCA40D400B9989C /* PQSSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSSegmentedControl.h; sourceTree = "<group>"; };
+		276B84121CCA40D400B9989C /* PQSSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSSegmentedControl.m; sourceTree = "<group>"; };
+		276B84131CCA40D400B9989C /* PQSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSTableViewCell.h; sourceTree = "<group>"; };
+		276B84141CCA40D400B9989C /* PQSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSTableViewCell.m; sourceTree = "<group>"; };
+		276B84151CCA40D400B9989C /* PQSTextInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSTextInputView.h; sourceTree = "<group>"; };
+		276B84161CCA40D400B9989C /* PQSTextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSTextInputView.m; sourceTree = "<group>"; };
+		276B84211CCA410400B9989C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +162,7 @@
 		276B83891CCA3FF000B9989C = {
 			isa = PBXGroup;
 			children = (
+				276B84211CCA410400B9989C /* Default-568h@2x.png */,
 				276B83941CCA3FF000B9989C /* Survey Template */,
 				276B83AE1CCA3FF000B9989C /* Survey TemplateTests */,
 				276B83B91CCA3FF000B9989C /* Survey TemplateUITests */,
@@ -103,12 +185,32 @@
 			children = (
 				276B83981CCA3FF000B9989C /* AppDelegate.h */,
 				276B83991CCA3FF000B9989C /* AppDelegate.m */,
-				276B839B1CCA3FF000B9989C /* ViewController.h */,
-				276B839C1CCA3FF000B9989C /* ViewController.m */,
+				276B84001CCA40C500B9989C /* ViewController.h */,
+				276B84011CCA40C500B9989C /* ViewController.m */,
+				276B84031CCA40D400B9989C /* PQSAlertAction.h */,
+				276B84041CCA40D400B9989C /* PQSAlertAction.m */,
+				276B84051CCA40D400B9989C /* PQSAnswerView.h */,
+				276B84061CCA40D400B9989C /* PQSAnswerView.m */,
+				276B84071CCA40D400B9989C /* PQSLocalSubmitSuccessView.h */,
+				276B84081CCA40D400B9989C /* PQSLocalSubmitSuccessView.m */,
+				276B84091CCA40D400B9989C /* PQSQuestion.h */,
+				276B840A1CCA40D400B9989C /* PQSQuestion.m */,
+				276B840B1CCA40D400B9989C /* PQSQuestionView.h */,
+				276B840C1CCA40D400B9989C /* PQSQuestionView.m */,
+				276B840D1CCA40D400B9989C /* PQSReferenceManager.h */,
+				276B840E1CCA40D400B9989C /* PQSReferenceManager.m */,
+				276B840F1CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.h */,
+				276B84101CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.m */,
+				276B84111CCA40D400B9989C /* PQSSegmentedControl.h */,
+				276B84121CCA40D400B9989C /* PQSSegmentedControl.m */,
+				276B84131CCA40D400B9989C /* PQSTableViewCell.h */,
+				276B84141CCA40D400B9989C /* PQSTableViewCell.m */,
+				276B84151CCA40D400B9989C /* PQSTextInputView.h */,
+				276B84161CCA40D400B9989C /* PQSTextInputView.m */,
 				276B839E1CCA3FF000B9989C /* Main.storyboard */,
 				276B83A11CCA3FF000B9989C /* Assets.xcassets */,
 				276B83A31CCA3FF000B9989C /* LaunchScreen.storyboard */,
-				276B83A61CCA3FF000B9989C /* Info.plist */,
+				276B83F21CCA406900B9989C /* Info.plist */,
 				276B83951CCA3FF000B9989C /* Supporting Files */,
 			);
 			path = "Survey Template";
@@ -117,6 +219,21 @@
 		276B83951CCA3FF000B9989C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				276B83FF1CCA40A400B9989C /* Images */,
+				276B83E11CCA402F00B9989C /* UIColor+AppColors.h */,
+				276B83E21CCA402F00B9989C /* UIColor+AppColors.m */,
+				276B83E31CCA402F00B9989C /* UIFont+AppFonts.h */,
+				276B83E41CCA402F00B9989C /* UIFont+AppFonts.m */,
+				276B83E51CCA402F00B9989C /* UIFont+Custom.h */,
+				276B83E61CCA402F00B9989C /* UIFont+Custom.m */,
+				276B83F41CCA409200B9989C /* MultiSelectSegmentedControl.h */,
+				276B83F51CCA409200B9989C /* MultiSelectSegmentedControl.m */,
+				276B83F61CCA409200B9989C /* NGAParallaxMotion.h */,
+				276B83F71CCA409200B9989C /* NGAParallaxMotion.m */,
+				276B83F81CCA409200B9989C /* NSString+AppFunctions.h */,
+				276B83F91CCA409200B9989C /* NSString+AppFunctions.m */,
+				276B83C81CCA400600B9989C /* APNumberPad */,
+				276B83D91CCA401200B9989C /* Reachability */,
 				276B83961CCA3FF000B9989C /* main.m */,
 			);
 			name = "Supporting Files";
@@ -138,6 +255,46 @@
 				276B83BC1CCA3FF000B9989C /* Info.plist */,
 			);
 			path = "Survey TemplateUITests";
+			sourceTree = "<group>";
+		};
+		276B83C81CCA400600B9989C /* APNumberPad */ = {
+			isa = PBXGroup;
+			children = (
+				276B83EA1CCA403F00B9989C /* apnumberpad_backspace_icon.png */,
+				276B83EB1CCA403F00B9989C /* apnumberpad_backspace_icon@2x.png */,
+				276B83C91CCA400600B9989C /* APNumberButton.h */,
+				276B83CA1CCA400600B9989C /* APNumberButton.m */,
+				276B83CB1CCA400600B9989C /* APNumberPad.h */,
+				276B83CC1CCA400600B9989C /* APNumberPad.m */,
+				276B83CD1CCA400600B9989C /* APNumberPadDefaultStyle.h */,
+				276B83CE1CCA400600B9989C /* APNumberPadDefaultStyle.m */,
+				276B83CF1CCA400600B9989C /* APNumberPadStyle.h */,
+				276B83D21CCA400600B9989C /* UIFont+AppFonts.h */,
+				276B83D31CCA400600B9989C /* UIFont+AppFonts.m */,
+			);
+			path = APNumberPad;
+			sourceTree = "<group>";
+		};
+		276B83D91CCA401200B9989C /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				276B83DA1CCA401200B9989C /* LICENCE.txt */,
+				276B83DB1CCA401200B9989C /* Reachability.h */,
+				276B83DC1CCA401200B9989C /* Reachability.m */,
+				276B83DD1CCA401200B9989C /* README.md */,
+			);
+			name = Reachability;
+			path = APNumberPad/Reachability;
+			sourceTree = "<group>";
+		};
+		276B83FF1CCA40A400B9989C /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				276B83EE1CCA404800B9989C /* Background Image.png */,
+				276B83F01CCA405400B9989C /* headerBackground.png */,
+				276B83FD1CCA40A100B9989C /* questionaire_background.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,9 +400,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				276B83F11CCA405400B9989C /* headerBackground.png in Resources */,
+				276B84221CCA410400B9989C /* Default-568h@2x.png in Resources */,
+				276B83DE1CCA401200B9989C /* LICENCE.txt in Resources */,
+				276B83F31CCA406900B9989C /* Info.plist in Resources */,
 				276B83A51CCA3FF000B9989C /* LaunchScreen.storyboard in Resources */,
+				276B83FE1CCA40A100B9989C /* questionaire_background.png in Resources */,
 				276B83A21CCA3FF000B9989C /* Assets.xcassets in Resources */,
 				276B83A01CCA3FF000B9989C /* Main.storyboard in Resources */,
+				276B83EC1CCA403F00B9989C /* apnumberpad_backspace_icon.png in Resources */,
+				276B83EF1CCA404800B9989C /* Background Image.png in Resources */,
+				276B83ED1CCA403F00B9989C /* apnumberpad_backspace_icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,9 +435,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				276B839D1CCA3FF000B9989C /* ViewController.m in Sources */,
+				276B841C1CCA40D400B9989C /* PQSReferenceManager.m in Sources */,
+				276B83D41CCA400600B9989C /* APNumberButton.m in Sources */,
+				276B84181CCA40D400B9989C /* PQSAnswerView.m in Sources */,
+				276B83E01CCA401200B9989C /* README.md in Sources */,
+				276B83D51CCA400600B9989C /* APNumberPad.m in Sources */,
 				276B839A1CCA3FF000B9989C /* AppDelegate.m in Sources */,
 				276B83971CCA3FF000B9989C /* main.m in Sources */,
+				276B83E81CCA402F00B9989C /* UIFont+AppFonts.m in Sources */,
+				276B841E1CCA40D400B9989C /* PQSSegmentedControl.m in Sources */,
+				276B83FA1CCA409200B9989C /* MultiSelectSegmentedControl.m in Sources */,
+				276B841B1CCA40D400B9989C /* PQSQuestionView.m in Sources */,
+				276B83D61CCA400600B9989C /* APNumberPadDefaultStyle.m in Sources */,
+				276B83FB1CCA409200B9989C /* NGAParallaxMotion.m in Sources */,
+				276B84021CCA40C500B9989C /* ViewController.m in Sources */,
+				276B83E71CCA402F00B9989C /* UIColor+AppColors.m in Sources */,
+				276B83E91CCA402F00B9989C /* UIFont+Custom.m in Sources */,
+				276B841F1CCA40D400B9989C /* PQSTableViewCell.m in Sources */,
+				276B84191CCA40D400B9989C /* PQSLocalSubmitSuccessView.m in Sources */,
+				276B84171CCA40D400B9989C /* PQSAlertAction.m in Sources */,
+				276B841D1CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.m in Sources */,
+				276B841A1CCA40D400B9989C /* PQSQuestion.m in Sources */,
+				276B83DF1CCA401200B9989C /* Reachability.m in Sources */,
+				276B83D81CCA400600B9989C /* UIFont+AppFonts.m in Sources */,
+				276B83FC1CCA409200B9989C /* NSString+AppFunctions.m in Sources */,
+				276B84201CCA40D400B9989C /* PQSTextInputView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +603,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Survey Template/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nathanfennel.Survey-Template";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -427,6 +615,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Survey Template/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nathanfennel.Survey-Template";
 				PRODUCT_NAME = "$(TARGET_NAME)";
