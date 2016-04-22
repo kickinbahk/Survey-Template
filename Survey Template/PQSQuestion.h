@@ -100,6 +100,8 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
 
 /**
  *  A suffix added to the end of a stepper value for display
+ *
+ *  @discussion This could be improved by adding a singular and plural suffix
  */
 @property (nonatomic) NSString *scaleSuffix;
 

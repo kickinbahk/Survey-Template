@@ -122,7 +122,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		[_questions addObject:detail0];
 		
 		PQSQuestion *dateQuestion = [PQSQuestion new];
-		dateQuestion.question = @"Today's Date";
+		dateQuestion.question = @"Date Question";
 		dateQuestion.questionType = PQSQuestionTypeDate;
 		[_questions addObject:dateQuestion];
 		
@@ -157,7 +157,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		[_questions addObject:header1];
 		
 		PQSQuestion *question1 = [PQSQuestion new];
-		question1.question = @"This question jumps by 10's.";
+		question1.question = @"This allows typing in any number.";
 		question1.attributedQuestion = [self boldText:@[@"10"] inString:question1.question];
 		question1.scaleSuffix = @"Eggs";
 		question1.placeholderText = @"Eggs";
@@ -171,12 +171,12 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		PQSQuestion *question2 = [PQSQuestion new];
 		question2.question = @"Bolding words in a sentence.";
 		question2.attributedQuestion = [self boldText:@[@"Bold", @"sentence"] inString:question2.question];
-		question2.scaleSuffix = @"Procedures";
+		question2.scaleSuffix = @"Things";
 		question2.questionType = PQSQuestionTypeLargeNumber;
 		question2.scaleInterval = 5;
 		question2.minimumScale = 0;
 		question2.maximumScale = 100;
-        question2.placeholderText = [NSString stringWithFormat:@"%zd - %zd", question2.minimumScale, question2.maximumScale];
+        question2.placeholderText = [NSString stringWithFormat:@"%g - %g", question2.minimumScale, question2.maximumScale];
 		[_questions addObject:question2];
 		
 		PQSQuestion *question3 = [PQSQuestion new];
