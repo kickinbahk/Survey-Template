@@ -46,6 +46,8 @@
 		<string>Typedepot-CentraleSans-Regular.otf</string>
 		<string>itc-officina-serif-lt-bold.otf</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

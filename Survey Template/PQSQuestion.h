@@ -37,7 +37,8 @@ typedef NS_ENUM(NSUInteger, PQSHeaderType) {
 	PQSHeaderTypePlain,
 	PQSHeaderTypeSub,
 	PQSHeaderTypeDetail,
-	PQSHeaderTypeFinePrint
+	PQSHeaderTypeFinePrint,
+    PQSHeaderTypeIfRelevant
 };
 
 typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
@@ -70,7 +71,11 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
 @property (nonatomic, strong) NSAttributedString *attributedQuestion;
 @property (nonatomic, strong) NSString *question;
 
-
+/**
+ *  Properties for cross-question dependencies
+ */
+@property (nonatomic, strong) NSDictionary *master;
+@property (nonatomic, strong) NSDictionary *observers;
 
 
 
@@ -194,7 +199,7 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
  *  Subquestions for each column of the question.
  */
 @property (nonatomic, strong) NSArray *multipleColumnQuestions;
-@property (nonatomic) BOOL multipleColumnShouldShowQuestion;
+@property (nonatomic) BOOL showHiddenQuestion;
 @property (nonatomic, strong) NSString *triggerAnswer;
 
 /**
@@ -244,6 +249,7 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
 @property (nonatomic, strong) NSMutableDictionary *urlKeys;
 
 
+@property BOOL multipleColumnShouldShowQuestion;
 
 /**
  *  The preferred lightness of the background for the question view.
@@ -270,5 +276,21 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
 @property (nonatomic) CGFloat fixedWidth, fixedHeight;
 @property (nonatomic) CGFloat minimumWidth, minimumHeight;
 @property (nonatomic) CGFloat maximumWidth, maximumHeight;
+
+
+
+@property (nonatomic, strong) PQSQuestion *dependentQuestion;
+@property BOOL dependentOnIntValue;
+@property NSInteger minimumIntValue;
+@property NSInteger maximumIntValue;
+@property BOOL dependentOnBoolValue;
+@property BOOL dependentOnFloatValue;
+@property CGFloat minimumFloatValue;
+@property CGFloat maximumFloatValue;
+@property BOOL dependentOnString;
+@property (nonatomic, strong) NSMutableArray *dependentStringAnswers;
+- (BOOL)showSectionQuestions;
+
+@property (nonatomic, strong) NSString *currentAnswerString;
 
 @end

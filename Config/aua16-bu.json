@@ -1,0 +1,317 @@
+{
+	"title": "AUA 2016 Market Research Survey",
+	"sections": [
+		{
+			"title": "Screening questions:",
+			"questions": [
+				{
+					"title": "1) In what country do you practice?",
+					"type": "PQSQuestionTypeWhichCountry",
+					"placeholder": "Enter country..."
+				},
+				{
+					"title": "2) Please state how many procedures you perform per month:",
+					"bold": ["per month"],
+					"type": "PQSQuestionTypeNone",
+					"questions": [
+						{
+							"title": "a. Ureteroscopy #/month",
+							"type": "PQSQuestionTypeLargeNumber",
+							"master": {
+								"key": "UreteroscopyPerMonth",
+								"condition": {
+									"operator": ">",
+									"comparison": 0
+								}
+							}
+						},
+						{
+							"title": "b. PCNL #/month",
+							"type": "PQSQuestionTypeLargeNumber",
+							"observers": ["UreteroscopyPerMonth"]
+						},
+						{
+							"title": "c. Mid-uretheral sling procedures for the treatment of female stress urinary incontinence #/month",
+							"type": "PQSQuestionTypeLargeNumber",
+							"observers": ["UreteroscopyPerMonth"]
+						},
+						{
+							"title": "d. Surgical BPH procedures #/month (defined as TURP, Laser BPH or open procedures)",
+							"type": "PQSQuestionTypeLargeNumber",
+							"conditional": [
+								{
+									"condition": ">1",
+									"questions": [
+										{
+											"title": "i. Has this number of surgical BPH procedures increased, decreased or stayed the same over the past 3 years?",
+											"type": "PQSQuestionTypeRadioButtons",
+											"responses": [
+												"Increased",
+												"Decreased",
+												"Stayed the same"
+											]
+										},
+										{
+											"title": "ii. Over the next 3 years, do you expect your surgical BPH procedure volume to",
+											"type": "PQSQuestionTypeRadioButtons",
+											"responses": [
+												"Increase",
+												"Decrease",
+												"Stay the same"
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"title": "Men’s Health:",
+			"questions": [
+				{
+					"title": "1) What do you consider social continence following radical prostatectomy?",
+					"type": "PQSQuestionTypeRadioButtons",
+					"responses": [
+						"0 Pads per Day (PPD)",
+						"0-1 PPD",
+						"0-2 PPD"
+					],
+					"other": {
+						"title": "Other",
+						"placeholder": "Please specify..."
+					}
+				},
+				{
+					"title": "2) What is the most common consultation you provide your patients that fail one or more PDE-5s (oral medications) for Erectile Dysfunction and still want to find a solution to their ED?",
+					"type": "PQSQuestionTypeRadioButtons",
+					"responses": [
+						"A. I advise them to continue using the drug",
+						"B. I prescribe another drug if the first does not work",
+						"C. I refer them to a prosthetic urologist who specializes in ED",
+						"E. I let them know there are other options including vacuum, injection and implant",
+						"F. I advise them to try a different type of therapy (e.g. injections)",
+						"H. Depending on the cause of their ED, I advise them to consider surgery"
+					]
+				}
+			]
+		},
+		{
+			"title": "Stone:",
+			"questions": [
+				{
+					"title": "3) What is your preferred working wire during a ureteroscopy? Place a “1” by most preferred wire – if respondent uses more than one type of wire, then they may rank up to 3 in order of preference",
+					"type": "PQSQuestionType2WayExclusivityRadioButtons",
+					"scale": [1, 3],
+					"responses": [
+						"BSC Sensor Guidewire",
+						"BSC Zipwire",
+						"Bard SOLO Flex",
+						"Bard SOLO Plus",
+						"Cook HiWire",
+						"Cook RoadRunner",
+						"Olympus Glidewire",
+						"Olympus UltraTrack"
+					],
+					"other": {
+						"title": "Other",
+						"placeholder": "Please specify..."
+					}
+				},
+				{
+					"title": "4) Why did you select this guidewire as your most preferred working wire?",
+					"type": "PQSQuestionTypeRadioButtons",
+					"responses": [
+						"Performs the best",
+						"It’s what’s available at my facility",
+						"It’s what I trained on",
+						"Low cost",
+					],
+					"other": {
+						"title": "Other",
+						"placeholder": "Please specify..."
+					}
+				},
+				{
+					"title": "5) What size ureteral access sheath do you use most often?",
+					"bold": ["ureteral access sheath"],
+					"type": "PQSQuestionTypeRadioButtons",
+					"responses": [
+						"9/11F",
+						"9.5/11.5F",
+						"10/12F",
+						"11/13F",
+						"12/14F",
+						"13/15F",
+					],
+					"other": {
+						"title": "Other",
+						"placeholder": "Please specify..."
+					}
+				},
+				{
+					"title": "6) When fragmenting stones during a ureteroscopy, please estimate",
+					"bold": ["fragmenting"],
+					"type": "PQSQuestionTypeNone",
+					"ifRelevant": "NA – I don’t fragment stones with a laser",
+					"questions": [
+						{
+							"title": "a. Total lasing time for an average length case:  _______ minutes",
+							"type": "PQSQuestionTypeLargeNumber",
+							"placeholder": ""
+						},
+						{
+							"title": "b. Total lasing time for a long case: _______ minutes",
+							"type": "PQSQuestionTypeLargeNumber",
+							"placeholder": ""
+						}
+					]
+				},
+				{
+					"title": "7) When dusting stones during a ureteroscopy, please estimate",
+					"bold": ["dusting"],
+					"type": "PQSQuestionTypeNone",
+					"naText": "NA – I don’t dust stones with a laser",
+					"questions": [
+						{
+							"title": "a. Total lasing time for an average length case:  _______ minutes",
+							"type": "PQSQuestionTypeTextField",
+							"placeholder": ""
+						},
+						{
+							"title": "b. Total lasing time for a long case: _______ minutes",
+							"type": "PQSQuestionTypeTextField",
+							"placeholder": ""
+						}
+					]
+				},
+				{
+					"title": "8) If you were to purchase a high watt holmium laser for your facility, what laser would you most likely purchase?  Please rank 1-3, where 1 = the laser that you would most likely purchase and 3 = the laser you would least likely purchase.",
+					"type": "PQSQuestionType2WayExclusivityRadioButtons",
+					"scale": [1, 3],
+					"responses": [
+						"80W, 50Hz, 3.5J Laser: $95,000",
+						"100W, 60Hz, 4J Laser: $125,000",
+						"120W, 80Hz, 6J Laser: $175,000"
+					]
+				},
+				{
+					"title": "9) Please choose the urological lithotripter you use most often during a PCNL case",
+					"type": "PQSQuestionTypeRadioButtons",
+					"responses": [
+						"ShockPulse-SE (Olympus)",
+						"Cyberwand (Olympus/Gyrus) ",
+						"Swiss LithoClast (Boston Scientific)",
+						"Calcuson (Storz)",
+						"StoneBreaker (Cook) "
+					],
+					"other": {
+						"title": "None of the above",
+						"placeholder": "Please specify..."
+					}
+				},
+				{
+					"title": "10) Do you achieve your own access during PCNL procedures",
+					"type": "PQSQuestionTypeRadioButtons",
+					"responses": [
+						"Yes",
+						"Sometimes",
+						"No"
+					]
+				},
+				{
+					"title": "11) What % of your surgical BPH procedures are performed with lasers?  ____ %",
+					"type": "PQSQuestionTypePercentage"
+				},
+				{
+					"title": "12) Of the surgical BPH procedures you perform with lasers, what % of your cases are performed with each of the following?",
+					"type": "PQSQuestionTypeNone",
+					"questions": [
+						{
+							"title": "GreenLight (PVP)",
+							"type": "PQSQuestionTypePercentage"
+						},
+						{
+							"title": "Holmium",
+							"type": "PQSQuestionTypePercentage"
+						},
+						{
+							"title": "Thulium",
+							"type": "PQSQuestionTypePercentage"
+						},
+						{
+							"title": "Other",
+							"type": "PQSQuestionTypePercentage"
+						}
+					]
+				},
+				{
+					"title": "13) When using a laser for a BPH procedure, in what percentage of your cases do you use the following techniques? ",
+					"type": "PQSQuestionTypeNone",
+					"questions": [
+						{
+							"title": "Enucleation",
+							"type": "PQSQuestionTypePercentage"
+						},
+						{
+							"title": "Vaporization",
+							"type": "PQSQuestionTypePercentage"
+						}
+					]
+				},
+				{
+					"title": "14) How have the results of the prospective, randomized, multi-center GOLIATH study impacted your perception of the GreenLight technology?",
+					"type": "PQSQuestionTypeScale",
+					"min": 1,
+					"max": 7
+				}
+			]
+		},
+		{
+			"title": "Women's Health:",
+			"questions": [
+				{
+					"title": "15) Are you a former Astora Sling user?",
+					"type": "PQSQuestionTypeTrueFalse",
+					"conditional": [
+						{
+							"condition": ">1",
+							"questions": [
+								{
+									"title": "16) What products did you use?",
+									"type": "PQSQuestionTypeCheckBoxes",
+									"responses": [
+										"RetroArc Retropubic",
+										"Sparc Suprapublic",
+										"MiniArc Single Incision Sling",
+										"Monarc Transobturator"
+									]
+								},
+								{
+									"title": "17) What product do you intend on using moving forward? Select all that apply.",
+									"type": "PQSQuestionTypeCheckBoxes",
+									"responses": [
+										"BSC Advantage/Advantage Fit Retropubic",
+										"BSC Lynx Suprapubic",
+										"BSC Solyx Single Incision",
+										"BSC Obtryx/Obtryx II",
+										"Coloplast Altis Single Incision",
+										"Coloplast (other)",
+										"Caldera product",
+										"J&J product"
+									],
+									"other": {
+										"title": "Other",
+										"placeholder": "Please specify..."
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

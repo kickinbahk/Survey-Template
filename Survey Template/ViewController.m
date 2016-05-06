@@ -29,6 +29,7 @@
 	NSMutableDictionary *_questionViews;
 	NSDate *_lastRemoteSubmissionDate;
 	CGSize _lastFrameSize;
+    NSInteger previousNumberOfSections;
 }
 
 /**
@@ -75,12 +76,26 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 	
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		[self performSelector:@selector(checkForFrameChange) withObject:self afterDelay:0.36f];
+		[self performSelector:@selector(checkForFrameChange)
+                   withObject:self
+                   afterDelay:0.36f];
 	});
 }
 
 - (void)checkForFrameChange {
-	if (_lastFrameSize.width != self.view.bounds.size.width || _lastFrameSize.height != self.view.bounds.size.height) {
+    NSInteger numberOfSections = 0;
+    for (PQSQuestion *header in PQSReferenceManager.sharedReferenceManager.headers) {
+        if (header.showSectionQuestions) {
+            numberOfSections++;
+        }
+    }
+    
+    if (numberOfSections != previousNumberOfSections) {
+        previousNumberOfSections = numberOfSections;
+        [self.questionTableView reloadData];
+    }
+    
+    if (_lastFrameSize.width != self.view.bounds.size.width || _lastFrameSize.height != self.view.bounds.size.height) {
 		[self updateViewConstraints];
 		[self.questionTableView reloadData];
 	}
@@ -351,12 +366,18 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return [[PQSReferenceManager sharedReferenceManager] headers].count;
-	return [[[PQSReferenceManager sharedReferenceManager] questions] count];
+    NSInteger numberOfSections = [[PQSReferenceManager sharedReferenceManager] headers].count;
+    
+    return numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	PQSQuestion *header = [[[PQSReferenceManager sharedReferenceManager] headers] objectAtIndex:section];
+    
+    if (!header.showSectionQuestions) {
+        return 0;
+    }
+    
 	return header.subQuestions.count;
 	return 1; // reference manager assumes that each section only has one row
 }
@@ -414,12 +435,17 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 	PQSQuestionView *questionView = [self questionViewForRow:[NSIndexPath indexPathForRow:NSIntegerMax inSection:section]];
+    questionView.clipsToBounds = YES;
 	return questionView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	PQSQuestion *header = [[[PQSReferenceManager sharedReferenceManager] headers] objectAtIndex:section];
 	
+    if (![header showSectionQuestions]) {
+        return 0.0f;
+    }
+    
 	return header.estimatedHeightForQuestionView;
 }
 
@@ -540,9 +566,15 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 		for (PQSQuestion *question in [[PQSReferenceManager sharedReferenceManager] questions]) {
 			question.trueFalseConditionalHasAnswer = NO;
 			question.multipleColumnShouldShowQuestion = NO;
+            question.currentAnswerString = @"";
 		}
-		[self.questionTableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5f];
-		[self performSelector:@selector(scrollToTopOfQuestionTableView) withObject:self afterDelay:1.0f];
+        
+		[self.questionTableView performSelector:@selector(reloadData)
+                                     withObject:nil
+                                     afterDelay:0.5f];
+		[self performSelector:@selector(scrollToTopOfQuestionTableView)
+                   withObject:self
+                   afterDelay:1.0f];
 		
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		NSCalendar *cal = [NSCalendar currentCalendar];
@@ -560,7 +592,15 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 }
 
 - (void)scrollToTopOfQuestionTableView {
-	[self.questionTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    for (int section = 1; section < self.questionTableView.numberOfSections; section++) {
+        for (int row = 0; row < [self.questionTableView numberOfRowsInSection:section]; row++) {
+            [self.questionTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row
+                                                                              inSection:section]
+                                          atScrollPosition:UITableViewScrollPositionBottom
+                                                  animated:YES];
+            return;
+        }
+    }
 }
 
 - (void)submitButtonLongPressed:(UILongPressGestureRecognizer *)longPress {

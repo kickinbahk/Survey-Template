@@ -45,6 +45,8 @@
 		276B841F1CCA40D400B9989C /* PQSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84141CCA40D400B9989C /* PQSTableViewCell.m */; };
 		276B84201CCA40D400B9989C /* PQSTextInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B84161CCA40D400B9989C /* PQSTextInputView.m */; };
 		276B84221CCA410400B9989C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B84211CCA410400B9989C /* Default-568h@2x.png */; };
+		27F746191CDB651E00C93969 /* aua16-bu.json in Resources */ = {isa = PBXBuildFile; fileRef = 27F746171CDB651E00C93969 /* aua16-bu.json */; };
+		27F7461A1CDB651E00C93969 /* aua16.json in Resources */ = {isa = PBXBuildFile; fileRef = 27F746181CDB651E00C93969 /* aua16.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +134,8 @@
 		276B84151CCA40D400B9989C /* PQSTextInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PQSTextInputView.h; sourceTree = "<group>"; };
 		276B84161CCA40D400B9989C /* PQSTextInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PQSTextInputView.m; sourceTree = "<group>"; };
 		276B84211CCA410400B9989C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		27F746171CDB651E00C93969 /* aua16-bu.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "aua16-bu.json"; sourceTree = "<group>"; };
+		27F746181CDB651E00C93969 /* aua16.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aua16.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				276B84211CCA410400B9989C /* Default-568h@2x.png */,
+				27F746161CDB651E00C93969 /* Config */,
 				276B83941CCA3FF000B9989C /* Survey Template */,
 				276B83AE1CCA3FF000B9989C /* Survey TemplateTests */,
 				276B83B91CCA3FF000B9989C /* Survey TemplateUITests */,
@@ -185,6 +190,8 @@
 			children = (
 				276B83981CCA3FF000B9989C /* AppDelegate.h */,
 				276B83991CCA3FF000B9989C /* AppDelegate.m */,
+				276B840D1CCA40D400B9989C /* PQSReferenceManager.h */,
+				276B840E1CCA40D400B9989C /* PQSReferenceManager.m */,
 				276B84001CCA40C500B9989C /* ViewController.h */,
 				276B84011CCA40C500B9989C /* ViewController.m */,
 				276B84031CCA40D400B9989C /* PQSAlertAction.h */,
@@ -197,8 +204,6 @@
 				276B840A1CCA40D400B9989C /* PQSQuestion.m */,
 				276B840B1CCA40D400B9989C /* PQSQuestionView.h */,
 				276B840C1CCA40D400B9989C /* PQSQuestionView.m */,
-				276B840D1CCA40D400B9989C /* PQSReferenceManager.h */,
-				276B840E1CCA40D400B9989C /* PQSReferenceManager.m */,
 				276B840F1CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.h */,
 				276B84101CCA40D400B9989C /* PQSRemoteSubmissionSuccessView.m */,
 				276B84111CCA40D400B9989C /* PQSSegmentedControl.h */,
@@ -297,6 +302,15 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		27F746161CDB651E00C93969 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				27F746171CDB651E00C93969 /* aua16-bu.json */,
+				27F746181CDB651E00C93969 /* aua16.json */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -375,7 +389,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 276B838D1CCA3FF000B9989C /* Build configuration list for PBXProject "Survey Template" */;
+			buildConfigurationList = 276B838D1CCA3FF000B9989C /* Build configuration list for PBXProject "AUA Market Research Survey" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -400,6 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27F7461A1CDB651E00C93969 /* aua16.json in Resources */,
 				276B83F11CCA405400B9989C /* headerBackground.png in Resources */,
 				276B84221CCA410400B9989C /* Default-568h@2x.png in Resources */,
 				276B83DE1CCA401200B9989C /* LICENCE.txt in Resources */,
@@ -411,6 +426,7 @@
 				276B83EC1CCA403F00B9989C /* apnumberpad_backspace_icon.png in Resources */,
 				276B83EF1CCA404800B9989C /* Background Image.png in Resources */,
 				276B83ED1CCA403F00B9989C /* apnumberpad_backspace_icon@2x.png in Resources */,
+				27F746191CDB651E00C93969 /* aua16-bu.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +621,7 @@
 				INFOPLIST_FILE = "Survey Template/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nathanfennel.Survey-Template";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nathanfennel.AUA-Market-Research-Survey";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -617,7 +633,7 @@
 				INFOPLIST_FILE = "Survey Template/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nathanfennel.Survey-Template";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nathanfennel.AUA-Market-Research-Survey";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -671,7 +687,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		276B838D1CCA3FF000B9989C /* Build configuration list for PBXProject "Survey Template" */ = {
+		276B838D1CCA3FF000B9989C /* Build configuration list for PBXProject "AUA Market Research Survey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				276B83BD1CCA3FF000B9989C /* Debug */,
@@ -687,6 +703,7 @@
 				276B83C11CCA3FF000B9989C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		276B83C21CCA3FF000B9989C /* Build configuration list for PBXNativeTarget "Survey TemplateTests" */ = {
 			isa = XCConfigurationList;
@@ -695,6 +712,7 @@
 				276B83C41CCA3FF000B9989C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		276B83C51CCA3FF000B9989C /* Build configuration list for PBXNativeTarget "Survey TemplateUITests" */ = {
 			isa = XCConfigurationList;
@@ -703,6 +721,7 @@
 				276B83C71CCA3FF000B9989C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

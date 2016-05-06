@@ -29,6 +29,12 @@
 		self.scaleLabels = [[NSMutableArray alloc] init];
 		self.urlKeys = [[NSMutableDictionary alloc] init];
 		self.subQuestions = [NSMutableArray new];
+        
+        self.minimumIntValue = -INTMAX_MAX;
+        self.maximumIntValue = INTMAX_MAX;
+        self.minimumFloatValue = -CGFLOAT_MAX;
+        self.maximumFloatValue = CGFLOAT_MAX;
+        self.dependentStringAnswers = NSMutableArray.new;
 	}
 	
 	return self;
@@ -133,17 +139,17 @@
 		addedBufferHeight += 10.0f;
 	}
 	
-	if (self.multipleColumnShouldShowQuestion && self.triggerQuestion) {
+	if (self.showHiddenQuestion && self.triggerQuestion) {
 		height += self.triggerQuestion.estimatedHeightForQuestionView;
 	}
 	
-	if (self.triggerQuestion) {
-		if (self.multipleColumnQuestions.count > 0) {
-			NSLog(@"triggerQuestions: %@", self.multipleColumnQuestions);
-		} else {
-			NSLog(@"triggerQuestion: %@", self.question);
-		}
-	}
+//	if (self.triggerQuestion) {
+//		if (self.multipleColumnQuestions.count > 0) {
+//			NSLog(@"triggerQuestions: %@", self.multipleColumnQuestions);
+//		} else {
+//			NSLog(@"triggerQuestion: %@", self.question);
+//		}
+//	}
 	
 	if (kScreenHeight == 1024.0f && kScreenWidth == 768.0f) {
 		PQSQuestion *question = self.multipleColumnQuestions.firstObject;
@@ -201,7 +207,54 @@
 		self.questionType = PQSQuestionTypeMultipleChoice;
 		return;
 	}
-	
+}
+
+- (BOOL)showSectionQuestions {
+    if (!self.dependentQuestion) {
+        return YES;
+    }
+    
+    BOOL shouldShowSectionQuestions = YES;
+    
+    if (self.dependentOnIntValue) {
+        if ([self.dependentQuestion.currentAnswerString integerValue] >= self.minimumIntValue &&
+            [self.dependentQuestion.currentAnswerString integerValue] <= self.maximumIntValue) {
+            shouldShowSectionQuestions = YES;
+        } else {
+            shouldShowSectionQuestions = NO;
+        }
+    }
+    
+    
+    if (self.dependentOnFloatValue) {
+        if ([self.dependentQuestion.currentAnswerString floatValue] >= self.minimumFloatValue &&
+            [self.dependentQuestion.currentAnswerString floatValue] <= self.maximumFloatValue) {
+            shouldShowSectionQuestions = YES;
+        } else {
+            shouldShowSectionQuestions = NO;
+        }
+    }
+    
+    if (self.dependentOnBoolValue) {
+        shouldShowSectionQuestions = [self.dependentQuestion.currentAnswerString boolValue];
+        
+        if (!shouldShowSectionQuestions) {
+//            NSLog(@"%@: %@", self.dependentQuestion.question, self.dependentQuestion.currentAnswerString);
+        }
+    }
+    
+    if (self.dependentOnString) {
+        shouldShowSectionQuestions = NO;
+        
+        for (NSString *possibleMatch in self.dependentStringAnswers) {
+            if ([self.dependentQuestion.currentAnswerString containsString:possibleMatch]) {
+                shouldShowSectionQuestions = YES;
+            }
+        }
+    }
+    
+    
+    return shouldShowSectionQuestions;
 }
 
 @end

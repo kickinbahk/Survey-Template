@@ -17,12 +17,12 @@
 #define NUMERIC_KEY_FOR_INT(input) [NSString stringWithFormat:@"NumericKey%zd", input]
 #define COMPLETED_REQUEST_KEY_FOR_INT(input) [NSString stringWithFormat:@"COMPLETED_REQUEST_KEY%zd", input]
 
-static NSString * const submissionURLString = @"http://yourdomain.com/hyper_rest3/index.php/api/example/senders?";
+static NSString * const submissionURLString = @"http://hyperactive.to/hyper_rest3/index.php/api/example/senders?";
 
 /**
  *  The default show title to include in all lists and used when the app first launches.
  */
-static NSString * const defaultShowTitle = @"Show Title";
+static NSString * const defaultShowTitle = @"AUA 2016 Market Research Survey";
 
 /**
  *  This could use location or time zone to get the current country instead of being hard coded. This would also take care of localization.
@@ -32,13 +32,13 @@ static NSString * const defaultCountry = @"United States";
 /**
  *  Key for the default show
  */
-static NSString * const defaultShowKey = @"Default Show Key";
+static NSString * const defaultShowKey = @"AUA_MR_2016"; // e.g. AUA_MR_2016
 
 
 /**
  *  Key for the company who's owning this show
  */
-static NSString * const companyKey = @"Company Key"; // e.g. BSCI <or> PHIL
+static NSString * const companyKey = @"BSCI"; // e.g. BSCI <or> PHIL
 
 
 /**
@@ -96,278 +96,580 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 	self = [super init];
 	
 	if (self) {
-		_questions = [[NSMutableArray alloc] init];
-		_possibleShowTitles = [[NSMutableOrderedSet alloc] initWithObjects:defaultShowTitle, @"Testing", nil];
-		_answers = [[NSMutableDictionary alloc] initWithCapacity:_questions.count];
-		_reach = [Reachability reachabilityForInternetConnection];
-		_dateFormatter = [[NSDateFormatter alloc] init];
-		[_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"]; // PHP Date format
-		[self setupLocationManager];
-		_answersArray = [[NSMutableArray alloc] init];
-		_requestStrings = [[NSMutableSet alloc] init];
-		_completedRequests = [[NSMutableSet alloc] init];
-		[self loadStringsFromDefaults];
-		
-		
-		PQSQuestion *header0 = [PQSQuestion new];
-		header0.questionType = PQSQuestionTypeNone;
-		header0.headerType = PQSHeaderTypePlain;
-		header0.question = @"Plain Header";
-		[_questions addObject:header0];
-		
-		PQSQuestion *detail0 = [PQSQuestion new];
-		detail0.questionType = PQSQuestionTypeNone;
-		detail0.headerType = PQSHeaderTypeDetail;
-		detail0.question = @"Header!";
-		[_questions addObject:detail0];
-		
-		PQSQuestion *dateQuestion = [PQSQuestion new];
-		dateQuestion.question = @"Date Question";
-		dateQuestion.questionType = PQSQuestionTypeDate;
-		[_questions addObject:dateQuestion];
-		
+//        NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"aua16" ofType:@"json"];
+//        NSData *jsonData = [[NSData alloc] initWithContentsOfFile:jsonPath];
+//        NSDictionary *survey = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+        // NSLog(@"Survey from JSON: %@", survey);
         
-		PQSQuestion *question0a = [PQSQuestion new];
-		question0a.question = @"Participant Name";
-		question0a.questionType = PQSQuestionTypeTextField;
-		question0a.placeholderText = @"Participant Name";
-		[_questions addObject:question0a];
+        _possibleShowTitles = [[NSMutableOrderedSet alloc] initWithObjects:@"AUA Market Research", @"Testing", nil];
+        
+		_questions          = [[NSMutableArray alloc] init];
+		_answers            = [[NSMutableDictionary alloc] initWithCapacity:_questions.count];
+        _answersArray       = [[NSMutableArray alloc] init];
+        _requestStrings     = [[NSMutableSet alloc] init];
+        _completedRequests  = [[NSMutableSet alloc] init];
+		_dateFormatter      = [[NSDateFormatter alloc] init];
+        
+		[_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"]; // PHP Date format
 		
-		PQSQuestion *question0b = [PQSQuestion new];
-		question0b.question = @"Questions can have different placeholder text.";
-		question0b.questionType = PQSQuestionTypeTextField;
-		question0b.placeholderText = @"Watermelon < Carnegie Mellon";
-		[_questions addObject:question0b];
-		
-		PQSQuestion *question0c = [PQSQuestion new];
-		question0c.question = @"This question will remember your preference between questions";
-		question0c.questionType = PQSQuestionTypeTextField;
-		question0c.placeholderText = question0c.question;
-		question0c.isSticky = YES;
-		[_questions addObject:question0c];
-		
-		
-		
-		
-		
-		PQSQuestion *header1 = [PQSQuestion new];
-		header1.questionType = PQSQuestionTypeNone;
-		header1.headerType = PQSHeaderTypePlain;
-		header1.question = @"Peanut Butter Cookie Titles";
-		[_questions addObject:header1];
-		
-		PQSQuestion *question1 = [PQSQuestion new];
-		question1.question = @"This allows typing in any number.";
-		question1.attributedQuestion = [self boldText:@[@"10"] inString:question1.question];
-		question1.scaleSuffix = @"Eggs";
-		question1.placeholderText = @"Eggs";
-		question1.questionType = PQSQuestionTypeLargeNumber;
-		question1.scaleInterval = 12;
-		question1.minimumScale = 0;
-		question1.maximumScale = 500;
-		[_questions addObject:question1];
-		
-		
-		PQSQuestion *question2 = [PQSQuestion new];
-		question2.question = @"Bolding words in a sentence.";
-		question2.attributedQuestion = [self boldText:@[@"Bold", @"sentence"] inString:question2.question];
-		question2.scaleSuffix = @"Things";
-		question2.questionType = PQSQuestionTypeLargeNumber;
-		question2.scaleInterval = 5;
-		question2.minimumScale = 0;
-		question2.maximumScale = 100;
-        question2.placeholderText = [NSString stringWithFormat:@"%g - %g", question2.minimumScale, question2.maximumScale];
-		[_questions addObject:question2];
-		
-		PQSQuestion *question3 = [PQSQuestion new];
-		question3.question = @"Radio Button Question";
-		question3.questionType = PQSQuestionTypeRadioButtons;
-		[question3.possibleAnswers addObjectsFromArray:@[@"Taco",
-														 @"Hamburger",
-														 @"Tangerine",
-														 @"Poi"]];
-		[_questions addObject:question3];
-		
-		
-		PQSQuestion *question3a = [PQSQuestion new];
-		question3a.question = @"Time scale question";
-		question3a.questionType = PQSQuestionTypeTime;
-		question3a.scaleSuffix = @" Minutes  ";
-		question3a.startingPoint = 0;
-		question3a.maximumScale = 180.0f;
-		question3a.minimumScale = 0.0f;
-		question3a.scaleInterval = 5.0f;
-		question3a.isSticky = YES;
-		[_questions addObject:question3a];
-		
-		PQSQuestion *question3b = [PQSQuestion new];
-		question3b.question = @"Text VIEW Question";
-		question3b.questionType = PQSQuestionTypeTextView;
-		question3b.placeholderText = question3b.question;
-		[_questions addObject:question3b];
-		
-		
-		
-		
-		
-		
-		PQSQuestion *header2 = [PQSQuestion new];
-		header2.questionType = PQSQuestionTypeNone;
-		header2.headerType = PQSHeaderTypePlain;
-		header2.question = @"Header";
-		[_questions addObject:header2];
-		
-		
-		PQSQuestion *question4a = [PQSQuestion new];
-		question4a.question = @"Text Field Question";
-		question4a.questionType = PQSQuestionTypeTextField;
-		question4a.placeholderText = question4a.question;
-		[_questions addObject:question4a];
-		
-		PQSQuestion *question4c = [PQSQuestion new];
-		question4c.question = @"Select a Date Question";
-		question4c.questionType = PQSQuestionTypeDate;
-		question4c.placeholderText = question4c.question;
-		question4c.startingDate = [NSDate dateWithTimeIntervalSinceNow:86400];
-		[_questions addObject:question4c];
-		
-		PQSQuestion *question4b = [PQSQuestion new];
-		question4b.question = @"Text Field Question";
-		question4b.questionType = PQSQuestionTypeTextField;
-		question4b.placeholderText = question4b.question;
-		[_questions addObject:question4b];
-		
-		PQSQuestion *question6a = [PQSQuestion new];
-		question6a.question = @"Primary Question";
-		question6a.questionType = PQSQuestionTypeTrueFalseConditional2;
-		question6a.useYesNoForTrueFalse = YES;
-		[_questions addObject:question6a];
-		
-			PQSQuestion *question6b = [PQSQuestion new];
-			question6b.question = @"Secondary Question";
-			question6b.questionType = PQSQuestionTypeTextField;
-			question6b.preferredBackgroundTone = question6a.preferredBackgroundTone;
-			question6a.trueConditionalQuestion	= question6b;
-			
-			PQSQuestion *question6c = [PQSQuestion new];
-			question6c.question = @"Other Secondary Question";
-			question6c.questionType = PQSQuestionTypeTrueFalse;
-			question6c.useYesNoForTrueFalse = YES;
-			question6c.preferredBackgroundTone = question6a.preferredBackgroundTone;
-			question6a.trueConditionalQuestion2	= question6c;
+        _reach = [Reachability reachabilityForInternetConnection];
+        
+        [self setupLocationManager];
+        [self loadStringsFromDefaults];
+        
+//        for (NSDictionary *section in survey[@"sections"]) {
+//            
+//            NSArray *questionsData = section[@"questions"];
+//            
+//            [self addHeader:section[@"title"]];
+//            
+//            if (questionsData) {
+//                
+//                for (NSDictionary *questionData in questionsData) {
+//                    [_questions addObject:[self questionForData:questionData]];
+//                }
+//            }
+//        }
+        
+        
+        PQSQuestion *primaryHeader = PQSQuestion.new;
+        primaryHeader.questionType = PQSQuestionTypeNone;
+        primaryHeader.headerType = PQSHeaderTypePlain;
+        primaryHeader.question = @"AUA 2016";
+        [_questions addObject:primaryHeader];
+        
+        PQSQuestion *subHeader = PQSQuestion.new;
+        subHeader.questionType = PQSQuestionTypeNone;
+        subHeader.headerType = PQSHeaderTypePlain;
+        subHeader.question = @"Market Research Survey";
+        [_questions addObject:subHeader];
+        
+        PQSQuestion *countryQuestion = PQSQuestion.new;
+        countryQuestion.question = @"In which country do you practice?";
+        countryQuestion.questionType = PQSQuestionTypeLongList;
+        countryQuestion.placeholderText = defaultCountry;
+        countryQuestion.longListTitle = @"Select Country";
+        countryQuestion.hideBorder = NO;
+        countryQuestion.questionNumber = 1;
+        [self countryCodeList];
+        [countryQuestion.possibleAnswers addObjectsFromArray:_countryCodeList.allKeys];
+        [countryQuestion.possibleAnswers sortUsingSelector:@selector(caseInsensitiveCompare:)];
+        [countryQuestion.urlKeys addEntriesFromDictionary:@{@"country" : @"In_what_country_do_you_practice"}];
+        [_questions addObject:countryQuestion];
+        
+        
+        PQSQuestion *question2 = PQSQuestion.new;
+        question2.question = @"\n\n\nPlease state how many procedures you perform per month:";
+        question2.attributedQuestion = [self boldAndUnderlineText:@[@"per month"] inString:question2.question];
+        question2.questionType = PQSQuestionTypeNone;
+        question2.headerType = PQSHeaderTypeSub;
+        question2.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+        [_questions addObject:question2];
+        
+        PQSQuestion *question2a = PQSQuestion.new;
+        question2a.question = @"Ureteroscopy";
+        question2a.scaleSuffix = @"procedures monthly";
+        question2a.placeholderText = question2a.scaleSuffix;
+        question2a.questionType = PQSQuestionTypeLargeNumber;
+        question2a.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+        [_questions addObject:question2a];
+        
+        PQSQuestion *question2b = PQSQuestion.new;
+        question2b.question = @"PCNL";
+        question2b.scaleSuffix = @"procedures monthly";
+        question2b.placeholderText = question2b.scaleSuffix;
+        question2b.questionType = PQSQuestionTypeLargeNumber;
+        question2b.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+        [_questions addObject:question2b];
+        
+        PQSQuestion *question2c = PQSQuestion.new;
+        question2c.question = @"Mid-uretheral sling procedures for the treatment of female stress urinary incontinence";
+        question2c.scaleSuffix = @"procedures monthly";
+        question2c.placeholderText = question2c.scaleSuffix;
+        question2c.questionType = PQSQuestionTypeLargeNumber;
+        question2c.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+        [_questions addObject:question2c];
+        
+        PQSQuestion *question2d = PQSQuestion.new;
+        question2d.question = @"Surgical BPH (defined as TURP, Laser BPH, or open procedures)";
+        question2d.attributedQuestion = [self italicizeText:@[@"(defined as TURP, Laser BPH or open procedures)"]
+                                                   inString:question2d.question];
+        question2d.scaleSuffix = @"procedures monthly";
+        question2d.placeholderText = question2d.scaleSuffix;
+        question2d.questionType = PQSQuestionTypeLargeNumber;
+        question2d.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+        [_questions addObject:question2d];
+        
+        
+        
+        
+        PQSQuestion *numberChangedHeader = PQSQuestion.new;
+        numberChangedHeader.fixedHeight = 0.0f;
+        numberChangedHeader.headerType = PQSHeaderTypePlain;
+        numberChangedHeader.dependentQuestion = question2d;
+        numberChangedHeader.dependentOnIntValue = YES;
+        numberChangedHeader.minimumIntValue = 1;
+        [_questions addObject:numberChangedHeader];
+        
 
 		
-		
-		
-		PQSQuestion *question6d = [PQSQuestion new];
-		question6d.question = @"Primary Yes or No Question";
-		question6d.questionType = PQSQuestionTypeTrueFalseConditional2;
-		question6d.useYesNoForTrueFalse = YES;
-		[_questions addObject:question6d];
-		
-			PQSQuestion *question6e = [PQSQuestion new];
-			question6e.question = @"Secondary Question";
-			question6e.questionType = PQSQuestionTypeTextField;
-			question6e.preferredBackgroundTone = question6d.preferredBackgroundTone;
-			question6d.trueConditionalQuestion	= question6e;
-			
-			PQSQuestion *question6f = [PQSQuestion new];
-			question6f.question = @"Other Secondary Question";
-			question6f.questionType = PQSQuestionTypeTrueFalse;
-			question6f.useYesNoForTrueFalse = YES;
-			question6f.preferredBackgroundTone = question6d.preferredBackgroundTone;
-			question6d.trueConditionalQuestion2	= question6f;
-		
-		
-		
-		
-		PQSQuestion *question7 = [PQSQuestion new];
-		question7.question = @"This question is a fixed height.";
-		question7.questionType = PQSQuestionTypeTrueFalse;
-		question7.useYesNoForTrueFalse = YES;
-		question7.maximumHeight = 55.0f;
-		[_questions addObject:question7];
-		
-		
-		
-		
-		PQSQuestion *header3a = [PQSQuestion new];
-		header3a.headerType = PQSHeaderTypePlain;
-		header3a.question = @"Main Header";
-		[_questions addObject:header3a];
+        PQSQuestion *question2di = PQSQuestion.new;
+        question2di.question = @"Has this number of surgical BPH procedures increased, decreased, or stayed the same over the past 3 years?";
+        [question2di.possibleAnswers addObjectsFromArray:@[@"Increased",
+                                                           @"Decreased",
+                                                           @"Stayed the same"]];
+        question2di.questionType = PQSQuestionTypeRadioButtons;
+        question2di.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneDark;
+        [_questions addObject:question2di];
+        
+        
+        PQSQuestion *question2dii = PQSQuestion.new;
+        question2dii.question = @"Over the next 3 years, do you expect your surgical BPH procedure volume to:";
+        [question2dii.possibleAnswers addObjectsFromArray:@[@"Increase",
+                                                            @"Decrease",
+                                                            @"Stay the same"]];
+        question2dii.questionType = PQSQuestionTypeRadioButtons;
+        question2dii.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+        [_questions addObject:question2dii];
+        
+        
+        
+        
+        PQSQuestion *secondHeader = PQSQuestion.new;
+        secondHeader.question = @"Ureteroscopy/PCNL/MH";
+        secondHeader.headerType = PQSHeaderTypePlain;
+        [_questions addObject:secondHeader];
+        
+        PQSQuestion *mensHealthSubHeader = PQSQuestion.new;
+        mensHealthSubHeader.question = @"Men's Health";
+        mensHealthSubHeader.headerType = PQSHeaderTypePlain;
+        [_questions addObject:mensHealthSubHeader];
+        
+        PQSQuestion *mhQuestion1 = PQSQuestion.new;
+        mhQuestion1.question = @"What do you consider social continence following radical prostatectomy?";
+        [mhQuestion1.possibleAnswers addObjectsFromArray:@[@"0 Pads per Day (PPD)",
+                                                           @"0-1 PPD",
+                                                           @"0-2 PPD",
+                                                           @"0-3 PPD",
+                                                           @"Other"]];
+        mhQuestion1.questionType = PQSQuestionTypeCheckBoxes;
+        [_questions addObject:mhQuestion1];
+        
+//        PQSQuestion *mhQuestionOtherHeader = PQSQuestion.new;
+//        mhQuestionOtherHeader.headerType = PQSHeaderTypePlain;
+//        mhQuestionOtherHeader.fixedHeight = 0.0f;
+//        mhQuestionOtherHeader.dependentQuestion = mhQuestion1;
+//        mhQuestionOtherHeader.dependentOnString = YES;
+//        mhQuestionOtherHeader.dependentStringAnswer = @"Other";
+//        [_questions addObject:mhQuestionOtherHeader];
+//        
+//        PQSQuestion *mhQuestion1Other = PQSQuestion.new;
+//        mhQuestion1Other.question = @"Please Specify";
+//        mhQuestion1Other.questionType = PQSQuestionTypeTextField;
+//        mhQuestion1Other.placeholderText = @"Please Specify";
+//        [_questions addObject:mhQuestion1Other];
+        
+        PQSQuestion *blankQuestion = PQSQuestion.new;
+        blankQuestion.headerType = PQSHeaderTypeSub;
+        blankQuestion.fixedHeight = 10.0f;
+        
+        PQSQuestion *blankHeader = PQSQuestion.new;
+        blankHeader.headerType = PQSHeaderTypePlain;
+        blankHeader.fixedHeight = 0.0f;
+        [_questions addObject:blankHeader];
+        
+        PQSQuestion *mhQuestion2 = PQSQuestion.new;
+        mhQuestion2.question = @"What is the most common consultation you provide your patients that fail one or more PDE-5s (oral medications) for Erectile Dysfunction and still want to find a solution to their ED?";
+        [mhQuestion2.possibleAnswers addObjectsFromArray:@[@"I advise them to continue using the drug",
+                                                           @"I prescribe another drug if the first does not work",
+                                                           @"I refer them to a prosthetic urologist who specializes in ED",
+                                                           @"I let them know there are other options including vacuum, injection and implant",
+                                                           @"I advise them to try a different type of therapy (e.g. injections)",
+                                                           @"Depending on the cause of their ED, I advise them to consider surgery"]];
+        mhQuestion2.questionType = PQSQuestionTypeMultipleChoice;
+        [_questions addObject:mhQuestion2];
+        
+        
+        
+        PQSQuestion *stoneSubHeader = PQSQuestion.new;
+        stoneSubHeader.question = @"Stone";
+        stoneSubHeader.headerType = PQSHeaderTypePlain;
+        [_questions addObject:stoneSubHeader];
+        
+        PQSQuestion *stoneQuestion3 = PQSQuestion.new;
+        stoneQuestion3.question = @"What is your preferred working wire during a ureteroscopy?";
+        stoneQuestion3.attributedQuestion = [self appendItalicizedText:@" Place a \"1\" by most preferred wire – if respondent uses more than one type of wire, then they may rank up to 3 in order of preference"
+                                                              toString:[self boldText:@[]
+                                                                             inString:stoneQuestion3.question]];
+        [stoneQuestion3.possibleAnswers addObjectsFromArray:@[@"BSC Sensor Guidewire",
+                                                              @"BSC Zipwire",
+                                                              @"Bard SOLO Flex",
+                                                              @"Bard SOLO Plus",
+                                                              @"Cook HiWire",
+                                                              @"Cook RoadRunner",
+                                                              @"Olympus Glidewire",
+                                                              @"Olympus UltraTrack",
+                                                              @"Other"]];
+        stoneQuestion3.questionType = PQSQuestionType2WayExclusivityRadioButtons;
+        stoneQuestion3.minimumScale = 1;
+        stoneQuestion3.maximumScale = 3;
+        [_questions addObject:stoneQuestion3];
+        
+        
+        PQSQuestion *stoneQuestionOtherHeader = PQSQuestion.new;
+        stoneQuestionOtherHeader.headerType = PQSHeaderTypePlain;
+        stoneQuestionOtherHeader.fixedHeight = 0.0f;
+        stoneQuestionOtherHeader.dependentQuestion = stoneQuestion3;
+        stoneQuestionOtherHeader.dependentOnString = YES;
+        [stoneQuestionOtherHeader.dependentStringAnswers addObjectsFromArray:@[@"Other1",
+                                                                               @"Other2",
+                                                                               @"Other3"]];
+        [_questions addObject:stoneQuestionOtherHeader];
+        
+        PQSQuestion *stoneQuestion3Other = PQSQuestion.new;
+        stoneQuestion3Other.question = @"Please Specify";
+        stoneQuestion3Other.questionType = PQSQuestionTypeTextField;
+        stoneQuestion3Other.placeholderText = @"Please Specify";
+        [_questions addObject:stoneQuestion3Other];
+        
+        [_questions addObject:blankQuestion];
+        
+        PQSQuestion *blankHeader2 = PQSQuestion.new;
+        blankHeader2.headerType = PQSHeaderTypePlain;
+        blankHeader2.fixedHeight = 0.0f;
+        [_questions addObject:blankHeader2];
+        
+        
+        
+        
+        PQSQuestion *stoneQuestion4 = PQSQuestion.new;
+        stoneQuestion4.question = @"Why did you select this guidewire as your most preferred working wire?";
+        [stoneQuestion4.possibleAnswers addObjectsFromArray:@[@"Performs the best",
+                                                              @"It’s what’s available at my facility",
+                                                              @"It’s what I trained on",
+                                                              @"Low cost",
+                                                              @"Other"]];
+        stoneQuestion4.questionType = PQSQuestionTypeMultipleChoice;
+        [_questions addObject:stoneQuestion4];
+        
+        
+        
+        
+        
+        PQSQuestion *stoneQuestionOtherHeader2 = PQSQuestion.new;
+        stoneQuestionOtherHeader2.headerType = PQSHeaderTypePlain;
+        stoneQuestionOtherHeader2.fixedHeight = 0.0f;
+        stoneQuestionOtherHeader2.dependentQuestion = stoneQuestion4;
+        stoneQuestionOtherHeader2.dependentOnString = YES;
+        [stoneQuestionOtherHeader2.dependentStringAnswers addObject:@"Other"];
+        [_questions addObject:stoneQuestionOtherHeader2];
+        
+        PQSQuestion *stoneQuestion4Other = PQSQuestion.new;
+        stoneQuestion4Other.question = @"Please Specify";
+        stoneQuestion4Other.questionType = PQSQuestionTypeTextField;
+        stoneQuestion4Other.placeholderText = @"Please Specify";
+        [_questions addObject:stoneQuestion4Other];
+        
+        
+        [_questions addObject:blankQuestion];
+        
+        PQSQuestion *blankHeader3 = PQSQuestion.new;
+        blankHeader3.headerType = PQSHeaderTypePlain;
+        blankHeader3.fixedHeight = 0.0f;
+        [_questions addObject:blankHeader3];
+        
+        
+        PQSQuestion *stoneQuestion5 = PQSQuestion.new;
+        stoneQuestion5.question = @"What size ureteral access sheath do you use most often?";
+        stoneQuestion5.attributedQuestion = [self boldText:@[@"ureteral access sheath"]
+                                                  inString:stoneQuestion5.question];
+        [stoneQuestion5.possibleAnswers addObjectsFromArray:@[@"9/11F",
+                                                              @"9.5/11.5F",
+                                                              @"10/12F",
+                                                              @"11/13F",
+                                                              @"12/14F",
+                                                              @"13/15F",
+                                                              @"Other"]];
+        stoneQuestion5.questionType = PQSQuestionTypeRadioButtons;
+        [_questions addObject:stoneQuestion5];
+        
+        
+        
+        [_questions addObject:blankQuestion];
+        
+        
+        
+        PQSQuestion *stoneQuestion6 = PQSQuestion.new;
+        stoneQuestion6.question = @"When fragmenting stones during a ureteroscopy, please estimate:";
+        stoneQuestion6.attributedQuestion = [self boldAndUnderlineText:@[@"fragmenting"]
+                                                              inString:stoneQuestion6.question];
+        stoneQuestion6.headerType = PQSHeaderTypeSub;
+        [_questions addObject:stoneQuestion6];
+        
+        PQSQuestion *stoneQuestion6a = PQSQuestion.new;
+        stoneQuestion6a.question = @"Total lasing time for an average length case:";
+        stoneQuestion6a.attributedQuestion = [self underlineText:@[@"average length"]
+                                                        inString:stoneQuestion6a.question];
+        stoneQuestion6a.questionType = PQSQuestionTypeLargeNumber;
+        stoneQuestion6a.placeholderText = @"Lasing time in minutes";
+        stoneQuestion6a.scaleSuffix = @"minutes";
+        [_questions addObject:stoneQuestion6a];
+        
+        PQSQuestion *stoneQuestion6b = PQSQuestion.new;
+        stoneQuestion6b.question = @"Total lasing time for a long case:";
+        stoneQuestion6b.attributedQuestion = [self underlineText:@[@"long"]
+                                                        inString:stoneQuestion6b.question];
+        stoneQuestion6b.questionType = PQSQuestionTypeLargeNumber;
+        stoneQuestion6b.placeholderText = @"Lasing time in minutes";
+        stoneQuestion6b.scaleSuffix = @"minutes";
+        [_questions addObject:stoneQuestion6b];
+        
+        PQSQuestion *stoneQuestion6c = PQSQuestion.new;
+        stoneQuestion6c.question = @"NA – I don't fragment stones with a laser";
+        stoneQuestion6c.questionType = PQSQuestionTypeTrueFalseConditional;
+        [_questions addObject:stoneQuestion6c];
+        
+        
+        blankQuestion.headerType = PQSHeaderTypeSub;
+        [_questions addObject:blankQuestion];
+        
+        
+        
+        
+        
+        PQSQuestion *stoneQuestion7 = PQSQuestion.new;
+        stoneQuestion7.question = @"When dusting stones during a ureteroscopy, please estimate:";
+        stoneQuestion7.attributedQuestion = [self boldAndUnderlineText:@[@"dusting"]
+                                                              inString:stoneQuestion7.question];
+        stoneQuestion7.headerType = PQSHeaderTypeSub;
+        stoneQuestion7.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneDark;
+        [_questions addObject:stoneQuestion7];
+        
+        PQSQuestion *stoneQuestion7a = PQSQuestion.new;
+        stoneQuestion7a.question = @"Total lasing time for an average length case:";
+        stoneQuestion7a.attributedQuestion = [self underlineText:@[@"average length"]
+                                                        inString:stoneQuestion7a.question];
+        stoneQuestion7a.questionType = PQSQuestionTypeLargeNumber;
+        stoneQuestion7a.placeholderText = @"Lasing time in minutes";
+        stoneQuestion7a.scaleSuffix = @"minutes";
+        stoneQuestion7a.preferredBackgroundTone = stoneQuestion7.preferredBackgroundTone;
+        [_questions addObject:stoneQuestion7a];
+        
+        PQSQuestion *stoneQuestion7b = PQSQuestion.new;
+        stoneQuestion7b.question = @"Total lasing time for a long case:";
+        stoneQuestion7b.attributedQuestion = [self underlineText:@[@"long"]
+                                                        inString:stoneQuestion7b.question];
+        stoneQuestion7b.questionType = PQSQuestionTypeLargeNumber;
+        stoneQuestion7b.placeholderText = @"Lasing time in minutes";
+        stoneQuestion7b.scaleSuffix = @"minutes";
+        stoneQuestion7b.preferredBackgroundTone = stoneQuestion7.preferredBackgroundTone;
+        [_questions addObject:stoneQuestion7b];
+        
+        PQSQuestion *stoneQuestion7c = PQSQuestion.new;
+        stoneQuestion7c.question = @"NA – I don't fragment stones with a laser";
+        stoneQuestion7c.questionType = PQSQuestionTypeTrueFalseConditional;
+        stoneQuestion7c.preferredBackgroundTone = stoneQuestion7.preferredBackgroundTone;
+        [_questions addObject:stoneQuestion7c];
+        
+        
+        blankQuestion.headerType = PQSHeaderTypeSub;
+        [_questions addObject:blankQuestion];
+        
+        
+        
+        PQSQuestion *pcnlSubHeader = PQSQuestion.new;
+        pcnlSubHeader.headerType = PQSHeaderTypePlain;
+        pcnlSubHeader.dependentQuestion = question2b;
+        pcnlSubHeader.dependentOnIntValue = YES;
+        pcnlSubHeader.minimumIntValue = 1;
+        [_questions addObject:pcnlSubHeader];
+        
+        
+        PQSQuestion *stoneQuestion8 = PQSQuestion.new;
+        stoneQuestion8.question = @"If you were to purchase a high watt holmium laser for your facility, what laser would you most likely purchase?  Please rank 1-3, where 1 = the laser that you would most likely purchase and 3 = least likely purchase.";
+        [stoneQuestion8.possibleAnswers addObjectsFromArray:@[@"80W, 50Hz, 3.5J Laser: $95,000",
+                                                              @"100W, 60Hz, 4J Laser: $125,000",
+                                                              @"120W, 80Hz, 6J Laser: $175,000"]];
+        stoneQuestion8.minimumScale = 1;
+        stoneQuestion8.maximumScale = 3;
+        stoneQuestion8.questionType = PQSQuestionType2WayExclusivityRadioButtons;
+        [_questions addObject:stoneQuestion8];
+        
+        
+        
+        PQSQuestion *stoneQuestion9 = PQSQuestion.new;
+        stoneQuestion9.question = @"Please choose the urological lithotripter you use most often during a PCNL case";
+        [stoneQuestion9.possibleAnswers addObjectsFromArray:@[@"ShockPulse-SE (Olympus)",
+                                                              @"Cyberwand (Olympus/Gyrus)",
+                                                              @"Swiss LithoClast (Boston Scientific) ",
+                                                              @"Calcuson (Storz)",
+                                                              @"StoneBreaker (Cook)",
+                                                              @"None of the above"]];
+        stoneQuestion9.questionType = PQSQuestionTypeMultipleChoice;
+        [_questions addObject:stoneQuestion9];
+        
+        
+        
+        PQSQuestion *stoneQuestion10 = PQSQuestion.new;
+        stoneQuestion10.question = @"Do you achieve your own access during PCNL procedures";
+        [stoneQuestion10.possibleAnswers addObjectsFromArray:@[@"Yes",
+                                                               @"Sometimes",
+                                                               @"No"]];
+        stoneQuestion10.questionType = PQSQuestionTypeRadioButtons;
+        [_questions addObject:stoneQuestion10];
+        
+        
+        
+        
+        PQSQuestion *bphHeader = PQSQuestion.new;
+        bphHeader.headerType = PQSHeaderTypePlain;
+        bphHeader.question = @"BPH";
+        bphHeader.attributedQuestion = [self boldText:@[@"BPH"]
+                                             inString:bphHeader.question];
+        bphHeader.dependentOnIntValue = YES;
+        bphHeader.dependentQuestion = question2d;
+        bphHeader.minimumIntValue = 1;
+        [_questions addObject:bphHeader];
+        
+        
+        PQSQuestion *bphQuestion11 = PQSQuestion.new;
+        bphQuestion11.question = @"What % of your surgical BPH procedures are performed with lasers?";
+        bphQuestion11.questionType = PQSQuestionTypePercentage;
+        [_questions addObject:bphQuestion11];
+        
+        
+        
+        PQSQuestion *bphLaserHeader = PQSQuestion.new;
+        bphLaserHeader.headerType = PQSHeaderTypePlain;
+        bphLaserHeader.dependentQuestion = bphQuestion11;
+        bphLaserHeader.dependentOnIntValue = YES;
+        bphLaserHeader.minimumIntValue = 1;
+        [_questions addObject:bphLaserHeader];
+        
+        
+        PQSQuestion *bphQuestion12 = PQSQuestion.new;
+        bphQuestion12.question = @"Of the surgical BPH procedures you perform with lasers, what % of your cases are performed with each of the following?";
+        [bphQuestion12.possibleAnswers addObjectsFromArray:@[@"GreenLight (PVP)",
+                                                             @"Holmium",
+                                                             @"Thulium",
+                                                             @"Other"]];
+        bphQuestion12.questionType = PQSQuestionTypeSplitPercentage;
+        [_questions addObject:bphQuestion12];
+        
+        
+        PQSQuestion *bphQuestion13 = PQSQuestion.new;
+        bphQuestion13.question = @"When using a laser for a BPH procedure, in what percentage of your cases do you use the following techniques?";
+        [bphQuestion13.possibleAnswers addObjectsFromArray:@[@"Enucleation",
+                                                             @"Vaporization"]];
+        bphQuestion13.questionType = PQSQuestionTypeSplitPercentage;
+        [_questions addObject:bphQuestion13];
+        
+        
+        
+        PQSQuestion *goliathHeader = PQSQuestion.new;
+        goliathHeader.headerType = PQSHeaderTypePlain;
+        goliathHeader.fixedHeight = 50.0f;
+        [_questions addObject:goliathHeader];
+        
+        
+        PQSQuestion *bphQuestion14 = PQSQuestion.new;
+        bphQuestion14.question = @"How have the results of the prospective, randomized, multi-center GOLIATH study impacted your perception of the GreenLight technology?";
+        bphQuestion14.questionType = PQSQuestionTypeRadioButtons;
+        [bphQuestion14.possibleAnswers addObjectsFromArray:@[@"1",
+                                                             @"2",
+                                                             @"3",
+                                                             @"4",
+                                                             @"5",
+                                                             @"6",
+                                                             @"7"]];
+        bphQuestion14.minimumScale = 1;
+        bphQuestion14.maximumScale = 7;
+        bphQuestion14.leftLabelText = @"Negatively impacted perception";
+        bphQuestion14.rightLabelText = @"                    Positively impacted perception";
+        [_questions addObject:bphQuestion14];
+        
+        
+        PQSQuestion *bphQuestion14a = PQSQuestion.new;
+        bphQuestion14a.question = @"I am not familiar with the study";
+        bphQuestion14a.questionType = PQSQuestionTypeTrueFalse;
+        [_questions addObject:bphQuestion14a];
+        
+        
+        
+        
+        
+        PQSQuestion *womensHealthHeader = PQSQuestion.new;
+        womensHealthHeader.headerType = PQSHeaderTypePlain;
+        womensHealthHeader.question = @"Women’s Health";
+        womensHealthHeader.attributedQuestion = [self boldText:@[@"Women’s Health"]
+                                                      inString:womensHealthHeader.question];
+        womensHealthHeader.dependentOnIntValue = YES;
+        womensHealthHeader.dependentQuestion = question2c;
+        womensHealthHeader.minimumIntValue = 1;
+        [_questions addObject:womensHealthHeader];
+        
+        PQSQuestion *whQuestion15 = PQSQuestion.new;
+        whQuestion15.question = @"Are you a former Astora Sling user?";
+        whQuestion15.questionType = PQSQuestionTypeTrueFalseConditional;
+        whQuestion15.useYesNoForTrueFalse = YES;
+        [_questions addObject:whQuestion15];
+        
+        
+        
+        
+        PQSQuestion *womensHealthHeader2 = PQSQuestion.new;
+        womensHealthHeader2.headerType = PQSHeaderTypePlain;
+        womensHealthHeader2.dependentOnBoolValue = YES;
+        womensHealthHeader2.dependentQuestion = whQuestion15;
+        womensHealthHeader2.fixedHeight = 0.0f;
+        [_questions addObject:womensHealthHeader2];
+        
+        
+        
+        PQSQuestion *whQuestion16 = PQSQuestion.new;
+        whQuestion16.question = @"Which products did you use?";
+        whQuestion16.attributedQuestion = [self appendItalicizedText:@"\n(Select all that apply)"
+                                                            toString:[[NSAttributedString alloc] initWithString:whQuestion16.question]];
+        [whQuestion16.possibleAnswers addObjectsFromArray:@[@"RetroArc Retropubic",
+                                                            @"Sparc Suprapublic",
+                                                            @"MiniArc Single Incision Sling",
+                                                            @"Monarc Transobturator"]];
+        whQuestion16.questionType = PQSQuestionTypeCheckBoxes;
+        [_questions addObject:whQuestion16];
+        
+        PQSQuestion *whQuestion17 = PQSQuestion.new;
+        whQuestion17.question = @"Which product do you intend on using moving forward?";
+        whQuestion17.attributedQuestion = [self appendItalicizedText:@"\n(Select all that apply)"
+                                                            toString:[[NSAttributedString alloc] initWithString:whQuestion17.question]];
+        [whQuestion17.possibleAnswers addObjectsFromArray:@[@"BSC Advantage/Advantage Fit Retropubic",
+                                                            @"BSC Lynx Suprapubic",
+                                                            @"BSC Solyx Single Incision",
+                                                            @"BSC Obtryx/Obtryx II",
+                                                            @"Coloplast Altis Single Incision",
+                                                            @"Coloplast (other)",
+                                                            @"Caldera product",
+                                                            @"J&J product",
+                                                            @"Other"]];
+        whQuestion17.questionType = PQSQuestionTypeCheckBoxes;
+        [_questions addObject:whQuestion17];
+        
+        
+        
+        
+        
+        
+        [_questions addObject:blankQuestion];
+        
+        PQSQuestion *blankHeader4 = PQSQuestion.new;
+        blankHeader4.headerType = PQSHeaderTypePlain;
+        blankHeader4.fixedHeight = 0.0f;
+        [_questions addObject:blankHeader4];
+        
 
-		PQSQuestion *header3b = [PQSQuestion new];
-		header3b.questionType = PQSQuestionTypeNone;
-		header3b.headerType = PQSHeaderTypeSub;
-		header3b.question = @"Sub Header";
-		[_questions addObject:header3b];
-		
-		
-		NSArray *similarQuestions = @[@"Similar Question 1",
-									  @"Similar Question 2",
-									  @"Similar Question 3"];
-		
-		
-		for (NSString *questionText in similarQuestions) {
-			PQSQuestion *rootQuestion = [PQSQuestion new];
-			rootQuestion.question = questionText;
-			NSInteger locationOfColon = [questionText rangeOfString:@":"].location;
-			if (locationOfColon == NSNotFound) {
-				locationOfColon = questionText.length - 1;
-			} else {
-				locationOfColon++;
-			}
-            
-			NSString *boldText = [questionText substringToIndex:locationOfColon];
-			rootQuestion.attributedQuestion = [self boldText:@[boldText]
-													inString:questionText];
-			rootQuestion.questionType = PQSQuestionTypeMultiColumnConditional;
-			[_questions addObject:rootQuestion];
-			
-			PQSQuestion *questionA = [PQSQuestion new];
-			questionA.question = @"Clinically Acceptable*";
-			questionA.questionType = PQSQuestionTypeTrueFalse;
-			questionA.useYesNoForTrueFalse = YES;
-			
-			PQSQuestion *questionB = [PQSQuestion new];
-			questionB.question = @"How does Love compare to hate?†";
-			questionB.attributedQuestion = [self appendItalicizedText:@"(Optional)" toString:[[NSAttributedString alloc] initWithString:questionB.question]];
-			questionB.questionType = PQSQuestionTypeRadioButtons;
-			[questionB.possibleAnswers addObjectsFromArray:@[@"LoVe much better", @"LoVe better", @"Same", @"LoVe worse\n(Please describe)"]];
-			rootQuestion.triggerAnswer = [questionB.possibleAnswers lastObject];
-			
-			PQSQuestion *conditionalQuestion = [PQSQuestion new];
-			conditionalQuestion.question = @"Please describe";
-			conditionalQuestion.placeholderText = @"Please describe";
-			conditionalQuestion.questionType = PQSQuestionTypeTextView;
-			rootQuestion.triggerQuestion = conditionalQuestion;
-			
-			[rootQuestion setMultipleColumnQuestions:@[questionA, questionB]];
-		}
-		
-		
-		
-		PQSQuestion *question17 = [PQSQuestion new];
-		question17.question = @"Based upon this survey, you are awesome.";
-		question17.questionType = PQSQuestionTypeRadioButtons;
-		[question17.possibleAnswers addObjectsFromArray:@[@"Strongly Disagree",
-														  @"Disagree",
-														  @"Neutral",
-														  @"Agree",
-														  @"Strongly Agree"]];
-		[_questions addObject:question17];
-		
-		
-		
-		PQSQuestion *question18 = [PQSQuestion new];
-		question18.question = @"Additional Comments";
-		question18.questionType = PQSQuestionTypeTextView;
-		question18.placeholderText = @"Comments";
-		[_questions addObject:question18];
-		
+        
 		PQSQuestion *finePrint = [PQSQuestion new];
 		finePrint.headerType = PQSHeaderTypeFinePrint;
-		finePrint.question = @"*Fine Print\n†Other Fine Print";
+		finePrint.question = @"Disclaimer:  This study is intended only to elicit your general impressions, product delivery and design performance opinions, and clinical acceptability, product and treatment selection criteria and/or market perspectives.  By participating in this study, you agree to not use, distribute, print, or share the content of this research, and acknowledge that your responses do not contain or disclose any confidential information belonging to you or any outside party and may be used for market research, to inform market trends, and guide product planning. This research is not intended to promote the sale of anything referenced in the materials.";
 		finePrint.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
 		[_questions addObject:finePrint];
 		
@@ -375,7 +677,6 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		[self createKeys];
 		
 		
-		PQSQuestion *blankQuestion = [PQSQuestion new];
 		blankQuestion.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
 		[_questions addObject:blankQuestion];
 		
@@ -412,14 +713,181 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 				   afterDelay:1.0f];
 		
         // not used?
-		/*NSTimer *submitTimer =*/ [NSTimer scheduledTimerWithTimeInterval:5.0f
+		/*NSTimer *submitTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f
 																target:self
 															  selector:@selector(submitWithoutNotification)
 															  userInfo:nil
-															   repeats:YES];
+															   repeats:YES];*/
 	}
 	
 	return self;
+}
+
+- (void)addHeader:(NSString *)title {
+    PQSQuestion *header = [PQSQuestion new];
+    header.questionType = PQSQuestionTypeNone;
+    header.headerType = PQSHeaderTypePlain;
+    header.question = title;
+    [_questions addObject:header];
+}
+
+- (PQSQuestion *)questionForData:(NSDictionary *)question {
+    NSString *type = question[@"type"];
+    
+    PQSQuestion *q = [PQSQuestion new];
+    q.question = question[@"title"];
+    q.attributedQuestion = [self boldText:question[@"title bold text"]
+                                 inString:q.question];
+    q.master = question[@"master"];
+    q.observers = question[@"observers"];
+    q.placeholderText = question[@"placeholderText"];
+    q.scaleSuffix = q.placeholderText;
+    
+    if (q.scaleSuffix.length > 0) {
+        NSLog(@"%@", q);
+    } else {
+        q.scaleSuffix = @"procedures monthly";
+    }
+    
+    
+    if ([type isEqualToString:@"PQSQuestionTypeCheckBoxes"]) {
+        q.questionType = PQSQuestionTypeCheckBoxes;
+        [q.possibleAnswers addObjectsFromArray:question[@"responses"]];
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeIncrementalValue"]) {
+        q.questionType = PQSQuestionTypeIncrementalValue;
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeLargeNumber"]) {
+        NSString *units = question[@"units"] ? question[@"units"] : @"";
+        
+        q.questionType = PQSQuestionTypeLargeNumber;
+        q.scaleSuffix = units;
+        q.placeholderText = units;
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeLongList"]) {
+        q.questionType = PQSQuestionTypeLongList;
+        q.placeholderText = defaultCountry;
+        q.longListTitle = @"Select Country";
+        q.hideBorder = NO;
+        q.questionNumber = 1;
+        [self countryCodeList];
+        [q.possibleAnswers addObjectsFromArray:_countryCodeList.allKeys];
+        [q.possibleAnswers sortUsingSelector:@selector(caseInsensitiveCompare:)];
+        [q.urlKeys addEntriesFromDictionary:@{@"country" : @"In_what_country_do_you_practice"}];
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypePercentage"]) {
+        q.questionType = PQSQuestionTypePercentage;
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeRadioButtons"]) {
+        NSArray *responses = question[@"responses"];
+        NSDictionary *other = question[@"other"];
+        
+        q.questionType = PQSQuestionTypeRadioButtons;
+        [q.possibleAnswers addObjectsFromArray:responses];
+        
+        if (other) {
+            NSString *otherTitle = other[@"title"] ? other[@"title"] : @"Default Title";
+            NSString *otherText = other[@"placeholder"] ? other[@"placeholder"] : @"Default Placeholder Text";
+            
+            [q.possibleAnswers addObject:otherTitle];
+            
+            PQSQuestion *otherQ = [PQSQuestion new];
+            otherQ.questionType = PQSQuestionTypeTextView;
+            otherQ.question = otherText;
+            otherQ.placeholderText = otherText;
+            
+            q.triggerAnswer = [q.possibleAnswers lastObject];
+            q.triggerQuestion = otherQ;
+        }
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeScale"]) {
+        float min = question[@"min"] ? [question[@"min"] floatValue] : 0;
+        float max = question[@"max"] ? [question[@"max"] floatValue] : 10;
+        float start = question[@"startingPoint"] ? [question[@"startingPoint"] floatValue] : roundf((q.minimumScale + q.maximumScale) / 2);
+        float interval = question[@"interval"] ? [question[@"interval"] floatValue] : 1;
+        
+        NSString *units = question[@"units"] ? question[@"units"] : @"";
+        NSString *label = question[@"label"] ? question[@"label"] : @"Default Label";
+        
+        q.questionType = PQSQuestionTypeScale;
+        q.minimumScale = min;
+        q.maximumScale = max;
+        q.startingPoint = start;
+        q.scaleInterval = interval;
+        q.scaleSuffix = units;
+        [q.scaleLabels addObject:label];
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeTextField"]) {
+        q.questionType = PQSQuestionTypeTextField;
+        q.placeholderText = question[@"placeholder"];
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeTextView"]) {
+        q.questionType = PQSQuestionTypeTextView;
+        q.placeholderText = question[@"placeholder"];
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeTrueFalse"]) {
+        q.questionType = PQSQuestionTypeTrueFalse;
+        q.useYesNoForTrueFalse = YES;
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionType2WayExclusivityRadioButtons"]) {
+        NSArray *answers = question[@"responses"];
+        NSDictionary *other = question[@"other"];
+        float min = [question[@"scale"][0] floatValue];
+        float max = [question[@"scale"][1] floatValue];
+        
+        q.questionType = PQSQuestionType2WayExclusivityRadioButtons;
+        [q.possibleAnswers addObjectsFromArray:answers];
+        q.minimumScale = min;
+        q.maximumScale = max;
+        
+        if (other) {
+            NSString *otherTitle = other[@"title"] ? other[@"title"] : @"Default Title";
+            NSString *otherText = other[@"placeholder"] ? other[@"placeholder"] : @"Default Placeholder Text";
+            
+            [q.possibleAnswers addObject:otherTitle];
+            
+            PQSQuestion *otherQ = [PQSQuestion new];
+            otherQ.questionType = PQSQuestionTypeTextView;
+            otherQ.question = otherText;
+            otherQ.placeholderText = otherText;
+            
+            q.triggerAnswer = [q.possibleAnswers lastObject];
+            q.triggerQuestion = otherQ;
+        }
+    }
+    
+    else if ([type isEqualToString:@"PQSQuestionTypeNone"]) {
+        q.questionType = PQSQuestionTypeNone;
+        NSString *ifRelevant = question[@"ifRelevant"];
+        
+        if (ifRelevant) {
+            q.headerType = PQSHeaderTypeIfRelevant;
+        } else {
+            q.headerType = PQSHeaderTypeSub; // PQSHeaderTypePlain - to make sticky
+        }
+    }
+    
+    else if (type) {
+        NSLog(@"*** Unknown type: %@", type);
+        return nil;
+    }
+    
+    else {
+        NSLog(@"No question type provided");
+        return nil;
+    }
+    
+    return q;
 }
 
 - (void)uploadQuestionsInBackground {
@@ -432,26 +900,21 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 	
 	
 	int numberOfSubQuestions = 0;
-    
-    for (NSString *key in _questionsAndKeys) {
-        NSLog(@"Key: %@", key);
-        
-    }
 	
 	for (int i = 0; i < _questions.count; i++) {
 		PQSQuestion *question = [_questions objectAtIndex:i];
-		NSLog(@"%@", question.question);
+		//NSLog(@"%@", question.question);
 		[questionsDescriptionArray addObjectsFromArray:[self dictionariesForQuestion:question
 																			  number:(i + numberOfSubQuestions)]];
 	}
 	
-	NSLog(@"Here's what I'm sending up: \n\n%@\n\n", @{@"question_set" : questionsDescriptionArray});
+//	NSLog(@"Here's what I'm sending up: \n\n%@\n\n", @{@"question_set" : questionsDescriptionArray});
 	
 	NSError *error;
 	NSData *jsondata = [NSJSONSerialization dataWithJSONObject:@{@"question_set" : questionsDescriptionArray}
 													   options:NSJSONWritingPrettyPrinted
 														 error:&error];
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://yourdomain.com/hyper_rest3/index.php/api/example/questions"]
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://hyperactive.to/hyper_rest3/index.php/api/example/questions"]
 														   cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
 													   timeoutInterval:5.0];
 	[request setValue:@"multipart/form-data" forHTTPHeaderField:@"Content-type"];
@@ -459,7 +922,6 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 	[request setHTTPMethod:@"POST"];
 	[request setValue:[NSString stringWithFormat:@"%zd", [jsondata length]] forHTTPHeaderField:@"Content-Length"];
 	[request setHTTPBody:jsondata];
-	NSLog(@"Data: \n\n%@\n\n", jsondata);
 	
 	NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
 	[configuration setHTTPAdditionalHeaders:@{ @"Accept": @"application/json",
@@ -623,7 +1085,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		}
 	}
 	
-	NSLog(@"%@", [[ordered_questionsAndKeys stringByReplacingOccurrencesOfString:@"{" withString:@""] stringByReplacingOccurrencesOfString:@"}" withString:@""]);
+	//NSLog(@"%@", [[ordered_questionsAndKeys stringByReplacingOccurrencesOfString:@"{" withString:@""] stringByReplacingOccurrencesOfString:@"}" withString:@""]);
 }
 
 - (NSString *)keyForQuestion:(PQSQuestion *)question {
@@ -632,7 +1094,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
     NSString *formattedKey = [self formatKey:question.question];
     NSString *formattedAndTrimmedKey = [self trimKey:formattedKey toLength:maxKeyLength];
     
-    NSLog(@"formattedKey is: %@", formattedAndTrimmedKey);
+//    NSLog(@"formattedKey is: %@", formattedAndTrimmedKey);
 	
 	if ([_questionsAndKeys objectForKey:formattedAndTrimmedKey]) {
 		NSLog(@"The key already exists!");
@@ -951,9 +1413,58 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 
 #pragma mark - Submitting Answers
 
+- (void)layoutObserversOfCondition:(NSDictionary *)condition hidden:(BOOL)hidden {
+ 
+    if (!hidden) {
+        for (PQSQuestion *q in self.questions) {
+            
+            if (q.observers) {
+                NSLog(@"************** Q: %@", q.question);
+            }
+        }
+    }
+}
+
+- (void)checkConditionsForQuestion:(PQSQuestion *)question withAnswer:(NSString *)answer {
+    
+    /*
+     * If there are conditions set for question, verify them
+     * If conditions are met, check for observers of this condition
+     * For these observers, show/hide as appropriate
+     */
+    
+    NSDictionary *condition = question.master;
+    
+    if (condition) {
+        
+        
+        NSString *operator = condition[@"condition"][@"operator"];
+        float conditionVal = [condition[@"condition"][@"comparison"] floatValue];
+        float val = [answer floatValue];
+        
+        BOOL meetsCondition;
+        
+        if ([operator isEqualToString:@"=="]) meetsCondition = val == conditionVal;
+        else if ([operator isEqualToString:@">"]) meetsCondition = val > conditionVal;
+        else if ([operator isEqualToString:@"<"]) meetsCondition = val < conditionVal;
+        
+        
+        NSLog(@"meetsCondition: %d", meetsCondition);
+        
+        // layout view for observers
+        [self layoutObserversOfCondition:condition hidden:!meetsCondition];
+    }
+    
+}
+
 - (void)submitAnswer:(NSString *)answer forQuestion:(PQSQuestion *)question {
+    question.currentAnswerString = answer;
+    NSLog(@"Question answer: %@", question.currentAnswerString);
 	BOOL submitted = NO;
 	if (answer && question) {
+        
+        [self checkConditionsForQuestion:question withAnswer:answer];
+        
 		for (NSString *tempKey in question.urlKeys.allKeys) {
 			if ([question.question rangeOfString:tempKey].location != NSNotFound) {
 				[self submitAnswer:answer withKey:[question.urlKeys objectForKey:tempKey]];
@@ -1068,7 +1579,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 	NSString *dateString = [_dateFormatter stringFromDate:[NSDate date]];
 	[localTempCopyAnswer setObject:dateString forKey:@"created_datetime"];
 	
-	NSLog(@"%@", localTempCopyAnswer);
+	//NSLog(@"%@", localTempCopyAnswer);
 	
 	return localTempCopyAnswer;
 }
@@ -1158,7 +1669,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		
 		for (NSString *urlString in _requestStrings) {
 			NSString *requestString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			NSLog(@"%@", requestString);
+			//NSLog(@"%@", requestString);
 
 			NSURL *url = [NSURL URLWithString:requestString];
 			NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -1642,8 +2153,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 
 - (PQSQuestion *)whichCountryQuestion {
 	PQSQuestion *whichCountryQuestion = [[PQSQuestion alloc] init];
-	NSMutableAttributedString *whichCountryQuestionAttributedString = [[NSMutableAttributedString alloc]initWithString:
-															@"In which country do you practice?"];
+	NSMutableAttributedString *whichCountryQuestionAttributedString = [[NSMutableAttributedString alloc]initWithString:@"In which country do you practice?"];
 	UIFont *whichCountryQuestionAttributedStringFont1 = [UIFont appFont];
 	UIFont *whichCountryQuestionAttributedStringFont2 = [UIFont boldAppFont];
 	[whichCountryQuestionAttributedString addAttribute:NSFontAttributeName value:whichCountryQuestionAttributedStringFont1 range:NSMakeRange(0,9)];

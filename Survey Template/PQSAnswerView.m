@@ -569,7 +569,9 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 			key = [question.urlKeys objectForKey:tempKey];
 			
 			if (key) {
-				[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString withKey:[question.urlKeys objectForKey:tempKey]];
+				[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString
+                                                                   withKey:[question.urlKeys objectForKey:tempKey]];
+                self.question.currentAnswerString = currentAnswerString;
 				submitted = YES;
 			}
 		}
@@ -585,7 +587,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		NSLog(@"What is going on here? %@", question.triggerAnswer);
 		
 		if (!self.question.triggerAnswer) {
-			NSLog(@"You don't even have one?");
+			NSLog(@"You don't even have a trigger answer?");
 		} else {
 			question.triggerAnswer = self.question.triggerAnswer;
 		}
@@ -616,11 +618,11 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	}
 	
 	
-	
-	
 	if (!submitted) {
 		NSLog(@"Couldn't find a key to submit with, so we're going with submitting using the question itself");
-		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString forQuestion:question];
+		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString
+                                                       forQuestion:question];
+        self.question.currentAnswerString = answerString;
 	}
 }
 
@@ -745,7 +747,9 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 //	NSLog(@"Tapped: %@\t\tQuestion Number: %d", answer, self.question.questionNumber);
 	
 	if ([self.delegate respondsToSelector:@selector(answerSelected:question:)]) {
-		[self.delegate answerSelected:answer question:self.question];
+		[self.delegate answerSelected:answer
+                             question:self.question];
+        self.question.currentAnswerString = answer;
 	} else {
 		NSLog(@"Delegate not set or unresponsive for answer view. Nothing's happening when the user selects an answer without this delegate set.");
 	}
@@ -851,6 +855,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		for (NSString *tempKey in self.question.urlKeys) {
 			if ([multipleChoiceAnswer rangeOfString:tempKey].location != NSNotFound) {
 				[[PQSReferenceManager sharedReferenceManager] submitAnswer:multipleChoiceAnswer withKey:[self.question.urlKeys objectForKey:tempKey]];
+                self.question.currentAnswerString = multipleChoiceAnswer;
 //				[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString withKey:[[self.question.urlKeys objectForKey:tempKey] stringByAppendingString:@"_int"]];
 				submitted = YES;
 			}
@@ -860,6 +865,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	if (!submitted) {
 		NSLog(@"Couldn't find a key to submit with, so we're going with submitting using the question itself");
 		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString forQuestion:self.question];
+        self.question.currentAnswerString = answerString;
 	}
 	
 	NSLog(@"Answer string: \n\n%@\n\n", answerString);
@@ -932,6 +938,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 															   }
 															   [[PQSReferenceManager sharedReferenceManager] submitAnswer:answer
 																												  withKey:[self.question.urlKeys objectForKey:[[self.question.urlKeys allKeys] firstObject]]];
+                                                               self.question.currentAnswerString = answer;
 														   }];
 			[_optionsController addAction:action];
 		}
@@ -984,6 +991,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		
 		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answer
 														   withKey:[self.question.urlKeys objectForKey:[[self.question.urlKeys allKeys] firstObject]]];
+        self.question.currentAnswerString = answer;
 	}
 }
 
@@ -1050,6 +1058,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	for (NSString *tempKey in self.question.urlKeys) {
 		if ([self.question.question rangeOfString:tempKey].location != NSNotFound) {
 			[[PQSReferenceManager sharedReferenceManager] submitAnswer:stepperValueLabel.text withKey:[self.question.urlKeys objectForKey:tempKey]];
+            self.question.currentAnswerString = stepperValueLabel.text;
 			submitted = YES;
 		}
 	}
@@ -1057,6 +1066,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	if (!submitted) {
 		NSLog(@"Couldn't find a key to submit with, so we're going with submitting using the question itself");
 		[[PQSReferenceManager sharedReferenceManager] submitAnswer:stepperValueLabel.text forQuestion:self.question];
+        self.question.currentAnswerString = stepperValueLabel.text;
 	}
 }
 
@@ -1106,6 +1116,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	for (NSString *tempKey in self.question.urlKeys) {
 		if ([self.question.question rangeOfString:tempKey].location != NSNotFound) {
 			[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString withKey:[self.question.urlKeys objectForKey:tempKey]];
+            self.question.currentAnswerString = currentAnswerString;
 			submitted = YES;
 		}
 	}
@@ -1113,6 +1124,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	if (!submitted) {
 		NSLog(@"Couldn't find a key to submit with, so we're going with submitting using the question itself");
 		[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString forQuestion:self.question];
+        self.question.currentAnswerString = currentAnswerString;
 	}
 	
 }
@@ -1239,7 +1251,9 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		
 		for (NSString *tempKey in self.question.urlKeys) {
 			if ([multipleChoiceAnswer rangeOfString:tempKey].location != NSNotFound) {
-				[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString withKey:[self.question.urlKeys objectForKey:tempKey]];
+				[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString
+                                                                   withKey:[self.question.urlKeys objectForKey:tempKey]];
+                self.question.currentAnswerString = currentAnswerString;
 				submitted = YES;
 			}
 		}
@@ -1248,7 +1262,9 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	
 	if (!submitted) {
 		NSLog(@"Couldn't find a key to submit with, so we're going with submitting using the question itself");
-		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString forQuestion:self.question];
+		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString
+                                                       forQuestion:self.question];
+        self.question.currentAnswerString = answerString;
 	}
 }
 
@@ -1336,6 +1352,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		for (NSString *tempKey in self.question.urlKeys) {
 			if ([multipleChoiceRadioButtonQuestion rangeOfString:tempKey].location != NSNotFound) {
 				[[PQSReferenceManager sharedReferenceManager] submitAnswer:multipleChoiceOption withKey:[self.question.urlKeys objectForKey:tempKey]];
+                self.question.currentAnswerString = multipleChoiceOption;
 //				[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString withKey:[[self.question.urlKeys objectForKey:tempKey] stringByAppendingString:@"_int"]];
 				submitted = YES;
 			}
@@ -1344,7 +1361,9 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	
 	if (!submitted) {
 		NSLog(@"Couldn't find a key to submit with, so we're going with submitting using the question itself");
-		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString forQuestion:self.question];
+		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString
+                                                       forQuestion:self.question];
+        self.question.currentAnswerString = answerString;
 	}
 }
 
@@ -1408,7 +1427,9 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		
 		for (NSString *tempKey in self.question.urlKeys) {
 			if ([multipleChoiceAnswer rangeOfString:tempKey].location != NSNotFound) {
-				[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString withKey:[self.question.urlKeys objectForKey:tempKey]];
+				[[PQSReferenceManager sharedReferenceManager] submitAnswer:currentAnswerString
+                                                                   withKey:[self.question.urlKeys objectForKey:tempKey]];
+                self.question.currentAnswerString = currentAnswerString;
 				submitted = YES;
 			}
 		}
@@ -1417,7 +1438,9 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	
 	if (!submitted) {
 		NSLog(@"Couldn't find a key to submit with, so we're going with submitting using the question itself");
-		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString forQuestion:self.question];
+		[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString
+                                                       forQuestion:self.question];
+        self.question.currentAnswerString = answerString;
 	}
 }
 
@@ -1797,6 +1820,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 				
 				[[PQSReferenceManager sharedReferenceManager] submitAnswer:stickyValue
 																   withKey:[self.question.urlKeys objectForKey:[[self.question.urlKeys allKeys] firstObject]]];
+                self.question.currentAnswerString = stickyValue;
 			}
 		}
 	} else {
@@ -1850,6 +1874,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 															 }
 															 [[PQSReferenceManager sharedReferenceManager] submitAnswer:_textField.text
 																												withKey:key];
+                                                               self.question.currentAnswerString = _textField.text;
 															 if (self.question.isSticky) {
 																 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 																 [defaults setObject:_textField.text forKey:questionText];
@@ -1946,6 +1971,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 				
 				[[PQSReferenceManager sharedReferenceManager] submitAnswer:stickyValue
 																   withKey:[self.question.urlKeys objectForKey:[[self.question.urlKeys allKeys] firstObject]]];
+                self.question.currentAnswerString = stickyValue;
 			}
 		}
 	} else {
@@ -2008,6 +2034,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	}
 	[[PQSReferenceManager sharedReferenceManager] submitAnswer:text
 													   withKey:[self.question.urlKeys objectForKey:[[self.question.urlKeys allKeys] firstObject]]];
+    self.question.currentAnswerString = text;
 	if (self.question.isSticky) {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setObject:_textField.text forKey:self.question.question];
@@ -2229,6 +2256,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 															 [answerButton setTitle:[self paddedString:_textField.text] forState:UIControlStateNormal];
 															 [[PQSReferenceManager sharedReferenceManager] submitAnswer:_textField.text
 																												withKey:[self.question.urlKeys objectForKey:[[self.question.urlKeys allKeys] firstObject]]];
+                                                             self.question.currentAnswerString = _textField.text;
 														 }];
 		
 		[_optionsController addAction:okAction];
@@ -2388,6 +2416,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 															 [answerButton setTitle:[self paddedString:_textField.text] forState:UIControlStateNormal];
 															 [[PQSReferenceManager sharedReferenceManager] submitAnswer:_textField.text
 																												withKey:[self.question.urlKeys objectForKey:[[self.question.urlKeys allKeys] firstObject]]];
+                                                             self.question.currentAnswerString = _textField.text;
 															 checkForTimeUpdate = NO;
 														 }];
 		
@@ -2548,11 +2577,13 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 															 
 															 if (_textField.text.length > 0) {
 																 [answerButton setTitle:[self paddedString:[NSString stringWithFormat:@"%@ %@", _textField.text, self.question.scaleSuffix]] forState:UIControlStateNormal];
+                                                                 NSLog(@"Scale Suffix \"%@\"", self.question.scaleSuffix.length > 0 ? self.question.scaleSuffix : @"No suffix");
 															 } else {
 																 [answerButton setTitle:[self paddedString:self.question.placeholderText] forState:UIControlStateNormal];
 															 }
 															 [[PQSReferenceManager sharedReferenceManager] submitAnswer:_textField.text
 																												withKey:[self.question.urlKeys objectForKey:[[self.question.urlKeys allKeys] firstObject]]];
+                                                             self.question.currentAnswerString = _textField.text;
 														 }];
 		
 		[_optionsController addAction:okAction];
@@ -2665,7 +2696,8 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		
 		if (!submitted) {
 			NSLog(@"Couldn't find a key to submit with, so we're going with submitting using the question itself");
-			[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString forQuestion:question];
+			[[PQSReferenceManager sharedReferenceManager] submitAnswer:answerString
+                                                           forQuestion:question];
 		}
 	} else if ([sender isKindOfClass:[UISwitch class]]) {
 		
