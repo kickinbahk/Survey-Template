@@ -30,6 +30,7 @@
 	NSDate *_lastRemoteSubmissionDate;
 	CGSize _lastFrameSize;
     NSInteger previousNumberOfSections;
+    NSDate *_lastNetworkConnectionAttemptDate;
 }
 
 /**
@@ -63,7 +64,7 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 //	[self.view addSubview:self.instructionButton];
 	
 	[[PQSReferenceManager sharedReferenceManager] setDelegate:self];
-	
+    
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc addObserver:self
 		   selector:@selector(updateViewConstraints)
@@ -691,9 +692,12 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 														 
 													 }];
 	[alertController addAction:okAction];
-	[self presentViewController:alertController animated:YES completion:^{
-		
-	}];
+    
+    if (fabs([_lastNetworkConnectionAttemptDate timeIntervalSinceNow]) > 10 || !_lastNetworkConnectionAttemptDate) {
+        [self presentViewController:alertController animated:YES completion:^{
+            _lastNetworkConnectionAttemptDate = NSDate.date;
+        }];
+    }
 }
 
 - (void)sentToServerSuccessfully {
@@ -755,9 +759,12 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 															 
 														 }];
 		[alertController addAction:okAction];
-		[self presentViewController:alertController animated:YES completion:^{
-			
-		}];
+        
+        if (fabs([_lastNetworkConnectionAttemptDate timeIntervalSinceNow]) > 300 || !_lastNetworkConnectionAttemptDate) {
+            [self presentViewController:alertController animated:YES completion:^{
+                _lastNetworkConnectionAttemptDate = NSDate.date;
+            }];
+        }
 	} else {
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
 															message:@"No Network Connection. \nSurvey Results were not sent. Please try again."
