@@ -217,7 +217,7 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 		_showTitleLabel.adjustsFontSizeToFitWidth = YES;
 		_showTitleLabel.clipsToBounds = NO;
 		_showTitleLabel.font = [UIFont fontWithName:@"OfficinaSerifLT-Bold" size:32.0f];
-		_showTitleLabel.textColor = [UIColor white];
+		_showTitleLabel.textColor = [UIColor appColor];
 		_showTitleLabel.textAlignment = NSTextAlignmentLeft;
 		_showTitleLabel.text = [[PQSReferenceManager sharedReferenceManager] currentShowTitle];
 	}
@@ -259,8 +259,12 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 	if (!_submitButton) {
 		_submitButton = [[UIButton alloc] initWithFrame:[self submitButtonFrame]];
 		_submitButton.center = [self submitButtonCenter];
-		_submitButton.backgroundColor = [UIColor appColor];
+		_submitButton.backgroundColor = [UIColor appColor2];
+        [_submitButton setTitleColor:[UIColor white]
+                            forState:UIControlStateNormal];
 		_submitButton.layer.cornerRadius = 5.0f; // Just a guess at what looks good...it's magic if it does
+        _submitButton.layer.borderColor = [UIColor white].CGColor;
+        _submitButton.layer.borderWidth = 1.0f;
 		_submitButton.clipsToBounds = YES;
 		_submitButton.userInteractionEnabled = YES;
 		_submitButton.parallaxIntensity = 10.0f;
@@ -283,7 +287,7 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 }
 
 - (CGPoint)submitButtonCenter {
-	CGPoint center = CGPointMake(self.view.frame.size.width - self.view.frame.size.width * 0.28f, self.brandImageView.center.y / 2.0f);
+	CGPoint center = CGPointMake(self.view.frame.size.width * 0.5f, self.brandImageView.center.y / 2.0f);
 	
 	return center;
 }
@@ -416,22 +420,43 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 	
 	switch (questionView.question.preferredBackgroundTone) {
 		case PQSQuestionViewPreferredBackgroundToneDark:
-				cell.backgroundColor = [[UIColor appColor3] colorWithAlphaComponent:0.23f];
+            cell.backgroundColor = [[UIColor appColor] colorWithAlphaComponent:0.923f];
+            [self setTint:[UIColor white] forSubviewsOfView:cell];
 			break;
 		case PQSQuestionViewPreferredBackgroundToneLight:
-				cell.backgroundColor = [UIColor clearColor];
+            cell.backgroundColor = [UIColor clearColor];
+            [self setTint:[UIColor appColor] forSubviewsOfView:cell];
 			break;
 			
 		default:
 			if (indexPath.row %2 == 1) {
 				cell.backgroundColor = [UIColor clearColor];
+                [self setTint:[UIColor appColor] forSubviewsOfView:cell];
 			} else {
-				cell.backgroundColor = [[UIColor appColor3] colorWithAlphaComponent:0.23f];
+                cell.backgroundColor = [[UIColor appColor] colorWithAlphaComponent:0.923f];
+                [self setTint:[UIColor white] forSubviewsOfView:cell];
 			}
 			break;
 	}
 	
 	return cell;
+}
+
+- (void)setTint:(UIColor *)tintColor forSubviewsOfView:(UIView *)view {
+    for (UIView *subview in view.subviews) {
+        [self setTint:tintColor forSubviewsOfView:subview];
+    }
+    
+    view.tintColor = tintColor;
+    
+    if ([view respondsToSelector:@selector(setTitleColor:forState:)]) {
+        UIButton *button = (UIButton *)view;
+        [button setTitleColor:tintColor
+                     forState:UIControlStateNormal];
+    } else if ([view respondsToSelector:@selector(setTextColor:)]) {
+        UILabel *label = (UILabel *)view;
+        [label setTextColor:tintColor];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -479,7 +504,7 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 }
 
 - (CGRect)frameForQuestion:(PQSQuestion *)question {
-	CGRect frame = CGRectMake(10.0f, 0.0f, self.questionTableView.frame.size.width - 20.0f, [question estimatedHeightForQuestionView]);
+	CGRect frame = CGRectMake(10.0f, 10.0f, self.questionTableView.frame.size.width - 20.0f, [question estimatedHeightForQuestionView]);
 	
 	return frame;
 }

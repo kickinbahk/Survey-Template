@@ -29,7 +29,8 @@ typedef NS_ENUM(NSUInteger, PQSQuestionType) {
 	PQSQuestionTypeMultiColumnConditional,
 	PQSQuestionTypeDate,
 	PQSQuestionTypeTime,
-	PQSQuestionTypeLargeNumber
+	PQSQuestionTypeLargeNumber,
+    PQSQuestionType1to10,
 };
 
 typedef NS_ENUM(NSUInteger, PQSHeaderType) {

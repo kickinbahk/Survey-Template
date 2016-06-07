@@ -231,6 +231,14 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		[self largeNumberLayout];
 	} else if (self.question.questionType == PQSQuestionTypeTextView) {
 		[self textFieldLayout];
+    } else if (self.question.questionType == PQSQuestionType1to10) {
+        if (self.question.possibleAnswers.count < self.question.maximumScale - self.question.minimumScale) {
+            for (int i = self.question.minimumScale; i <= self.question.maximumScale; i++) {
+                [self.question.possibleAnswers addObject:@(i).description];
+            }
+        }
+        self.question.questionType = PQSQuestionTypeRadioButtons;
+        [self radioButtonLayout];
 	} else if (self.question.question.length > 0 && self.question.questionType != PQSQuestionTypeNone) {
 		NSLog(@"Question type not recognized. %zd \n%@", self.question.questionType, self.question.question);
 	}
@@ -255,6 +263,8 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		[self layoutRightLabel];
 		frame.size.width = self.bounds.size.width - _rightLabel.frame.size.width;
 	}
+    
+    frame.origin.y += buffer * 2.0f;
 	
 	return frame;
 }
@@ -269,13 +279,21 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	}
 	
 	_leftLabel.text = self.question.leftLabelText;
-	_leftLabel.textColor = [UIColor appColor];
+    if (self.question.preferredBackgroundTone == PQSQuestionViewPreferredBackgroundToneDark) {
+        _leftLabel.textColor = [UIColor white];
+    } else {
+        _leftLabel.textColor = [UIColor appColor];
+    }
+    
+    CGPoint center = CGPointMake(_leftLabel.center.x, _segmentedControl.center.y);
 	
 	if (_tableView) {
-		_leftLabel.center = CGPointMake(_leftLabel.center.x, _tableView.center.y);
-	} else if (_segmentedControl) {
-		_leftLabel.center = CGPointMake(_leftLabel.center.x, _segmentedControl.center.y);
+		center = CGPointMake(_leftLabel.center.x, _tableView.center.y);
+    } else {
+        center.y += 20;
 	}
+    
+    _leftLabel.center = center;
 	
 	[self addSubview:_leftLabel];
 }
@@ -299,14 +317,23 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	}
 	
 	_rightLabel.text = self.question.rightLabelText;
-	_rightLabel.textColor = [UIColor appColor];
+    
+    if (self.question.preferredBackgroundTone == PQSQuestionViewPreferredBackgroundToneDark) {
+        _rightLabel.textColor = [UIColor white];
+    } else {
+        _rightLabel.textColor = [UIColor appColor];
+    }
 	
-	if (_tableView) {
-		_rightLabel.center = CGPointMake(_rightLabel.center.x, _tableView.center.y);
-	} else if (_segmentedControl) {
-		_rightLabel.center = CGPointMake(_rightLabel.center.x, _segmentedControl.center.y);
-	}
-	
+    CGPoint center = CGPointMake(_rightLabel.center.x, _segmentedControl.center.y);
+    
+    if (_tableView) {
+        center = CGPointMake(_rightLabel.center.x, _tableView.center.y);
+    } else {
+        center.y += 20;
+    }
+    
+    _rightLabel.center = center;
+
 	[self addSubview:_rightLabel];
 }
 

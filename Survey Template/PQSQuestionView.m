@@ -304,7 +304,7 @@
 	if (self.question.questionType == PQSQuestionTypeMultiColumnConditional && self.question.multipleColumnShouldShowQuestion) {
 		frame.size.height += 66.0f;
 	}
-	
+    
 	
 	return frame;
 }

@@ -19,22 +19,25 @@
 //    UIColor *specialTintColor = [self specialTintColor];
 //    if (specialTintColor) return specialTintColor;
 	
-	return [UIColor colorWithRed:0.0f/255.0f green:71.0f/255.0f blue:127.0f/255.0f alpha:0.97f];
+    return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
 }
 
 + (UIColor *)appColor1 {
-	return [UIColor colorWithRed:0.0f/255.0f green:36.0f/255.0f blue:63.0f/255.0f alpha:0.97f];
+    return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
 }
 
 + (UIColor *)appColor2 {
-	return [UIColor colorWithRed:0.0f/255.0f green:71.0f/255.0f blue:127.0f/255.0f alpha:0.97f];
+    return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
+    return [UIColor colorWithRed:11.0f/255.0f green:94.0f/255.0f blue:215.0f/255.0f alpha:0.97f];
 }
 
 + (UIColor *)appColor3 {
+    return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
 	return [UIColor colorWithRed:122.0f/255.0f green:164.0f/255.0f blue:192.0f/255.0f alpha:0.97f];
 }
 
 + (UIColor *)appColor4 {
+    return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
     return [UIColor colorWithRed:232.0f/255.0f green:190.0f/255.0f blue:48.0f/255.0f alpha:0.97f];
 }
 

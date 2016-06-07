@@ -36,7 +36,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Location information will be included in survey results.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Survey would like to use your location.</string>
+	<string>Sleep Survey would like to use your location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location information will be included in survey results.</string>
 	<key>UIAppFonts</key>
