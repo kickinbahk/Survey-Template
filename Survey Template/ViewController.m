@@ -472,6 +472,10 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
         return 0.0f;
     }
     
+    if (header.fixedHeight > 0) {
+        return header.fixedHeight;
+    }
+    
 	return header.estimatedHeightForQuestionView;
 }
 
