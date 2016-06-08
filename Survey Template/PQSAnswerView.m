@@ -67,6 +67,8 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	BOOL checkForTimeUpdate;
 	
 	UITapGestureRecognizer *_tap;
+    
+    CGSize segmentedControlSize;
 }
 
 - (instancetype)init {
@@ -239,6 +241,22 @@ static NSString * const senderKey = @"s£nD£rK£Y";
         }
         self.question.questionType = PQSQuestionTypeRadioButtons;
         [self radioButtonLayout];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CGRect frame = _segmentedControl.frame;
+            
+            if (segmentedControlSize.width + segmentedControlSize.height > 0) {
+                frame.size.width = segmentedControlSize.width;
+                frame.size.height = segmentedControlSize.height;
+            } else {
+                frame.size.height += 20.0f;
+                frame.size.width += 100.0f;
+                
+                segmentedControlSize = frame.size;
+            }
+            
+            _segmentedControl.frame = frame;
+        });
 	} else if (self.question.question.length > 0 && self.question.questionType != PQSQuestionTypeNone) {
 		NSLog(@"Question type not recognized. %zd \n%@", self.question.questionType, self.question.question);
 	}
@@ -508,6 +526,18 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	if (_additionalLabels.count != self.question.possibleAnswers.count) {
 		
 	}
+    
+    CGRect frame = _segmentedControl.frame;
+    if (segmentedControlSize.width + segmentedControlSize.height > 0) {
+        frame.size.width = segmentedControlSize.width;
+        frame.size.height = segmentedControlSize.height;
+    } else {
+        frame.size.height += 20.0f;
+        frame.size.width += 100.0f;
+        
+        segmentedControlSize = frame.size;
+    }
+    _segmentedControl.frame = frame;
 }
 
 -(void)resizeSegmentsToFitTitles:(PQSSegmentedControl *)segCtrl {
