@@ -135,14 +135,22 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
         PQSQuestion *primaryHeader = PQSQuestion.new;
         primaryHeader.questionType = PQSQuestionTypeNone;
         primaryHeader.headerType = PQSHeaderTypePlain;
-        primaryHeader.question = @"SLEEP 2016";
+        primaryHeader.question = @"";
+        primaryHeader.fixedHeight = 1.0f;
         [_questions addObject:primaryHeader];
         
         PQSQuestion *subHeader = PQSQuestion.new;
         subHeader.questionType = PQSQuestionTypeNone;
         subHeader.headerType = PQSHeaderTypePlain;
-        subHeader.question = @"Sleep Survey";
+        subHeader.question = @"Envisioning the future of healthy sleep";
         [_questions addObject:subHeader];
+        
+        PQSQuestion *question0 = PQSQuestion.new;
+        question0.question = @"Are you a physician?";
+        question0.questionType = PQSQuestionTypeTrueFalse;
+        question0.useYesNoForTrueFalse = YES;
+        question0.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+        [_questions addObject:question0];
         
         PQSQuestion *question1 = PQSQuestion.new;
         question1.questionType = PQSQuestionType1to10;
@@ -154,14 +162,19 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
         question1.question = @"Based upon your experience with us today, how clearly has Philips conveyed its vision for helping people to get better sleep?";
         [_questions addObject:question1];
         
+        [_questions addObject:self.blankQuestion];
+        
         PQSQuestion *question2 = PQSQuestion.new;
         question2.questionType = PQSQuestionType1to10;
         question2.minimumScale = 0;
         question2.maximumScale = 10;
+        question2.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
         question2.leftLabelText = @"Not at all innovative";
         question2.rightLabelText = @"                Extremely innovative";
         question2.question = @"How innovative have you found the concepts shown and discussed with you today in this Philips “Envisioning the future of healthy sleep” booth?";
         [_questions addObject:question2];
+        
+        [_questions addObject:self.blankQuestion];
         
         PQSQuestion *question3 = PQSQuestion.new;
         question3.questionType = PQSQuestionType1to10;
@@ -173,8 +186,11 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
         question3.question = @"Based upon your experience with us today, how likely are you to recommend that a colleague visit this Philips “Envisioning the future of healthy sleep” booth?";
         [_questions addObject:question3];
         
+        [_questions addObject:self.blankQuestion];
+        
         PQSQuestion *question4 = PQSQuestion.new;
         question4.questionType = PQSQuestionTypeTextView;
+        question4.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
         question4.question = @"What questions or comments do you have after visiting this Philips “Envisioning the future of healthy sleep” booth?";
         question4.placeholderText = @"[Tap here to type your answer.]";
         [_questions addObject:question4];
@@ -182,6 +198,10 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
         PQSQuestion *blankQuestion = PQSQuestion.new;
         blankQuestion.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
         [_questions addObject:blankQuestion];
+        
+        question1.fixedHeight = 110.0f;
+        question2.fixedHeight = question1.fixedHeight;
+        question3.fixedHeight = question1.fixedHeight;
 		
 		[self createKeys];
 		
@@ -227,6 +247,13 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 	}
 	
 	return self;
+}
+
+- (PQSQuestion *)blankQuestion {
+    PQSQuestion *blankQuestion = PQSQuestion.new;
+    blankQuestion.fixedHeight = 10.0f;
+    blankQuestion.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+    return blankQuestion;
 }
 
 - (void)addHeader:(NSString *)title {
