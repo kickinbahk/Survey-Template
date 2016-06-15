@@ -126,7 +126,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		[self createKeys];
 		
 		
-		PQSQuestion *blankQuestion = PQSQuestion.new;
+		PQSQuestion *blankQuestion = PQSQuestion.blankQuestion;
 		blankQuestion.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
 		[_questions addObject:blankQuestion];
 		
@@ -138,8 +138,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 				[_headers addObject:question];
 			} else {
 				if (_headers.count == 0) {
-					PQSQuestion *header = PQSQuestion.new;
-					header.headerType = PQSHeaderTypePlain;
+					PQSQuestion *header = PQSQuestion.plainHeader;
 					[_headers addObject:header];
 				}
 				
@@ -334,9 +333,10 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 	return dictionaries;
 }
 
+// Automatically creates keys for each question based off of the text of the question
 - (void)createKeys {
 	if (!_questionsAndKeys) {
-		_questionsAndKeys = [NSMutableDictionary new];
+		_questionsAndKeys = NSMutableDictionary.new;
 	} else {
 		[_questionsAndKeys removeAllObjects];
 	}
@@ -436,6 +436,10 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
     // format string (remove all non alphanumeric characters)
     return [[key componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]] componentsJoinedByString:@""];
 }
+
+
+
+
 
 - (NSMutableAttributedString *)boldText:(NSArray *)texts inString:(NSString *)source {
 	NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source

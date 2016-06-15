@@ -211,7 +211,28 @@
 
 
 
+
+
+
+
 #pragma mark - Convenience initializers
+
++ (instancetype)blankQuestion {
+    PQSQuestion *question = PQSQuestion.new;
+    
+    question.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
+    
+    return question;
+}
+
++ (instancetype)blankQuestionWithHeight:(CGFloat)height {
+    PQSQuestion *question = PQSQuestion.blankQuestion;
+    
+    question.fixedHeight = height;
+    
+    return question;
+}
+
 
 + (instancetype)checkBoxesQuestion {
     PQSQuestion *question = PQSQuestion.new;

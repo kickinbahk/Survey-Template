@@ -483,7 +483,7 @@
 }
 
 - (PQSQuestion *)whichCountryQuestion {
-    PQSQuestion *whichCountryQuestion = PQSQuestion.new;
+    PQSQuestion *whichCountryQuestion = PQSQuestion.longListQuestion;
     NSMutableAttributedString *whichCountryQuestionAttributedString = [[NSMutableAttributedString alloc]initWithString:
                                                                        @"In which country do you practice?"];
     UIFont *whichCountryQuestionAttributedStringFont1 = [UIFont appFont];
@@ -494,7 +494,6 @@
     [whichCountryQuestionAttributedString addAttribute:NSFontAttributeName value:whichCountryQuestionAttributedStringFont1 range:NSMakeRange(17,16)];
     whichCountryQuestion.attributedQuestion = whichCountryQuestionAttributedString;
     whichCountryQuestion.question = whichCountryQuestionAttributedString.string;
-    whichCountryQuestion.questionType = PQSQuestionTypeLongList;
     whichCountryQuestion.placeholderText = PQSReferenceManager.defaultCountry;
     whichCountryQuestion.longListTitle = @"Select Country";
     whichCountryQuestion.hideBorder = NO;

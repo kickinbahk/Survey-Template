@@ -279,6 +279,8 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
  */
 @property BOOL clipsToBounds;
 
++ (instancetype)blankQuestion;
++ (instancetype)blankQuestionWithHeight:(CGFloat)height;
 
 + (instancetype)checkBoxesQuestion;
 + (instancetype)dateQuestion;
