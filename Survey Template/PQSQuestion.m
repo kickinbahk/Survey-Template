@@ -353,10 +353,10 @@
 - (void)appendAndItalicizedText:(NSString *)text {
     if (self.attributedQuestion.length > 0) {
         self.attributedQuestion = [self appendItalicizedText:text
-                                                    toString:self.attributedQuestion];
+                                          toAttributedString:self.attributedQuestion];
     } else {
         self.attributedQuestion = [self appendItalicizedText:text
-                                                    toString:[[NSAttributedString alloc] initWithString:self.question]];
+                                                    toString:self.question];
     }
 }
 
@@ -543,6 +543,41 @@
     
     return allStringsContained;
 }
+
+
+- (BOOL)boldTextUntilString:(NSString *)demarcationString {
+    NSInteger locationOfString = [self.question rangeOfString:demarcationString].location;
+    
+    if (locationOfString == NSNotFound) {
+        [self boldText:self.question];
+    } else {
+        locationOfString += demarcationString.length;
+    }
+    
+    if (locationOfString < self.question.length) {
+        NSString *boldText = [self.question substringToIndex:locationOfString];
+        [self boldText:boldText];
+    }
+
+    return YES;
+}
+
+- (BOOL)boldTextAfterString:(NSString *)demarcationString {
+    NSInteger locationOfString = [self.question rangeOfString:demarcationString].location;
+    if (locationOfString == NSNotFound) {
+        return NO;
+    } else {
+        locationOfString += demarcationString.length;
+    }
+    
+    if (locationOfString < self.question.length) {
+        NSString *boldText = [self.question substringFromIndex:locationOfString];
+        [self boldText:boldText];
+    }
+    
+    return YES;
+}
+
 
 
 
@@ -1318,10 +1353,20 @@
     return attributedString;
 }
 
-- (NSMutableAttributedString *)appendItalicizedText:(NSString *)textToItalicize toString:(NSAttributedString *)source {
+- (NSMutableAttributedString *)appendItalicizedText:(NSString *)textToItalicize toAttributedString:(NSAttributedString *)source {
     NSMutableAttributedString *mutableSource = [[NSMutableAttributedString alloc] initWithAttributedString:source];
     
-    NSAttributedString *italicString = [[NSAttributedString alloc] initWithString:textToItalicize attributes:@{NSFontAttributeName : [UIFont italicAppFont]}];
+    NSAttributedString *italicString = [[NSAttributedString alloc] initWithString:textToItalicize attributes:@{NSFontAttributeName : [UIFont italicAppFontOfSize:UIFont.appFontSize*0.75f]}];
+    
+    [mutableSource appendAttributedString:italicString];
+    
+    return mutableSource;
+}
+
+- (NSMutableAttributedString *)appendItalicizedText:(NSString *)textToItalicize toString:(NSString *)source {
+    NSMutableAttributedString *mutableSource = [[NSMutableAttributedString alloc] initWithString:source];
+    
+    NSAttributedString *italicString = [[NSAttributedString alloc] initWithString:textToItalicize attributes:@{NSFontAttributeName : [UIFont italicAppFontOfSize:UIFont.appFontSize*0.75f]}];
     
     [mutableSource appendAttributedString:italicString];
     

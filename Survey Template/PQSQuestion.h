@@ -308,6 +308,10 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
 - (BOOL)boldUnderlineAndItalicizeTexts:(NSArray *)texts;
 
 
+- (BOOL)boldTextUntilString:(NSString *)demarcationString;
+- (BOOL)boldTextAfterString:(NSString *)demarcationString;
+
+
 
 
 /**

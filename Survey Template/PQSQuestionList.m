@@ -283,37 +283,29 @@
     for (NSString *questionText in similarQuestions) {
         PQSQuestion *rootQuestion = PQSQuestion.multiColumnConditionalQuestion;
         rootQuestion.question = questionText;
-        NSInteger locationOfColon = [questionText rangeOfString:@":"].location;
-        if (locationOfColon == NSNotFound) {
-            locationOfColon = questionText.length - 1;
-        } else {
-            locationOfColon++;
-        }
-        
-        if (locationOfColon < questionText.length) {
-            NSString *boldText = [questionText substringToIndex:locationOfColon];
-            [rootQuestion boldText:boldText];
-        }
+        [rootQuestion boldTextUntilString:@":"];
         
         [self addObject:rootQuestion];
         
         PQSQuestion *questionA = PQSQuestion.yesNoQuestion;
         questionA.question = @"Clinically Acceptable*";
         
-        PQSQuestion *radioButtonsQuestion = PQSQuestion.radioButtonsQuestion;
-        radioButtonsQuestion.question = @"How does Love compare to hate?†";
-        radioButtonsQuestion.attributedQuestion = [self appendItalicizedText:@"(Optional)"
-                                                                    toString:[[NSAttributedString alloc] initWithString:radioButtonsQuestion.question]];
-        [radioButtonsQuestion.possibleAnswers addObjectsFromArray:@[@"LoVe much better", @"LoVe better", @"Same", @"LoVe worse\n(Please describe)"]];
-        rootQuestion.triggerAnswer = [radioButtonsQuestion.possibleAnswers lastObject];
+        PQSQuestion *radioButtonSubQuestion = PQSQuestion.radioButtonsQuestion;
+        radioButtonSubQuestion.question = @"How does Love compare to hate?†";
+        [radioButtonSubQuestion appendAndItalicizedText:@"(Optional)"];
+        [radioButtonSubQuestion.possibleAnswers addObjectsFromArray:@[@"LoVe much better", @"LoVe better", @"Same", @"LoVe worse\n(Please describe)"]];
+        radioButtonSubQuestion.triggerAnswer = [radioButtonSubQuestion.possibleAnswers lastObject];
         
         PQSQuestion *conditionalQuestion = PQSQuestion.textViewQuestion;
         conditionalQuestion.question = @"Please describe";
         conditionalQuestion.placeholderText = @"Please describe";
         rootQuestion.triggerQuestion = conditionalQuestion;
         
-        [rootQuestion setMultipleColumnQuestions:@[questionA, radioButtonsQuestion]];
+        [rootQuestion setMultipleColumnQuestions:@[questionA, radioButtonSubQuestion]];
     }
+    
+    
+    
     
     PQSQuestion *twoWayExclusivityQuestion = PQSQuestion.twoWayExclusivityQuestion;
     twoWayExclusivityQuestion.question = @"Rank the following as your first, second, and third choice.";

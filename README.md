@@ -19,7 +19,6 @@ Add the questions to `PQSQuestionList` by following the example questions that a
 • Fix bug that requires two headers to start every survey
 • Fix sizing changes on True False Question layouts in PQSQuestion (estimated height)
 • Fix Clipping on second question for PQSQuestionTypeTrueFalseConditional2
-• Fix appendAndItalicizedText in `PQSQuestion`
 • Solve multiple dependencies on questions
 • Improve HAI branding (colors and layout)
 • Allow interaction with PQSMultipleChoiceQuestion table view

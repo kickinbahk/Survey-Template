@@ -11,8 +11,12 @@
 
 @implementation UIFont (AppFonts)
 
++ (CGFloat)appFontSize {
+    return 18.0f;
+}
+
 + (UIFont *)appFont {
-	return [self appFontOfSize:18.0f];
+	return [self appFontOfSize:UIFont.appFontSize];
 }
 
 + (UIFont *)appFontOfSize:(float)fontSize {
@@ -20,7 +24,7 @@
 }
 
 + (UIFont *)boldAppFont {
-	return [self boldAppFontOfSize:18.0f];
+	return [self boldAppFontOfSize:UIFont.appFontSize];
 }
 
 + (UIFont *)boldAppFontOfSize:(float)fontSize {
@@ -28,7 +32,7 @@
 }
 
 + (UIFont *)italicAppFont {
-	return [self italicAppFontOfSize:18.0f];
+	return [self italicAppFontOfSize:UIFont.appFontSize];
 }
 
 + (UIFont *)italicAppFontOfSize:(float)fontSize {
@@ -36,7 +40,7 @@
 }
 
 + (UIFont *)boldItalicAppFont {
-	return [UIFont boldItalicAppFontOfSize:18.0f];
+	return [UIFont boldItalicAppFontOfSize:UIFont.appFontSize];
 }
 
 + (UIFont *)italicBoldAppFont {

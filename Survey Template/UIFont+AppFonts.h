@@ -10,6 +10,8 @@
 
 @interface UIFont (AppFonts)
 
++ (CGFloat)appFontSize;
+
 + (UIFont *)appFont;
 
 + (UIFont *)appFontOfSize:(float)fontSize;
