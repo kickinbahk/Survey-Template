@@ -74,8 +74,7 @@
     
     PQSQuestion *question1 = PQSQuestion.largeNumberQuestion;
     question1.question = @"This allows typing in any number. Usefull for Large Numbers";
-    question1.attributedQuestion = [self boldText:@[@"10"]
-                                         inString:question1.question];
+    [question1 boldText:@"Large Numbers"];
     question1.scaleSuffix = @"Eggs";
     question1.placeholderText = @"Eggs";
     question1.minimumScale = 0;
@@ -83,11 +82,10 @@
     [self addObject:question1];
     
     
-    PQSQuestion *question2 = PQSQuestion.largeNumberQuestion;
+    PQSQuestion *question2 = PQSQuestion.incrementalQuestion;
     question2.question = @"Bolding words in a sentence. Often times, the client will want to stylize the text of the question.";
-    question2.attributedQuestion = [self boldText:@[@"Bold", @"sentence"]
-                                         inString:question2.question];
-    question2.scaleSuffix = @"Things";
+    [question2 boldTexts:@[@"Bold", @"sentence"]];
+    question2.scaleSuffix = @" Things";
     question2.scaleInterval = 5;
     question2.minimumScale = 0;
     question2.maximumScale = 100;
@@ -201,8 +199,7 @@
     incrementalQuestion.minimumScale = 0;
     incrementalQuestion.maximumScale = 5;
     incrementalQuestion.question = @"How many eggs in Huevos Rancheros?";
-    incrementalQuestion.attributedQuestion = [self boldAndUnderlineText:@[@"Heuvos"]
-                                                               inString:incrementalQuestion.question];
+    [incrementalQuestion boldAndUnderlineText:@"Huevos"];
     [self addObject:incrementalQuestion];
     
     PQSQuestion *tacoQuestion = PQSQuestion.scaleQuestion;
@@ -216,8 +213,7 @@
     
     PQSQuestion *percentageQuestion = PQSQuestion.percentageQuestion;
     percentageQuestion.question = @"What percent of your meals would you like to be south of the border?";
-    percentageQuestion.attributedQuestion = [self italicizeText:@[@"south"]
-                                                       inString:percentageQuestion.question];
+    [percentageQuestion italicizeText:@"south"];
     percentageQuestion.startingPoint = 50.0f;
     [self addObject:percentageQuestion];
     
@@ -296,8 +292,7 @@
         
         if (locationOfColon < questionText.length) {
             NSString *boldText = [questionText substringToIndex:locationOfColon];
-            rootQuestion.attributedQuestion = [self boldText:@[boldText]
-                                                    inString:questionText];
+            [rootQuestion boldText:boldText];
         }
         
         [self addObject:rootQuestion];

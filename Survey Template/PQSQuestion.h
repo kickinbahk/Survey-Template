@@ -279,6 +279,40 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
  */
 @property BOOL clipsToBounds;
 
+
+
+
+- (BOOL)boldText:(NSString *)text;
+- (BOOL)boldTexts:(NSArray *)texts;
+
+- (BOOL)italicizeText:(NSString *)text;
+- (BOOL)italicizeTexts:(NSArray *)texts;
+
+- (BOOL)underlineText:(NSString *)text;
+- (BOOL)underlineTexts:(NSArray *)texts;
+
+- (void)appendAndItalicizedText:(NSString *)text;
+
+
+
+- (BOOL)boldAndItalicizeText:(NSString *)text;
+- (BOOL)boldAndItalicizeTexts:(NSArray *)texts;
+
+- (BOOL)boldAndUnderlineText:(NSString *)text;
+- (BOOL)boldAndUnderlineTexts:(NSArray *)texts;
+
+- (BOOL)underlineAndItalicizeText:(NSString *)text;
+- (BOOL)underlineAndItalicizeTexts:(NSArray *)texts;
+
+- (BOOL)boldUnderlineAndItalicizeText:(NSString *)text;
+- (BOOL)boldUnderlineAndItalicizeTexts:(NSArray *)texts;
+
+
+
+
+/**
+ *  Convenience initializers
+ */
 + (instancetype)blankQuestion;
 + (instancetype)blankQuestionWithHeight:(CGFloat)height;
 

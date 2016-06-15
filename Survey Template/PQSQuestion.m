@@ -210,8 +210,339 @@
 
 
 
+#pragma mark - Changing Attributes to Attributed Question
 
+- (BOOL)boldText:(NSString *)text {
+    if (self.attributedQuestion.length > 0) {
+        if (![self.attributedQuestion.string containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self boldText:@[text]
+                                        inAttributedString:self.attributedQuestion];
+    } else {
+        if (![self.question containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self boldText:@[text]
+                                        inString:self.question];
+    }
+    
+    return YES;
+}
 
+- (BOOL)boldTexts:(NSArray *)texts {
+    BOOL allStringsContained = YES;
+    
+    if (self.attributedQuestion.length > 0) {
+        for (NSString *text in texts) {
+            if (![self.attributedQuestion.string containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self boldText:texts
+                              inAttributedString:self.attributedQuestion];
+    } else {
+        for (NSString *text in texts) {
+            if (![self.question containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self boldText:texts
+                                        inString:self.question];
+    }
+    
+    return allStringsContained;
+}
+
+- (BOOL)italicizeText:(NSString *)text {
+    if (self.attributedQuestion.length > 0) {
+        if (![self.attributedQuestion.string containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self italicizeText:@[text]
+                              inAttributedString:self.attributedQuestion];
+    } else {
+        if (![self.question containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self italicizeText:@[text]
+                                             inString:self.question];
+    }
+    
+    return YES;
+}
+
+- (BOOL)italicizeTexts:(NSArray *)texts {
+    BOOL allStringsContained = YES;
+    
+    if (self.attributedQuestion.length > 0) {
+        for (NSString *text in texts) {
+            if (![self.attributedQuestion.string containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self italicizeText:texts
+                                   inAttributedString:self.attributedQuestion];
+    } else {
+        for (NSString *text in texts) {
+            if (![self.question containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self italicizeText:texts
+                                             inString:self.question];
+    }
+    
+    return allStringsContained;
+}
+
+- (BOOL)underlineText:(NSString *)text {
+    if (self.attributedQuestion.length > 0) {
+        if (![self.attributedQuestion.string containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self underlineText:@[text]
+                                   inAttributedString:self.attributedQuestion];
+    } else {
+        if (![self.question containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self underlineText:@[text]
+                                             inString:self.question];
+    }
+    
+    return YES;
+}
+
+- (BOOL)underlineTexts:(NSArray *)texts {
+    BOOL allStringsContained = YES;
+    
+    if (self.attributedQuestion.length > 0) {
+        for (NSString *text in texts) {
+            if (![self.attributedQuestion.string containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self underlineText:texts
+                                   inAttributedString:self.attributedQuestion];
+    } else {
+        for (NSString *text in texts) {
+            if (![self.question containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self underlineText:texts
+                                             inString:self.question];
+    }
+    
+    return allStringsContained;
+}
+
+- (void)appendAndItalicizedText:(NSString *)text {
+    if (self.attributedQuestion.length > 0) {
+        self.attributedQuestion = [self appendItalicizedText:text
+                                                    toString:self.attributedQuestion];
+    } else {
+        self.attributedQuestion = [self appendItalicizedText:text
+                                                    toString:[[NSAttributedString alloc] initWithString:self.question]];
+    }
+}
+
+- (BOOL)boldAndItalicizeText:(NSString *)text {
+    if (self.attributedQuestion.length > 0) {
+        if (![self.attributedQuestion.string containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self boldAndItalicizeText:@[text]
+                                           inAttributedString:self.attributedQuestion];
+    } else {
+        if (![self.question containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self boldAndItalicizeText:@[text]
+                                                    inString:self.question];
+    }
+    
+    return YES;
+}
+
+- (BOOL)boldAndItalicizeTexts:(NSArray *)texts {
+    BOOL allStringsContained = YES;
+    
+    if (self.attributedQuestion.length > 0) {
+        for (NSString *text in texts) {
+            if (![self.attributedQuestion.string containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self boldAndItalicizeText:texts
+                                          inAttributedString:self.attributedQuestion];
+    } else {
+        for (NSString *text in texts) {
+            if (![self.question containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self boldAndItalicizeText:texts
+                                                    inString:self.question];
+    }
+    
+    return allStringsContained;
+}
+
+- (BOOL)boldAndUnderlineText:(NSString *)text {
+    if (self.attributedQuestion.length > 0) {
+        if (![self.attributedQuestion.string containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self boldAndUnderlineText:@[text]
+                                          inAttributedString:self.attributedQuestion];
+    } else {
+        if (![self.question containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self boldAndUnderlineText:@[text]
+                                                    inString:self.question];
+    }
+    
+    return YES;
+}
+
+- (BOOL)boldAndUnderlineTexts:(NSArray *)texts {
+    BOOL allStringsContained = YES;
+    
+    if (self.attributedQuestion.length > 0) {
+        for (NSString *text in texts) {
+            if (![self.attributedQuestion.string containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self boldAndUnderlineText:texts
+                                          inAttributedString:self.attributedQuestion];
+    } else {
+        for (NSString *text in texts) {
+            if (![self.question containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self boldAndUnderlineText:texts
+                                                    inString:self.question];
+    }
+    
+    return allStringsContained;
+}
+
+- (BOOL)underlineAndItalicizeText:(NSString *)text {
+    if (self.attributedQuestion.length > 0) {
+        if (![self.attributedQuestion.string containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self underlineAndItalicizeText:@[text]
+                                               inAttributedString:self.attributedQuestion];
+    } else {
+        if (![self.question containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self underlineAndItalicizeText:@[text]
+                                                         inString:self.question];
+    }
+    
+    return YES;
+}
+
+- (BOOL)underlineAndItalicizeTexts:(NSArray *)texts {
+    BOOL allStringsContained = YES;
+    
+    if (self.attributedQuestion.length > 0) {
+        for (NSString *text in texts) {
+            if (![self.attributedQuestion.string containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self underlineAndItalicizeText:texts
+                                          inAttributedString:self.attributedQuestion];
+    } else {
+        for (NSString *text in texts) {
+            if (![self.question containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self underlineAndItalicizeText:texts
+                                                    inString:self.question];
+    }
+    
+    return allStringsContained;
+}
+
+- (BOOL)boldUnderlineAndItalicizeText:(NSString *)text {
+    if (self.attributedQuestion.length > 0) {
+        if (![self.attributedQuestion.string containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self boldItalicAndUnderlineText:@[text]
+                                                inAttributedString:self.attributedQuestion];
+    } else {
+        if (![self.question containsString:text]) {
+            return NO;
+        }
+        
+        self.attributedQuestion = [self boldItalicAndUnderlineText:@[text]
+                                                          inString:self.question];
+    }
+    
+    return YES;
+}
+
+- (BOOL)boldUnderlineAndItalicizeTexts:(NSArray *)texts {
+    BOOL allStringsContained = YES;
+    
+    if (self.attributedQuestion.length > 0) {
+        for (NSString *text in texts) {
+            if (![self.attributedQuestion.string containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self boldItalicAndUnderlineText:texts
+                                               inAttributedString:self.attributedQuestion];
+    } else {
+        for (NSString *text in texts) {
+            if (![self.question containsString:text]) {
+                allStringsContained = NO;
+            }
+        }
+        
+        self.attributedQuestion = [self boldItalicAndUnderlineText:texts
+                                                         inString:self.question];
+    }
+    
+    return allStringsContained;
+}
 
 
 
@@ -755,6 +1086,248 @@
     
     return _countryCodeList;
 }
+
+
+
+
+#pragma mark - Attributed String
+
+- (NSMutableAttributedString *)boldText:(NSArray *)texts inString:(NSString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
+                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont boldAppFont]
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)boldText:(NSArray *)texts inAttributedString:(NSAttributedString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:source];
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source.string rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont boldAppFont]
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+
+- (NSMutableAttributedString *)underlineText:(NSArray *)texts inString:(NSString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
+                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSUnderlineStyleAttributeName
+                                     value:@(1)
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)underlineText:(NSArray *)texts inAttributedString:(NSAttributedString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:source];
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source.string rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSUnderlineStyleAttributeName
+                                     value:@(1)
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)italicizeText:(NSArray *)texts inString:(NSString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
+                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
+    for (NSString *textToItalicize in texts) {
+        NSRange textRange = [source rangeOfString:textToItalicize];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont italicAppFont]
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)italicizeText:(NSArray *)texts inAttributedString:(NSAttributedString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:source];
+    for (NSString *textToItalicize in texts) {
+        NSRange textRange = [source.string rangeOfString:textToItalicize];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont italicAppFont]
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)boldAndItalicizeText:(NSArray *)texts inString:(NSString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
+                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont boldItalicAppFont]
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)boldAndItalicizeText:(NSArray *)texts inAttributedString:(NSAttributedString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:source];
+    
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source.string rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont boldItalicAppFont]
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)boldAndUnderlineText:(NSArray *)texts inString:(NSString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
+                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont boldAppFont]
+                                     range:textRange];
+            [attributedString addAttribute:NSUnderlineStyleAttributeName
+                                     value:@(1)
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)boldAndUnderlineText:(NSArray *)texts inAttributedString:(NSAttributedString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:source];
+    
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source.string rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont boldAppFont]
+                                     range:textRange];
+            [attributedString addAttribute:NSUnderlineStyleAttributeName
+                                     value:@(1)
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)underlineAndItalicizeText:(NSArray *)texts inString:(NSString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
+                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont italicAppFont]
+                                     range:textRange];
+            [attributedString addAttribute:NSUnderlineStyleAttributeName
+                                     value:@(1)
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)underlineAndItalicizeText:(NSArray *)texts inAttributedString:(NSAttributedString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:source];
+    
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source.string rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont italicAppFont]
+                                     range:textRange];
+            [attributedString addAttribute:NSUnderlineStyleAttributeName
+                                     value:@(1)
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)boldItalicAndUnderlineText:(NSArray *)texts inString:(NSString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
+                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont boldItalicAppFont]
+                                     range:textRange];
+            [attributedString addAttribute:NSUnderlineStyleAttributeName
+                                     value:@(1)
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)boldItalicAndUnderlineText:(NSArray *)texts inAttributedString:(NSAttributedString *)source {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:source];
+    
+    for (NSString *textToBold in texts) {
+        NSRange textRange = [source.string rangeOfString:textToBold];
+        if (textRange.location != NSNotFound) {
+            [attributedString addAttribute:NSFontAttributeName
+                                     value:[UIFont boldItalicAppFont]
+                                     range:textRange];
+            [attributedString addAttribute:NSUnderlineStyleAttributeName
+                                     value:@(1)
+                                     range:textRange];
+        }
+    }
+    
+    return attributedString;
+}
+
+- (NSMutableAttributedString *)appendItalicizedText:(NSString *)textToItalicize toString:(NSAttributedString *)source {
+    NSMutableAttributedString *mutableSource = [[NSMutableAttributedString alloc] initWithAttributedString:source];
+    
+    NSAttributedString *italicString = [[NSAttributedString alloc] initWithString:textToItalicize attributes:@{NSFontAttributeName : [UIFont italicAppFont]}];
+    
+    [mutableSource appendAttributedString:italicString];
+    
+    return mutableSource;
+}
+
 
 
 @end
