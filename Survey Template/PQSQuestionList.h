@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PQSQuestionList : NSMutableArray
+@interface PQSQuestionList : NSObject
+
++ (NSMutableArray *)defaultQuestions;
 
 @end

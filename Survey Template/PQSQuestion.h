@@ -278,4 +278,8 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
  */
 @property BOOL clipsToBounds;
 
+
+
++ (instancetype)multipleChoiceQuestion;
+
 @end

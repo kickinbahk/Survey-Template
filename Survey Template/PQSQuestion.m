@@ -204,4 +204,19 @@
 	
 }
 
+
+
+
+
+
+#pragma mark - Convenience initializers
+
++ (instancetype)multipleChoiceQuestion {
+    PQSQuestion *question = PQSQuestion.new;
+    
+    question.questionType = PQSQuestionTypeMultipleChoice;
+    
+    return question;
+}
+
 @end
