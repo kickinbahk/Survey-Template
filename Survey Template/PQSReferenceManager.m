@@ -42,6 +42,8 @@ static NSString * const defaultShowKey = @"Default Show Key";
 static NSString * const companyKey = @"HAI"; // e.g. BSCI <or> PHIL
 
 
+
+// DO NOT CHANGE THESE VALUES!!!
 /**
  *  The key for finding the number of pending request strings stored locally
  */
