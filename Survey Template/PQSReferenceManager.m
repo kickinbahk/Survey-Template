@@ -96,68 +96,92 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 	self = [super init];
 	
 	if (self) {
-		_questions = [[NSMutableArray alloc] init];
+		_questions = NSMutableArray.new;
 		_possibleShowTitles = [[NSMutableOrderedSet alloc] initWithObjects:defaultShowTitle, @"Testing", nil];
 		_answers = [[NSMutableDictionary alloc] initWithCapacity:_questions.count];
 		_reach = [Reachability reachabilityForInternetConnection];
-		_dateFormatter = [[NSDateFormatter alloc] init];
+		_dateFormatter = NSDateFormatter.new;
 		[_dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"]; // PHP Date format
 		[self setupLocationManager];
-		_answersArray = [[NSMutableArray alloc] init];
-		_requestStrings = [[NSMutableSet alloc] init];
-		_completedRequests = [[NSMutableSet alloc] init];
+		_answersArray = NSMutableArray.new;
+		_requestStrings = NSMutableSet.new;
+		_completedRequests = NSMutableSet.new;
 		[self loadStringsFromDefaults];
 		
 		
-		PQSQuestion *header0 = [PQSQuestion new];
+		PQSQuestion *header0 = PQSQuestion.new;
 		header0.questionType = PQSQuestionTypeNone;
 		header0.headerType = PQSHeaderTypePlain;
 		header0.question = @"Plain Header";
 		[_questions addObject:header0];
-		
-		PQSQuestion *detail0 = [PQSQuestion new];
+        
+		PQSQuestion *detail0 = PQSQuestion.new;
 		detail0.questionType = PQSQuestionTypeNone;
 		detail0.headerType = PQSHeaderTypeDetail;
 		detail0.question = @"Header!";
+        detail0.fixedHeight = 1.0f;
+        detail0.clipsToBounds = YES;
+        detail0.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
 		[_questions addObject:detail0];
+        
+        PQSQuestion *question3 = [[PQSQuestion alloc] init];
+        question3.question = @"Which country are you from?";
+        question3.questionType = PQSQuestionTypeLongList;
+        question3.questionNumber = 3;
+        [question3.possibleAnswers addObjectsFromArray:self.countryCodeList.allKeys];
+        [question3.possibleAnswers sortUsingSelector:@selector(caseInsensitiveCompare:)];
+        [question3.urlKeys addEntriesFromDictionary:@{@"country" : @"which_country_practice"}];
+        [_questions addObject:question3];
+
 		
-		PQSQuestion *dateQuestion = [PQSQuestion new];
+		PQSQuestion *dateQuestion = PQSQuestion.new;
 		dateQuestion.question = @"Date Question";
 		dateQuestion.questionType = PQSQuestionTypeDate;
 		[_questions addObject:dateQuestion];
-		
         
-		PQSQuestion *question0a = [PQSQuestion new];
-		question0a.question = @"Participant Name";
-		question0a.questionType = PQSQuestionTypeTextField;
-		question0a.placeholderText = @"Participant Name";
-		[_questions addObject:question0a];
-		
-		PQSQuestion *question0b = [PQSQuestion new];
-		question0b.question = @"Questions can have different placeholder text.";
-		question0b.questionType = PQSQuestionTypeTextField;
-		question0b.placeholderText = @"Watermelon < Carnegie Mellon";
-		[_questions addObject:question0b];
-		
-		PQSQuestion *question0c = [PQSQuestion new];
-		question0c.question = @"This question will remember your preference between questions";
-		question0c.questionType = PQSQuestionTypeTextField;
-		question0c.placeholderText = question0c.question;
-		question0c.isSticky = YES;
-		[_questions addObject:question0c];
+        PQSQuestion *timeQuestion = PQSQuestion.new;
+        timeQuestion.question = @"Time scale question";
+        timeQuestion.questionType = PQSQuestionTypeTime;
+        timeQuestion.scaleSuffix = @" Minutes  ";
+        timeQuestion.startingPoint = 0;
+        timeQuestion.maximumScale = 180.0f;
+        timeQuestion.minimumScale = 0.0f;
+        timeQuestion.scaleInterval = 5.0f;
+        [_questions addObject:timeQuestion];
+        
+        
 		
 		
 		
-		
-		
-		PQSQuestion *header1 = [PQSQuestion new];
+		PQSQuestion *header1 = PQSQuestion.new;
 		header1.questionType = PQSQuestionTypeNone;
 		header1.headerType = PQSHeaderTypePlain;
-		header1.question = @"Peanut Butter Cookie Titles";
+		header1.question = @"Typing Questions";
 		[_questions addObject:header1];
+        
+        
+        PQSQuestion *question0a = PQSQuestion.new;
+        question0a.question = @"Participant Name";
+        question0a.questionType = PQSQuestionTypeTextField;
+        question0a.placeholderText = @"Participant Name";
+        [_questions addObject:question0a];
+        
+        PQSQuestion *question0b = PQSQuestion.new;
+        question0b.question = @"Questions can have different placeholder text.";
+        question0b.questionType = PQSQuestionTypeTextField;
+        question0b.placeholderText = @"This is my alternate placeholder text";
+        [_questions addObject:question0b];
+        
+        PQSQuestion *stickyQuestion = PQSQuestion.new;
+        stickyQuestion.question = @"This question will remember your preference between submissions";
+        stickyQuestion.questionType = PQSQuestionTypeTextField;
+        stickyQuestion.placeholderText = @"Useful for names that don't change";
+        stickyQuestion.isSticky = YES;
+        [_questions addObject:stickyQuestion];
+        
 		
-		PQSQuestion *question1 = [PQSQuestion new];
-		question1.question = @"This allows typing in any number.";
+		PQSQuestion *question1 = PQSQuestion.new;
+		question1.question = @"This allows typing in any number. Usefull for Large Numbers";
 		question1.attributedQuestion = [self boldText:@[@"10"] inString:question1.question];
 		question1.scaleSuffix = @"Eggs";
 		question1.placeholderText = @"Eggs";
@@ -168,9 +192,10 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		[_questions addObject:question1];
 		
 		
-		PQSQuestion *question2 = [PQSQuestion new];
-		question2.question = @"Bolding words in a sentence.";
-		question2.attributedQuestion = [self boldText:@[@"Bold", @"sentence"] inString:question2.question];
+		PQSQuestion *question2 = PQSQuestion.new;
+		question2.question = @"Bolding words in a sentence. Often times, the client will want to stylize the text of the question.";
+		question2.attributedQuestion = [self boldText:@[@"Bold", @"sentence"]
+                                             inString:question2.question];
 		question2.scaleSuffix = @"Things";
 		question2.questionType = PQSQuestionTypeLargeNumber;
 		question2.scaleInterval = 5;
@@ -178,78 +203,73 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		question2.maximumScale = 100;
         question2.placeholderText = [NSString stringWithFormat:@"%g - %g", question2.minimumScale, question2.maximumScale];
 		[_questions addObject:question2];
-		
-		PQSQuestion *question3 = [PQSQuestion new];
-		question3.question = @"Radio Button Question";
-		question3.questionType = PQSQuestionTypeRadioButtons;
-		[question3.possibleAnswers addObjectsFromArray:@[@"Taco",
-														 @"Hamburger",
-														 @"Tangerine",
-														 @"Poi"]];
-		[_questions addObject:question3];
-		
-		
-		PQSQuestion *question3a = [PQSQuestion new];
-		question3a.question = @"Time scale question";
-		question3a.questionType = PQSQuestionTypeTime;
-		question3a.scaleSuffix = @" Minutes  ";
-		question3a.startingPoint = 0;
-		question3a.maximumScale = 180.0f;
-		question3a.minimumScale = 0.0f;
-		question3a.scaleInterval = 5.0f;
-		question3a.isSticky = YES;
-		[_questions addObject:question3a];
-		
-		PQSQuestion *question3b = [PQSQuestion new];
-		question3b.question = @"Text VIEW Question";
-		question3b.questionType = PQSQuestionTypeTextView;
-		question3b.placeholderText = question3b.question;
-		[_questions addObject:question3b];
+				
 		
 		
 		
 		
 		
-		
-		PQSQuestion *header2 = [PQSQuestion new];
+		PQSQuestion *header2 = PQSQuestion.new;
 		header2.questionType = PQSQuestionTypeNone;
 		header2.headerType = PQSHeaderTypePlain;
 		header2.question = @"Header";
 		[_questions addObject:header2];
 		
+        
+        PQSQuestion *textViewQuestion = PQSQuestion.new;
+        textViewQuestion.question = @"Text VIEW Question";
+        textViewQuestion.questionType = PQSQuestionTypeTextView;
+        textViewQuestion.placeholderText = @"Type something long in here";
+        [_questions addObject:textViewQuestion];
+        
+		PQSQuestion *textFieldQuestion = PQSQuestion.new;
+		textFieldQuestion.question = @"Text Field Question";
+		textFieldQuestion.questionType = PQSQuestionTypeTextField;
+		textFieldQuestion.placeholderText = @"Type something shorter in here";
+		[_questions addObject:textFieldQuestion];
 		
-		PQSQuestion *question4a = [PQSQuestion new];
-		question4a.question = @"Text Field Question";
-		question4a.questionType = PQSQuestionTypeTextField;
-		question4a.placeholderText = question4a.question;
-		[_questions addObject:question4a];
-		
-		PQSQuestion *question4c = [PQSQuestion new];
-		question4c.question = @"Select a Date Question";
-		question4c.questionType = PQSQuestionTypeDate;
-		question4c.placeholderText = question4c.question;
-		question4c.startingDate = [NSDate dateWithTimeIntervalSinceNow:86400];
-		[_questions addObject:question4c];
-		
-		PQSQuestion *question4b = [PQSQuestion new];
-		question4b.question = @"Text Field Question";
-		question4b.questionType = PQSQuestionTypeTextField;
-		question4b.placeholderText = question4b.question;
-		[_questions addObject:question4b];
-		
-		PQSQuestion *question6a = [PQSQuestion new];
+        
+        
+        PQSQuestion *header3 = PQSQuestion.new;
+        header3.question = @"The following question has a sub-question that only appears if the user selects \"Yes\" or \"No\" and does not those them if the user doesn't answer.";
+        header3.fixedHeight = 30.0f;
+        [_questions addObject:header3];
+        
+        PQSQuestion *trueFalseConditionalQuestion = PQSQuestion.new;
+        trueFalseConditionalQuestion.question = @"Primary Question";
+        trueFalseConditionalQuestion.questionType = PQSQuestionTypeTrueFalseConditional;
+        trueFalseConditionalQuestion.useYesNoForTrueFalse = YES;
+        [_questions addObject:trueFalseConditionalQuestion];
+        
+            PQSQuestion *trueFalseConditionalQuestionTrue = PQSQuestion.new;
+            trueFalseConditionalQuestionTrue.question = @"True Question";
+            trueFalseConditionalQuestionTrue.questionType = PQSQuestionTypeTextField;
+            trueFalseConditionalQuestionTrue.placeholderText = @"This only appears if the user selected \"Yes\"";
+            trueFalseConditionalQuestionTrue.preferredBackgroundTone = trueFalseConditionalQuestion.preferredBackgroundTone;
+            trueFalseConditionalQuestion.trueConditionalQuestion	= trueFalseConditionalQuestionTrue;
+        
+            PQSQuestion *trueFalseConditionalQuestionFalse = PQSQuestion.new;
+            trueFalseConditionalQuestionFalse.question = @"False Question";
+            trueFalseConditionalQuestionFalse.questionType = PQSQuestionTypeTextField;
+            trueFalseConditionalQuestionFalse.placeholderText = @"This only appears if the user selected \"No\"";
+            trueFalseConditionalQuestionFalse.preferredBackgroundTone = trueFalseConditionalQuestion.preferredBackgroundTone;
+            trueFalseConditionalQuestion.falseConditionalQuestion	= trueFalseConditionalQuestionFalse;
+            
+
+        
+        PQSQuestion *question6a = PQSQuestion.new;
 		question6a.question = @"Primary Question";
 		question6a.questionType = PQSQuestionTypeTrueFalseConditional2;
 		question6a.useYesNoForTrueFalse = YES;
 		[_questions addObject:question6a];
 		
-			PQSQuestion *question6b = [PQSQuestion new];
+			PQSQuestion *question6b = PQSQuestion.new;
 			question6b.question = @"Secondary Question";
 			question6b.questionType = PQSQuestionTypeTextField;
 			question6b.preferredBackgroundTone = question6a.preferredBackgroundTone;
 			question6a.trueConditionalQuestion	= question6b;
 			
-			PQSQuestion *question6c = [PQSQuestion new];
+			PQSQuestion *question6c = PQSQuestion.new;
 			question6c.question = @"Other Secondary Question";
 			question6c.questionType = PQSQuestionTypeTrueFalse;
 			question6c.useYesNoForTrueFalse = YES;
@@ -258,58 +278,119 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 
 		
 		
-		
-		PQSQuestion *question6d = [PQSQuestion new];
+		PQSQuestion *question6d = PQSQuestion.new;
 		question6d.question = @"Primary Yes or No Question";
 		question6d.questionType = PQSQuestionTypeTrueFalseConditional2;
 		question6d.useYesNoForTrueFalse = YES;
 		[_questions addObject:question6d];
 		
-			PQSQuestion *question6e = [PQSQuestion new];
+			PQSQuestion *question6e = PQSQuestion.new;
 			question6e.question = @"Secondary Question";
 			question6e.questionType = PQSQuestionTypeTextField;
 			question6e.preferredBackgroundTone = question6d.preferredBackgroundTone;
-			question6d.trueConditionalQuestion	= question6e;
+			question6d.falseConditionalQuestion	= question6e;
 			
-			PQSQuestion *question6f = [PQSQuestion new];
+			PQSQuestion *question6f = PQSQuestion.new;
 			question6f.question = @"Other Secondary Question";
 			question6f.questionType = PQSQuestionTypeTrueFalse;
 			question6f.useYesNoForTrueFalse = YES;
 			question6f.preferredBackgroundTone = question6d.preferredBackgroundTone;
-			question6d.trueConditionalQuestion2	= question6f;
+			question6d.falseConditionalQuestion2	= question6f;
 		
 		
 		
 		
-		PQSQuestion *question7 = [PQSQuestion new];
-		question7.question = @"This question is a fixed height.";
-		question7.questionType = PQSQuestionTypeTrueFalse;
-		question7.useYesNoForTrueFalse = YES;
-		question7.maximumHeight = 55.0f;
-		[_questions addObject:question7];
+        PQSQuestion *sliderHeader = PQSQuestion.new;
+        sliderHeader.headerType = PQSHeaderTypePlain;
+        sliderHeader.question = @"Increments, Sliders, and Percentage";
+        [_questions addObject:sliderHeader];
+        
+        PQSQuestion *incrementalQuestion = PQSQuestion.new;
+        incrementalQuestion.questionType = PQSQuestionTypeIncrementalValue;
+        incrementalQuestion.minimumScale = 0;
+        incrementalQuestion.maximumScale = 5;
+        incrementalQuestion.question = @"How many eggs in Huevos Rancheros?";
+        incrementalQuestion.attributedQuestion = [self boldAndUnderlineText:@[@"Heuvos"]
+                                                                   inString:incrementalQuestion.question];
+        [_questions addObject:incrementalQuestion];
+        
+        PQSQuestion *tacoQuestion = PQSQuestion.new;
+        tacoQuestion.question = @"How many Tacos would you like?";
+        tacoQuestion.questionType = PQSQuestionTypeScale;
+        tacoQuestion.minimumScale = 0;
+        tacoQuestion.maximumScale = 10;
+        tacoQuestion.showScaleValues = YES;
+        tacoQuestion.scaleInterval = 1;
+        tacoQuestion.scaleSuffix = @"Tacos";
+        [_questions addObject:tacoQuestion];
+        
+        PQSQuestion *percentageQuestion = PQSQuestion.new;
+        percentageQuestion.questionType = PQSQuestionTypePercentage;
+        percentageQuestion.question = @"What percent of your meals would you like to be south of the border?";
+        percentageQuestion.attributedQuestion = [self italicizeText:@[@"south"]
+                                                           inString:percentageQuestion.question];
+        percentageQuestion.startingPoint = 50.0f;
+        [_questions addObject:percentageQuestion];
+        
+        PQSQuestion *splitPercentageQuestion = PQSQuestion.new;
+        splitPercentageQuestion.questionType = PQSQuestionTypeSplitPercentage;
+        splitPercentageQuestion.question = @"How many of your meals do you want to be of which type of the following foods?";
+        [splitPercentageQuestion.possibleAnswers addObjectsFromArray:@[@"Tacos",
+                                                                       @"Burritos",
+                                                                       @"Other"]];
+        [_questions addObject:splitPercentageQuestion];
+        
+        
+        
+        
 		
 		
 		
-		
-		PQSQuestion *header3a = [PQSQuestion new];
+		PQSQuestion *header3a = PQSQuestion.new;
 		header3a.headerType = PQSHeaderTypePlain;
 		header3a.question = @"Main Header";
 		[_questions addObject:header3a];
+        
+        PQSQuestion *question7 = PQSQuestion.new;
+        question7.question = @"This question is a fixed height. This is useful for layout adjustments.";
+        question7.questionType = PQSQuestionTypeTrueFalse;
+        question7.useYesNoForTrueFalse = YES;
+        question7.maximumHeight = 100.0f;
+        [_questions addObject:question7];
+        
+        
+        PQSQuestion *radioButtonQuestion = PQSQuestion.new;
+        radioButtonQuestion.question = @"Radio Button Question";
+        radioButtonQuestion.questionType = PQSQuestionTypeRadioButtons;
+        [radioButtonQuestion.possibleAnswers addObjectsFromArray:@[@"Taco",
+                                                         @"Hamburger",
+                                                         @"Tangerine",
+                                                         @"Poi"]];
+        [_questions addObject:radioButtonQuestion];
+        
 
-		PQSQuestion *header3b = [PQSQuestion new];
+        
+
+		PQSQuestion *header3b = PQSQuestion.new;
 		header3b.questionType = PQSQuestionTypeNone;
 		header3b.headerType = PQSHeaderTypeSub;
-		header3b.question = @"Sub Header";
+		header3b.question = @"Sometimes, there are a bunch of questions in a row that are really similar.";
 		[_questions addObject:header3b];
 		
-		
+        PQSQuestion *header3c = PQSQuestion.new;
+        header3c.questionType = PQSQuestionTypeNone;
+        header3c.headerType = PQSHeaderTypeSub;
+        header3c.question = @"If you select \"LoVe Worse\" then a follow up question is asked.";
+        header3c.fixedHeight = 50.0f;
+        [_questions addObject:header3c];
+        
 		NSArray *similarQuestions = @[@"Similar Question 1",
 									  @"Similar Question 2",
 									  @"Similar Question 3"];
 		
 		
 		for (NSString *questionText in similarQuestions) {
-			PQSQuestion *rootQuestion = [PQSQuestion new];
+			PQSQuestion *rootQuestion = PQSQuestion.new;
 			rootQuestion.question = questionText;
 			NSInteger locationOfColon = [questionText rangeOfString:@":"].location;
 			if (locationOfColon == NSNotFound) {
@@ -324,19 +405,19 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 			rootQuestion.questionType = PQSQuestionTypeMultiColumnConditional;
 			[_questions addObject:rootQuestion];
 			
-			PQSQuestion *questionA = [PQSQuestion new];
+			PQSQuestion *questionA = PQSQuestion.new;
 			questionA.question = @"Clinically Acceptable*";
 			questionA.questionType = PQSQuestionTypeTrueFalse;
 			questionA.useYesNoForTrueFalse = YES;
 			
-			PQSQuestion *questionB = [PQSQuestion new];
+			PQSQuestion *questionB = PQSQuestion.new;
 			questionB.question = @"How does Love compare to hate?†";
 			questionB.attributedQuestion = [self appendItalicizedText:@"(Optional)" toString:[[NSAttributedString alloc] initWithString:questionB.question]];
 			questionB.questionType = PQSQuestionTypeRadioButtons;
 			[questionB.possibleAnswers addObjectsFromArray:@[@"LoVe much better", @"LoVe better", @"Same", @"LoVe worse\n(Please describe)"]];
 			rootQuestion.triggerAnswer = [questionB.possibleAnswers lastObject];
 			
-			PQSQuestion *conditionalQuestion = [PQSQuestion new];
+			PQSQuestion *conditionalQuestion = PQSQuestion.new;
 			conditionalQuestion.question = @"Please describe";
 			conditionalQuestion.placeholderText = @"Please describe";
 			conditionalQuestion.questionType = PQSQuestionTypeTextView;
@@ -347,7 +428,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		
 		
 		
-		PQSQuestion *question17 = [PQSQuestion new];
+		PQSQuestion *question17 = PQSQuestion.new;
 		question17.question = @"Based upon this survey, you are awesome.";
 		question17.questionType = PQSQuestionTypeRadioButtons;
 		[question17.possibleAnswers addObjectsFromArray:@[@"Strongly Disagree",
@@ -356,16 +437,25 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 														  @"Agree",
 														  @"Strongly Agree"]];
 		[_questions addObject:question17];
+        
+        PQSQuestion *oneToTenQuestion = PQSQuestion.new;
+        oneToTenQuestion.questionType = PQSQuestionType1to10;
+        oneToTenQuestion.leftLabelText = @"Minimum";
+        oneToTenQuestion.rightLabelText = @"Maximum";
+        oneToTenQuestion.minimumScale = 1;
+        oneToTenQuestion.maximumScale = 10;
+        oneToTenQuestion.question = @"Range";
+        [_questions addObject:oneToTenQuestion];
 		
 		
 		
-		PQSQuestion *question18 = [PQSQuestion new];
+		PQSQuestion *question18 = PQSQuestion.new;
 		question18.question = @"Additional Comments";
 		question18.questionType = PQSQuestionTypeTextView;
 		question18.placeholderText = @"Comments";
 		[_questions addObject:question18];
 		
-		PQSQuestion *finePrint = [PQSQuestion new];
+		PQSQuestion *finePrint = PQSQuestion.new;
 		finePrint.headerType = PQSHeaderTypeFinePrint;
 		finePrint.question = @"*Fine Print\n†Other Fine Print";
 		finePrint.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
@@ -375,11 +465,11 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 		[self createKeys];
 		
 		
-		PQSQuestion *blankQuestion = [PQSQuestion new];
+		PQSQuestion *blankQuestion = PQSQuestion.new;
 		blankQuestion.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
 		[_questions addObject:blankQuestion];
 		
-		_headers = [[NSMutableArray alloc] init];
+		_headers = NSMutableArray.new;
 		for (int i = 0; i < _questions.count; i++) {
 			PQSQuestion *question = [_questions objectAtIndex:i];
 			
@@ -387,7 +477,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 				[_headers addObject:question];
 			} else {
 				if (_headers.count == 0) {
-					PQSQuestion *header = [PQSQuestion new];
+					PQSQuestion *header = PQSQuestion.new;
 					header.headerType = PQSHeaderTypePlain;
 					[_headers addObject:header];
 				}
@@ -1032,7 +1122,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
     
     // if today's date field has not been altered, send current date value to server (should match default value)
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = NSDateFormatter.new;
     [dateFormatter setDateFormat:@"MMMM_dd,_yyyy"];
     
     // get today
