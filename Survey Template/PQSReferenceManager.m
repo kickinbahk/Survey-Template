@@ -445,7 +445,7 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 			[rootQuestion setMultipleColumnQuestions:@[questionA, questionB]];
 		}
 		
-        PQSQuestion *twoWayExclusivityQuestion = [[PQSQuestion alloc] init];
+        PQSQuestion *twoWayExclusivityQuestion = PQSQuestion.new;
         twoWayExclusivityQuestion.question = @"Rank the following as your first, second, and third choice.";
         twoWayExclusivityQuestion.questionType = PQSQuestionType2WayExclusivityRadioButtons;
         [twoWayExclusivityQuestion.possibleAnswers addObjectsFromArray:@[@"Option 1",
@@ -456,6 +456,16 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
         twoWayExclusivityQuestion.minimumScale = 1;
         twoWayExclusivityQuestion.maximumScale = 3;
         [_questions addObject:twoWayExclusivityQuestion];
+        
+        PQSQuestion *checkBoxQuestion = PQSQuestion.new;
+        checkBoxQuestion.questionType = PQSQuestionTypeCheckBoxes;
+        checkBoxQuestion.question = @"Select your condiments";
+        [checkBoxQuestion.possibleAnswers addObjectsFromArray:@[@"Cheese",
+                                                                @"Lettuce",
+                                                                @"Beef",
+                                                                @"Salsa",
+                                                                @"Sour Cream"]];
+        [_questions addObject:checkBoxQuestion];
 
 		
 		
