@@ -19,40 +19,27 @@
 }
 
 - (void)setupQuestions {
-    PQSQuestion *header0 = PQSQuestion.new;
-    header0.questionType = PQSQuestionTypeNone;
-    header0.headerType = PQSHeaderTypePlain;
-    header0.question = @"Plain Header";
-    [self addObject:header0];
+    PQSQuestion *plainHeader = PQSQuestion.plainHeader;
+    plainHeader.question = @"Plain Header";
+    [self addObject:plainHeader];
     
-    PQSQuestion *detail0 = PQSQuestion.new;
-    detail0.questionType = PQSQuestionTypeNone;
-    detail0.headerType = PQSHeaderTypeDetail;
+    PQSQuestion *detail0 = PQSQuestion.detailHeader;
     detail0.question = @"Header!";
     detail0.fixedHeight = 1.0f;
     detail0.clipsToBounds = YES;
     detail0.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
     [self addObject:detail0];
     
-    PQSQuestion *question3 = PQSQuestion.new;
-    question3.question = @"Which country are you from?";
-    question3.questionType = PQSQuestionTypeLongList;
-    question3.questionNumber = 3;
-    [question3.possibleAnswers addObjectsFromArray:self.countryCodeList.allKeys];
-    [question3.possibleAnswers sortUsingSelector:@selector(caseInsensitiveCompare:)];
-    [question3.urlKeys addEntriesFromDictionary:@{@"country" : @"which_country_practice"}];
+    PQSQuestion *question3 = PQSQuestion.whichCountryQuestion;
     [self addObject:question3];
     
     
-    PQSQuestion *dateQuestion = PQSQuestion.new;
+    PQSQuestion *dateQuestion = PQSQuestion.dateQuestion;
     dateQuestion.question = @"Date Question";
-    dateQuestion.questionType = PQSQuestionTypeDate;
     [self addObject:dateQuestion];
     
-    PQSQuestion *timeQuestion = PQSQuestion.new;
+    PQSQuestion *timeQuestion = PQSQuestion.timeQuestion;
     timeQuestion.question = @"Time scale question";
-    timeQuestion.questionType = PQSQuestionTypeTime;
-    timeQuestion.scaleSuffix = @" Minutes  ";
     timeQuestion.startingPoint = 0;
     timeQuestion.maximumScale = 180.0f;
     timeQuestion.minimumScale = 0.0f;
@@ -63,51 +50,44 @@
     
     
     
-    PQSQuestion *header1 = PQSQuestion.new;
-    header1.questionType = PQSQuestionTypeNone;
-    header1.headerType = PQSHeaderTypePlain;
+    PQSQuestion *header1 = PQSQuestion.plainHeader;
     header1.question = @"Typing Questions";
     [self addObject:header1];
     
     
-    PQSQuestion *question0a = PQSQuestion.new;
+    PQSQuestion *question0a = PQSQuestion.textFieldQuestion;
     question0a.question = @"Participant Name";
-    question0a.questionType = PQSQuestionTypeTextField;
     question0a.placeholderText = @"Participant Name";
     [self addObject:question0a];
     
-    PQSQuestion *question0b = PQSQuestion.new;
-    question0b.question = @"Questions can have different placeholder text.";
-    question0b.questionType = PQSQuestionTypeTextField;
+    PQSQuestion *question0b = PQSQuestion.textFieldQuestion;
+    question0b.question = @"Questions can have different placeholder text.";;
     question0b.placeholderText = @"This is my alternate placeholder text";
     [self addObject:question0b];
     
-    PQSQuestion *stickyQuestion = PQSQuestion.new;
+    PQSQuestion *stickyQuestion = PQSQuestion.textFieldQuestion;
     stickyQuestion.question = @"This question will remember your preference between submissions";
-    stickyQuestion.questionType = PQSQuestionTypeTextField;
     stickyQuestion.placeholderText = @"Useful for names that don't change";
     stickyQuestion.isSticky = YES;
     [self addObject:stickyQuestion];
     
     
-    PQSQuestion *question1 = PQSQuestion.new;
+    PQSQuestion *question1 = PQSQuestion.largeNumberQuestion;
     question1.question = @"This allows typing in any number. Usefull for Large Numbers";
-    question1.attributedQuestion = [self boldText:@[@"10"] inString:question1.question];
+    question1.attributedQuestion = [self boldText:@[@"10"]
+                                         inString:question1.question];
     question1.scaleSuffix = @"Eggs";
     question1.placeholderText = @"Eggs";
-    question1.questionType = PQSQuestionTypeLargeNumber;
-    question1.scaleInterval = 12;
     question1.minimumScale = 0;
     question1.maximumScale = 500;
     [self addObject:question1];
     
     
-    PQSQuestion *question2 = PQSQuestion.new;
+    PQSQuestion *question2 = PQSQuestion.largeNumberQuestion;
     question2.question = @"Bolding words in a sentence. Often times, the client will want to stylize the text of the question.";
     question2.attributedQuestion = [self boldText:@[@"Bold", @"sentence"]
                                          inString:question2.question];
     question2.scaleSuffix = @"Things";
-    question2.questionType = PQSQuestionTypeLargeNumber;
     question2.scaleInterval = 5;
     question2.minimumScale = 0;
     question2.maximumScale = 100;
@@ -119,104 +99,105 @@
     
     
     
-    PQSQuestion *header2 = PQSQuestion.new;
-    header2.questionType = PQSQuestionTypeNone;
-    header2.headerType = PQSHeaderTypePlain;
+    PQSQuestion *header2 = PQSQuestion.plainHeader;
     header2.question = @"Header";
     [self addObject:header2];
     
     
-    PQSQuestion *textViewQuestion = PQSQuestion.new;
+    PQSQuestion *textViewQuestion = PQSQuestion.textViewQuestion;
     textViewQuestion.question = @"Text VIEW Question";
-    textViewQuestion.questionType = PQSQuestionTypeTextView;
     textViewQuestion.placeholderText = @"Type something long in here";
     [self addObject:textViewQuestion];
     
-    PQSQuestion *textFieldQuestion = PQSQuestion.new;
+    PQSQuestion *textFieldQuestion = PQSQuestion.textFieldQuestion;
     textFieldQuestion.question = @"Text Field Question";
-    textFieldQuestion.questionType = PQSQuestionTypeTextField;
     textFieldQuestion.placeholderText = @"Type something shorter in here";
     [self addObject:textFieldQuestion];
     
     
     
-    PQSQuestion *header3 = PQSQuestion.new;
+    PQSQuestion *header3 = PQSQuestion.subHeader;
     header3.question = @"The following question has a sub-question that only appears if the user selects \"Yes\" or \"No\" and does not those them if the user doesn't answer.";
-    header3.fixedHeight = 30.0f;
+    header3.fixedHeight = 52.0f;
     [self addObject:header3];
     
-    PQSQuestion *trueFalseConditionalQuestion = PQSQuestion.new;
+    PQSQuestion *trueFalseConditionalQuestion = PQSQuestion.trueFalseConditionalQuestion;
     trueFalseConditionalQuestion.question = @"Primary Question";
-    trueFalseConditionalQuestion.questionType = PQSQuestionTypeTrueFalseConditional;
-    trueFalseConditionalQuestion.useYesNoForTrueFalse = YES;
     [self addObject:trueFalseConditionalQuestion];
     
-    PQSQuestion *trueFalseConditionalQuestionTrue = PQSQuestion.new;
-    trueFalseConditionalQuestionTrue.question = @"True Question";
-    trueFalseConditionalQuestionTrue.questionType = PQSQuestionTypeTextField;
-    trueFalseConditionalQuestionTrue.placeholderText = @"This only appears if the user selected \"Yes\"";
-    trueFalseConditionalQuestionTrue.preferredBackgroundTone = trueFalseConditionalQuestion.preferredBackgroundTone;
-    trueFalseConditionalQuestion.trueConditionalQuestion	= trueFalseConditionalQuestionTrue;
-    
-    PQSQuestion *trueFalseConditionalQuestionFalse = PQSQuestion.new;
-    trueFalseConditionalQuestionFalse.question = @"False Question";
-    trueFalseConditionalQuestionFalse.questionType = PQSQuestionTypeTextField;
-    trueFalseConditionalQuestionFalse.placeholderText = @"This only appears if the user selected \"No\"";
-    trueFalseConditionalQuestionFalse.preferredBackgroundTone = trueFalseConditionalQuestion.preferredBackgroundTone;
-    trueFalseConditionalQuestion.falseConditionalQuestion	= trueFalseConditionalQuestionFalse;
+        PQSQuestion *trueFalseConditionalQuestionTrue = PQSQuestion.textFieldQuestion;
+        trueFalseConditionalQuestionTrue.question = @"True Question";
+        trueFalseConditionalQuestionTrue.placeholderText = @"This only appears if the user selected \"True\"";
+        trueFalseConditionalQuestionTrue.preferredBackgroundTone = trueFalseConditionalQuestion.preferredBackgroundTone;
+        trueFalseConditionalQuestion.trueConditionalQuestion	= trueFalseConditionalQuestionTrue;
+        
+        PQSQuestion *trueFalseConditionalQuestionFalse = PQSQuestion.textFieldQuestion;
+        trueFalseConditionalQuestionFalse.question = @"False Question";
+        trueFalseConditionalQuestionFalse.placeholderText = @"This only appears if the user selected \"False\"";
+        trueFalseConditionalQuestionFalse.preferredBackgroundTone = trueFalseConditionalQuestion.preferredBackgroundTone;
+        trueFalseConditionalQuestion.falseConditionalQuestion	= trueFalseConditionalQuestionFalse;
     
     
     
-    PQSQuestion *question6a = PQSQuestion.new;
+    PQSQuestion *yesNoConditionalQuestion = PQSQuestion.yesNoConditionalQuestion;
+    yesNoConditionalQuestion.question = @"Primary Question";
+    [self addObject:yesNoConditionalQuestion];
+    
+        PQSQuestion *yesNoConditionalQuestionTrue = PQSQuestion.textFieldQuestion;
+        yesNoConditionalQuestionTrue.question = @"Yes Question";
+        yesNoConditionalQuestionTrue.placeholderText = @"This only appears if the user selected \"Yes\"";
+        yesNoConditionalQuestionTrue.preferredBackgroundTone = yesNoConditionalQuestion.preferredBackgroundTone;
+        yesNoConditionalQuestion.trueConditionalQuestion     = yesNoConditionalQuestionTrue;
+        
+        PQSQuestion *yesNoConditionalQuestionFalse = PQSQuestion.textFieldQuestion;
+        yesNoConditionalQuestionFalse.question = @"`No` Question";
+        yesNoConditionalQuestionFalse.placeholderText = @"This only appears if the user selected \"No\"";
+        yesNoConditionalQuestionFalse.preferredBackgroundTone   = yesNoConditionalQuestion.preferredBackgroundTone;
+        yesNoConditionalQuestion.falseConditionalQuestion       = yesNoConditionalQuestionFalse;
+
+
+    
+    
+    
+    
+    PQSQuestion *question6a = PQSQuestion.yesNoConditional2Question;
     question6a.question = @"Primary Question";
-    question6a.questionType = PQSQuestionTypeTrueFalseConditional2;
-    question6a.useYesNoForTrueFalse = YES;
     [self addObject:question6a];
     
-    PQSQuestion *question6b = PQSQuestion.new;
-    question6b.question = @"Secondary Question";
-    question6b.questionType = PQSQuestionTypeTextField;
-    question6b.preferredBackgroundTone = question6a.preferredBackgroundTone;
-    question6a.trueConditionalQuestion	= question6b;
-    
-    PQSQuestion *question6c = PQSQuestion.new;
-    question6c.question = @"Other Secondary Question";
-    question6c.questionType = PQSQuestionTypeTrueFalse;
-    question6c.useYesNoForTrueFalse = YES;
-    question6c.preferredBackgroundTone = question6a.preferredBackgroundTone;
-    question6a.trueConditionalQuestion2	= question6c;
+        PQSQuestion *question6b = PQSQuestion.textFieldQuestion;
+        question6b.question = @"Secondary Question";
+        question6b.preferredBackgroundTone  = question6a.preferredBackgroundTone;
+        question6a.trueConditionalQuestion	= question6b;
+        
+        PQSQuestion *question6c = PQSQuestion.yesNoQuestion;
+        question6c.question = @"Other Secondary Question";
+        question6c.preferredBackgroundTone  = question6a.preferredBackgroundTone;
+        question6a.trueConditionalQuestion2	= question6c;
     
     
     
-    PQSQuestion *question6d = PQSQuestion.new;
-    question6d.question = @"Primary Yes or No Question";
-    question6d.questionType = PQSQuestionTypeTrueFalseConditional2;
-    question6d.useYesNoForTrueFalse = YES;
+    PQSQuestion *question6d = PQSQuestion.trueFalseConditional2Question;
+    question6d.question = @"Primary True or False Question";
     [self addObject:question6d];
     
-    PQSQuestion *question6e = PQSQuestion.new;
-    question6e.question = @"Secondary Question";
-    question6e.questionType = PQSQuestionTypeTextField;
-    question6e.preferredBackgroundTone = question6d.preferredBackgroundTone;
-    question6d.falseConditionalQuestion	= question6e;
-    
-    PQSQuestion *question6f = PQSQuestion.new;
-    question6f.question = @"Other Secondary Question";
-    question6f.questionType = PQSQuestionTypeTrueFalse;
-    question6f.useYesNoForTrueFalse = YES;
-    question6f.preferredBackgroundTone = question6d.preferredBackgroundTone;
-    question6d.falseConditionalQuestion2	= question6f;
+        PQSQuestion *question6e = PQSQuestion.textFieldQuestion;
+        question6e.question = @"Secondary Question";
+        question6e.preferredBackgroundTone = question6d.preferredBackgroundTone;
+        question6d.falseConditionalQuestion	= question6e;
+        
+        PQSQuestion *question6f = PQSQuestion.trueFalseQuestion;
+        question6f.question = @"Other Secondary Question";
+        question6f.preferredBackgroundTone  = question6d.preferredBackgroundTone;
+        question6d.falseConditionalQuestion2= question6f;
     
     
     
     
-    PQSQuestion *sliderHeader = PQSQuestion.new;
-    sliderHeader.headerType = PQSHeaderTypePlain;
+    PQSQuestion *sliderHeader = PQSQuestion.plainHeader;
     sliderHeader.question = @"Increments, Sliders, and Percentage";
     [self addObject:sliderHeader];
     
-    PQSQuestion *incrementalQuestion = PQSQuestion.new;
-    incrementalQuestion.questionType = PQSQuestionTypeIncrementalValue;
+    PQSQuestion *incrementalQuestion = PQSQuestion.incrementalQuestion;
     incrementalQuestion.minimumScale = 0;
     incrementalQuestion.maximumScale = 5;
     incrementalQuestion.question = @"How many eggs in Huevos Rancheros?";
@@ -224,9 +205,8 @@
                                                                inString:incrementalQuestion.question];
     [self addObject:incrementalQuestion];
     
-    PQSQuestion *tacoQuestion = PQSQuestion.new;
+    PQSQuestion *tacoQuestion = PQSQuestion.scaleQuestion;
     tacoQuestion.question = @"How many Tacos would you like?";
-    tacoQuestion.questionType = PQSQuestionTypeScale;
     tacoQuestion.minimumScale = 0;
     tacoQuestion.maximumScale = 10;
     tacoQuestion.showScaleValues = YES;
@@ -234,16 +214,14 @@
     tacoQuestion.scaleSuffix = @"Tacos";
     [self addObject:tacoQuestion];
     
-    PQSQuestion *percentageQuestion = PQSQuestion.new;
-    percentageQuestion.questionType = PQSQuestionTypePercentage;
+    PQSQuestion *percentageQuestion = PQSQuestion.percentageQuestion;
     percentageQuestion.question = @"What percent of your meals would you like to be south of the border?";
     percentageQuestion.attributedQuestion = [self italicizeText:@[@"south"]
                                                        inString:percentageQuestion.question];
     percentageQuestion.startingPoint = 50.0f;
     [self addObject:percentageQuestion];
     
-    PQSQuestion *splitPercentageQuestion = PQSQuestion.new;
-    splitPercentageQuestion.questionType = PQSQuestionTypeSplitPercentage;
+    PQSQuestion *splitPercentageQuestion = PQSQuestion.splitPercentageQuestion;
     splitPercentageQuestion.question = @"How many of your meals do you want to be of which type of the following foods?";
     [splitPercentageQuestion.possibleAnswers addObjectsFromArray:@[@"Tacos",
                                                                    @"Burritos",
@@ -256,22 +234,18 @@
     
     
     
-    PQSQuestion *header3a = PQSQuestion.new;
-    header3a.headerType = PQSHeaderTypePlain;
+    PQSQuestion *header3a = PQSQuestion.plainHeader;
     header3a.question = @"Main Header";
     [self addObject:header3a];
     
-    PQSQuestion *question7 = PQSQuestion.new;
+    PQSQuestion *question7 = PQSQuestion.yesNoQuestion;
     question7.question = @"This question is a fixed height. This is useful for layout adjustments.";
-    question7.questionType = PQSQuestionTypeTrueFalse;
-    question7.useYesNoForTrueFalse = YES;
     question7.maximumHeight = 100.0f;
     [self addObject:question7];
     
     
-    PQSQuestion *radioButtonQuestion = PQSQuestion.new;
+    PQSQuestion *radioButtonQuestion = PQSQuestion.radioButtonsQuestion;
     radioButtonQuestion.question = @"Radio Button Question";
-    radioButtonQuestion.questionType = PQSQuestionTypeRadioButtons;
     [radioButtonQuestion.possibleAnswers addObjectsFromArray:@[@"Taco",
                                                                @"Hamburger",
                                                                @"Tangerine",
@@ -280,19 +254,15 @@
     
     PQSQuestion *multipleChoiceQuestion = PQSQuestion.multipleChoiceQuestion;
     multipleChoiceQuestion.question = @"This is useful when each answer has longer text";
-    multipleChoiceQuestion.questionType = PQSQuestionTypeMultipleChoice;
     [multipleChoiceQuestion.possibleAnswers addObjectsFromArray:@[@"Bacon ipsum dolor amet rump short loin beef meatloaf frankfurter jerky cow, hamburger t-bone kielbasa flank tenderloin",
                                                                   @"Ball tip sirloin flank swine porchetta ground round",
                                                                   @"Corned beef landjaeger doner tail, meatloaf bacon prosciutto tongue pork chop meatball turkey ground round"]];
     [self addObject:multipleChoiceQuestion];
     
     
-    PQSQuestion *oneToTenQuestion = PQSQuestion.new;
-    oneToTenQuestion.questionType = PQSQuestionType1to10;
-    oneToTenQuestion.leftLabelText = @"Minimum";
-    oneToTenQuestion.rightLabelText = @"Maximum";
-    oneToTenQuestion.minimumScale = 1;
-    oneToTenQuestion.maximumScale = 10;
+    PQSQuestion *oneToTenQuestion = PQSQuestion.oneToTenQuestion;
+    oneToTenQuestion.leftLabelText = @"Minimum Label";
+    oneToTenQuestion.rightLabelText = @"Maximum Label";
     oneToTenQuestion.question = @"Range";
     [self addObject:oneToTenQuestion];
     
@@ -300,15 +270,11 @@
     
     
     
-    PQSQuestion *header3b = PQSQuestion.new;
-    header3b.questionType = PQSQuestionTypeNone;
-    header3b.headerType = PQSHeaderTypeSub;
+    PQSQuestion *header3b = PQSQuestion.subHeader;
     header3b.question = @"Sometimes, there are a bunch of questions in a row that are really similar.";
     [self addObject:header3b];
     
-    PQSQuestion *header3c = PQSQuestion.new;
-    header3c.questionType = PQSQuestionTypeNone;
-    header3c.headerType = PQSHeaderTypeSub;
+    PQSQuestion *header3c = PQSQuestion.subHeader;
     header3c.question = @"If you select \"LoVe Worse\" then a follow up question is asked.";
     header3c.fixedHeight = 50.0f;
     [self addObject:header3c];
@@ -319,7 +285,7 @@
     
     
     for (NSString *questionText in similarQuestions) {
-        PQSQuestion *rootQuestion = PQSQuestion.new;
+        PQSQuestion *rootQuestion = PQSQuestion.multiColumnConditionalQuestion;
         rootQuestion.question = questionText;
         NSInteger locationOfColon = [questionText rangeOfString:@":"].location;
         if (locationOfColon == NSNotFound) {
@@ -328,36 +294,34 @@
             locationOfColon++;
         }
         
-        NSString *boldText = [questionText substringToIndex:locationOfColon];
-        rootQuestion.attributedQuestion = [self boldText:@[boldText]
-                                                inString:questionText];
-        rootQuestion.questionType = PQSQuestionTypeMultiColumnConditional;
+        if (locationOfColon < questionText.length) {
+            NSString *boldText = [questionText substringToIndex:locationOfColon];
+            rootQuestion.attributedQuestion = [self boldText:@[boldText]
+                                                    inString:questionText];
+        }
+        
         [self addObject:rootQuestion];
         
-        PQSQuestion *questionA = PQSQuestion.new;
+        PQSQuestion *questionA = PQSQuestion.yesNoQuestion;
         questionA.question = @"Clinically Acceptable*";
-        questionA.questionType = PQSQuestionTypeTrueFalse;
-        questionA.useYesNoForTrueFalse = YES;
         
-        PQSQuestion *questionB = PQSQuestion.new;
-        questionB.question = @"How does Love compare to hate?†";
-        questionB.attributedQuestion = [self appendItalicizedText:@"(Optional)" toString:[[NSAttributedString alloc] initWithString:questionB.question]];
-        questionB.questionType = PQSQuestionTypeRadioButtons;
-        [questionB.possibleAnswers addObjectsFromArray:@[@"LoVe much better", @"LoVe better", @"Same", @"LoVe worse\n(Please describe)"]];
-        rootQuestion.triggerAnswer = [questionB.possibleAnswers lastObject];
+        PQSQuestion *radioButtonsQuestion = PQSQuestion.radioButtonsQuestion;
+        radioButtonsQuestion.question = @"How does Love compare to hate?†";
+        radioButtonsQuestion.attributedQuestion = [self appendItalicizedText:@"(Optional)"
+                                                                    toString:[[NSAttributedString alloc] initWithString:radioButtonsQuestion.question]];
+        [radioButtonsQuestion.possibleAnswers addObjectsFromArray:@[@"LoVe much better", @"LoVe better", @"Same", @"LoVe worse\n(Please describe)"]];
+        rootQuestion.triggerAnswer = [radioButtonsQuestion.possibleAnswers lastObject];
         
-        PQSQuestion *conditionalQuestion = PQSQuestion.new;
+        PQSQuestion *conditionalQuestion = PQSQuestion.textViewQuestion;
         conditionalQuestion.question = @"Please describe";
         conditionalQuestion.placeholderText = @"Please describe";
-        conditionalQuestion.questionType = PQSQuestionTypeTextView;
         rootQuestion.triggerQuestion = conditionalQuestion;
         
-        [rootQuestion setMultipleColumnQuestions:@[questionA, questionB]];
+        [rootQuestion setMultipleColumnQuestions:@[questionA, radioButtonsQuestion]];
     }
     
-    PQSQuestion *twoWayExclusivityQuestion = PQSQuestion.new;
+    PQSQuestion *twoWayExclusivityQuestion = PQSQuestion.twoWayExclusivityQuestion;
     twoWayExclusivityQuestion.question = @"Rank the following as your first, second, and third choice.";
-    twoWayExclusivityQuestion.questionType = PQSQuestionType2WayExclusivityRadioButtons;
     [twoWayExclusivityQuestion.possibleAnswers addObjectsFromArray:@[@"Option 1",
                                                                      @"Option 2",
                                                                      @"Option 3",
@@ -367,8 +331,7 @@
     twoWayExclusivityQuestion.maximumScale = 3;
     [self addObject:twoWayExclusivityQuestion];
     
-    PQSQuestion *checkBoxQuestion = PQSQuestion.new;
-    checkBoxQuestion.questionType = PQSQuestionTypeCheckBoxes;
+    PQSQuestion *checkBoxQuestion = PQSQuestion.checkBoxesQuestion;
     checkBoxQuestion.question = @"Select your condiments";
     [checkBoxQuestion.possibleAnswers addObjectsFromArray:@[@"Cheese",
                                                             @"Lettuce",
@@ -380,18 +343,14 @@
     
     
     
-    PQSQuestion *question18 = PQSQuestion.new;
+    PQSQuestion *question18 = PQSQuestion.textViewQuestion;
     question18.question = @"Additional Comments";
-    question18.questionType = PQSQuestionTypeTextView;
     question18.placeholderText = @"Comments";
     [self addObject:question18];
     
-    PQSQuestion *finePrint = PQSQuestion.new;
-    finePrint.headerType = PQSHeaderTypeFinePrint;
+    PQSQuestion *finePrint = PQSQuestion.finePrintHeader;
     finePrint.question = @"*Fine Print\n†Other Fine Print";
-    finePrint.preferredBackgroundTone = PQSQuestionViewPreferredBackgroundToneLight;
     [self addObject:finePrint];
-
 }
 
 - (instancetype)init {

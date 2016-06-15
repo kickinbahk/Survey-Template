@@ -30,7 +30,8 @@ typedef NS_ENUM(NSUInteger, PQSQuestionType) {
 	PQSQuestionTypeDate,
 	PQSQuestionTypeTime,
 	PQSQuestionTypeLargeNumber,
-    PQSQuestionType1to10
+    PQSQuestionType1to10,
+    PQSQuestionWhichCountry
 };
 
 typedef NS_ENUM(NSUInteger, PQSHeaderType) {
@@ -279,7 +280,33 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
 @property BOOL clipsToBounds;
 
 
-
++ (instancetype)checkBoxesQuestion;
++ (instancetype)dateQuestion;
++ (instancetype)incrementalQuestion;
++ (instancetype)largeNumberQuestion;
++ (instancetype)longListQuestion;
++ (instancetype)multiColumnConditionalQuestion;
 + (instancetype)multipleChoiceQuestion;
++ (instancetype)oneToTenQuestion;
++ (instancetype)percentageQuestion;
++ (instancetype)radioButtonsQuestion;
++ (instancetype)scaleQuestion;
++ (instancetype)splitPercentageQuestion;
++ (instancetype)textFieldQuestion;
++ (instancetype)textViewQuestion;
++ (instancetype)timeQuestion;
++ (instancetype)trueFalseQuestion;
++ (instancetype)trueFalseConditionalQuestion;
++ (instancetype)trueFalseConditional2Question;
++ (instancetype)twoWayExclusivityQuestion;
++ (instancetype)whichCountryQuestion;
++ (instancetype)yesNoQuestion;
++ (instancetype)yesNoConditionalQuestion;
++ (instancetype)yesNoConditional2Question;
+
++ (instancetype)detailHeader;
++ (instancetype)finePrintHeader;
++ (instancetype)plainHeader;
++ (instancetype)subHeader;
 
 @end
