@@ -385,12 +385,14 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 	}
 	
 	cell.layer.cornerRadius = 8.0f;
-	cell.clipsToBounds = NO;
 	
 	PQSQuestionView *questionView = [self questionViewForRow:indexPath];
 	[cell addSubview:questionView];
 	questionView.frame = [self frameForQuestion:questionView.question];
 	[questionView layoutSubviews];
+    
+    cell.clipsToBounds = questionView.question.clipsToBounds;
+
 	
 	switch (questionView.question.preferredBackgroundTone) {
 		case PQSQuestionViewPreferredBackgroundToneDark:
@@ -419,6 +421,10 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	PQSQuestion *header = [[[PQSReferenceManager sharedReferenceManager] headers] objectAtIndex:section];
+    
+    if (header.fixedHeight > 0) {
+        return header.fixedHeight;
+    }
 	
 	return header.estimatedHeightForQuestionView;
 }
