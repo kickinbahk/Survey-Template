@@ -376,6 +376,17 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
                                                                       @"Corned beef landjaeger doner tail, meatloaf bacon prosciutto tongue pork chop meatball turkey ground round"]];
         [_questions addObject:multipleChoiceQuestion];
         
+        
+        PQSQuestion *oneToTenQuestion = PQSQuestion.new;
+        oneToTenQuestion.questionType = PQSQuestionType1to10;
+        oneToTenQuestion.leftLabelText = @"Minimum";
+        oneToTenQuestion.rightLabelText = @"Maximum";
+        oneToTenQuestion.minimumScale = 1;
+        oneToTenQuestion.maximumScale = 10;
+        oneToTenQuestion.question = @"Range";
+        [_questions addObject:oneToTenQuestion];
+        
+        
 
         
 
@@ -434,26 +445,18 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
 			[rootQuestion setMultipleColumnQuestions:@[questionA, questionB]];
 		}
 		
-		
-		
-		PQSQuestion *question17 = PQSQuestion.new;
-		question17.question = @"Based upon this survey, you are awesome.";
-		question17.questionType = PQSQuestionTypeRadioButtons;
-		[question17.possibleAnswers addObjectsFromArray:@[@"Strongly Disagree",
-														  @"Disagree",
-														  @"Neutral",
-														  @"Agree",
-														  @"Strongly Agree"]];
-		[_questions addObject:question17];
-        
-        PQSQuestion *oneToTenQuestion = PQSQuestion.new;
-        oneToTenQuestion.questionType = PQSQuestionType1to10;
-        oneToTenQuestion.leftLabelText = @"Minimum";
-        oneToTenQuestion.rightLabelText = @"Maximum";
-        oneToTenQuestion.minimumScale = 1;
-        oneToTenQuestion.maximumScale = 10;
-        oneToTenQuestion.question = @"Range";
-        [_questions addObject:oneToTenQuestion];
+        PQSQuestion *twoWayExclusivityQuestion = [[PQSQuestion alloc] init];
+        twoWayExclusivityQuestion.question = @"Rank the following as your first, second, and third choice.";
+        twoWayExclusivityQuestion.questionType = PQSQuestionType2WayExclusivityRadioButtons;
+        [twoWayExclusivityQuestion.possibleAnswers addObjectsFromArray:@[@"Option 1",
+                                                                         @"Option 2",
+                                                                         @"Option 3",
+                                                                         @"Option 4",
+                                                                         @"Option 5"]];
+        twoWayExclusivityQuestion.minimumScale = 1;
+        twoWayExclusivityQuestion.maximumScale = 3;
+        [_questions addObject:twoWayExclusivityQuestion];
+
 		
 		
 		

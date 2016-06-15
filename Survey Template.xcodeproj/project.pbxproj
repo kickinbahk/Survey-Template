@@ -364,6 +364,8 @@
 				TargetAttributes = {
 					276B83911CCA3FF000B9989C = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = EJLR2RPSV2;
+						DevelopmentTeamName = "Nathan Fennel";
 					};
 					276B83AA1CCA3FF000B9989C = {
 						CreatedOnToolsVersion = 7.3;
@@ -687,6 +689,7 @@
 				276B83C11CCA3FF000B9989C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		276B83C21CCA3FF000B9989C /* Build configuration list for PBXNativeTarget "Survey TemplateTests" */ = {
 			isa = XCConfigurationList;
@@ -695,6 +698,7 @@
 				276B83C41CCA3FF000B9989C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		276B83C51CCA3FF000B9989C /* Build configuration list for PBXNativeTarget "Survey TemplateUITests" */ = {
 			isa = XCConfigurationList;
@@ -703,6 +707,7 @@
 				276B83C71CCA3FF000B9989C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
