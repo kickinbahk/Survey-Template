@@ -29,7 +29,8 @@ typedef NS_ENUM(NSUInteger, PQSQuestionType) {
 	PQSQuestionTypeMultiColumnConditional,
 	PQSQuestionTypeDate,
 	PQSQuestionTypeTime,
-	PQSQuestionTypeLargeNumber
+	PQSQuestionTypeLargeNumber,
+    PQSQuestionType1to10
 };
 
 typedef NS_ENUM(NSUInteger, PQSHeaderType) {
@@ -270,5 +271,11 @@ typedef NS_ENUM(NSUInteger, PQSQuestionViewPreferredBackgroundTone) {
 @property (nonatomic) CGFloat fixedWidth, fixedHeight;
 @property (nonatomic) CGFloat minimumWidth, minimumHeight;
 @property (nonatomic) CGFloat maximumWidth, maximumHeight;
+
+/**
+ *  Does the cell need to clip everything not inside of itself?
+ *  Default value is NO
+ */
+@property BOOL clipsToBounds;
 
 @end

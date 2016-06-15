@@ -67,6 +67,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	BOOL checkForTimeUpdate;
 	
 	UITapGestureRecognizer *_tap;
+    CGSize segmentedControlSize;
 }
 
 - (instancetype)init {
@@ -231,6 +232,15 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		[self largeNumberLayout];
 	} else if (self.question.questionType == PQSQuestionTypeTextView) {
 		[self textFieldLayout];
+    } else if (self.question.questionType == PQSQuestionType1to10) {
+        if (self.question.possibleAnswers.count < self.question.maximumScale - self.question.minimumScale) {
+            for (int i = self.question.minimumScale; i <= self.question.maximumScale; i++) {
+                [self.question.possibleAnswers addObject:@(i).description];
+            }
+        }
+        
+        self.question.questionType = PQSQuestionTypeRadioButtons;
+        [self radioButtonLayout];
 	} else if (self.question.question.length > 0 && self.question.questionType != PQSQuestionTypeNone) {
 		NSLog(@"Question type not recognized. %zd \n%@", self.question.questionType, self.question.question);
 	}
@@ -248,7 +258,7 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	
 	if (self.question.leftLabelText) {
 		[self layoutLeftLabel];
-		frame.origin.x = _leftLabel.frame.size.width + buffer;
+		frame.origin.x = _leftLabel.frame.size.width - buffer * 3.75;
 	}
 	
 	if (self.question.rightLabelText) {
@@ -283,7 +293,8 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 - (CGRect)leftLabelFrame {
 	CGRect frame = self.bounds;
 	
-	frame.size.width = [self widthOfString:self.question.leftLabelText withFont:[UIFont appFont]];
+	frame.size.width = [self widthOfString:self.question.leftLabelText
+                                  withFont:[UIFont appFont]];
 	
 	frame.origin.y += 2.5f;
 	
@@ -327,7 +338,8 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 
 - (CGFloat)widthOfString:(NSString *)string withFont:(UIFont *)font {
 	NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
-	return [[[NSAttributedString alloc] initWithString:string attributes:attributes] size].width;
+	return [[[NSAttributedString alloc] initWithString:string
+                                            attributes:attributes] size].width;
 }
 
 
@@ -340,7 +352,9 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		_slider = [[UISlider alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, cellHeight)];
 		_slider.minimumValue = self.question.minimumScale;
 		_slider.maximumValue = self.question.maximumScale;
-		_slider.minimumTrackTintColor = [UIColor appColor];
+		_slider.minimumTrackTintColor = UIColor.appColor;
+        [_slider setValue:self.question.startingPoint
+                 animated:YES];
 		_slider.tintColor = self.tintColor;
 		
 		if (self.question.minimumScale == self.question.maximumScale) {
@@ -386,7 +400,8 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		if (denominator < 1) {
 			denominator = 1;
 		}
-		[label setCenter:CGPointMake(i * self.frame.size.width / denominator + label.frame.size.width/2.0f, label.center.y)];
+		[label setCenter:CGPointMake(i * self.frame.size.width / denominator + label.frame.size.width/2.0f,
+                                     label.center.y)];
 		[self.containerView addSubview:label];
 	}
 	
@@ -412,13 +427,14 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 	}
 	
 	// centers and adds the number labels to the view every time
-	for (int i = 0; i < _numberLabels.count; i++) {
+	for (float i = 0; i < _numberLabels.count; i++) {
 		UILabel *numberLabel = [_numberLabels objectAtIndex:i];
 		float denominator = (float)_numberLabels.count - 0.43f; // once more, a magic number just to make things look right
 		if (denominator < 1) {
 			denominator = 1;
 		}
-		[numberLabel setCenter:CGPointMake((i * self.frame.size.width - 0.5f) / denominator + _indentation, numberLabel.center.y)];
+		numberLabel.center = CGPointMake(((i + 0.25f) * self.frame.size.width - 0.5f) / denominator + _indentation,
+                                         numberLabel.center.y);
 		[self.containerView addSubview:numberLabel];
 	}
 }
@@ -2337,6 +2353,11 @@ static NSString * const senderKey = @"s£nD£rK£Y";
 		
 		_datePicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, 600, 320, 216)];
 		_datePicker.datePickerMode = UIDatePickerModeCountDownTimer;
+        
+        if (self.question.scaleInterval > 0) {
+            _datePicker.minuteInterval = self.question.scaleInterval;
+        }
+        
 		[_datePicker addTarget:self
 					   action:@selector(timeSelected:)
 			 forControlEvents:UIControlEventValueChanged];
