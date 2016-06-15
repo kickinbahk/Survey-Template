@@ -368,6 +368,14 @@ static NSString * const mostRecentShowNameKey = @"Most Recent Show Name K£y Key
                                                          @"Poi"]];
         [_questions addObject:radioButtonQuestion];
         
+        PQSQuestion *multipleChoiceQuestion = PQSQuestion.new;
+        multipleChoiceQuestion.question = @"This is useful when each answer has longer text";
+        multipleChoiceQuestion.questionType = PQSQuestionTypeMultipleChoice;
+        [multipleChoiceQuestion.possibleAnswers addObjectsFromArray:@[@"Bacon ipsum dolor amet rump short loin beef meatloaf frankfurter jerky cow, hamburger t-bone kielbasa flank tenderloin",
+                                                                      @"Ball tip sirloin flank swine porchetta ground round",
+                                                                      @"Corned beef landjaeger doner tail, meatloaf bacon prosciutto tongue pork chop meatball turkey ground round"]];
+        [_questions addObject:multipleChoiceQuestion];
+        
 
         
 
