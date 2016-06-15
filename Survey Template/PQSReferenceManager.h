@@ -12,6 +12,13 @@
 
 #import "PQSQuestion.h"
 
+typedef NS_ENUM(NSUInteger, PQSCompany) {
+    PQSCompanyNone,
+    PQSCompanyBSCI,
+    PQSCompanyPHIL,
+    PQSCompanyHAI
+};
+
 @protocol PQSReferenceManagerDelegate <NSObject>
 
 @required
@@ -147,4 +154,10 @@
  */
 - (void)answerCurrentQuestion:(NSString *)answer;
 
+/**
+ *  The current company the survey should be branded for
+ */
++ (PQSCompany)company;
+
++ (NSString *)defaultCountry;
 @end

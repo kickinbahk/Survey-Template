@@ -13,9 +13,9 @@
 #import "UIFont+AppFonts.h"
 #import "NGAParallaxMotion.h"
 
-#define kScreenWidth [UIScreen mainScreen].bounds.size.width
-#define kStatusBarHeight (([[UIApplication sharedApplication] statusBarFrame].size.height == 20.0f) ? 20.0f : (([[UIApplication sharedApplication] statusBarFrame].size.height == 40.0f) ? 20.0f : 0.0f))
-#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define kScreenWidth UIScreen.mainScreen.bounds.size.width
+#define kStatusBarHeight ((UIApplication.sharedApplication.statusBarFrame.size.height == 20.0f) ? 20.0f : ((UIApplication.sharedApplication.statusBarFrame.size.height == 40.0f) ? 20.0f : 0.0f))
+#define kScreenHeight UIScreen.mainScreen.bounds.size.height
 #define SHORTER_SIDE ((kScreenWidth < kScreenHeight) ? kScreenWidth : kScreenHeight)
 #define LONGER_SIDE ((kScreenWidth > kScreenHeight) ? kScreenWidth : kScreenHeight)
 #define tableViewMargin (32.0f/1024.0f * self.view.frame.size.width)
@@ -267,9 +267,19 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 }
 
 - (CGPoint)submitButtonCenter {
-	CGPoint center = CGPointMake(self.view.frame.size.width - self.view.frame.size.width * 0.28f, self.brandImageView.center.y / 2.0f);
+    switch (PQSReferenceManager.company) {
+        case PQSCompanyBSCI:
+            return CGPointMake(self.view.frame.size.width - self.view.frame.size.width * 0.28f, self.brandImageView.center.y / 2.0f);
+            break;
+            
+        case PQSCompanyPHIL:
+        case PQSCompanyHAI:
+        default:
+            return CGPointMake(self.view.frame.size.width * 0.5f, self.brandImageView.center.y / 2.0f);
+            break;
+    }
 	
-	return center;
+    return CGPointMake(self.view.frame.size.width * 0.5f, self.brandImageView.center.y / 2.0f);
 }
 
 - (PQSLocalSubmitSuccessView *)localSuccessView {

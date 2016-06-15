@@ -8,6 +8,7 @@
 
 #import "UIColor+AppColors.h"
 #import "NSString+AppFunctions.h"
+#import "PQSReferenceManager.h"
 
 #define SHOW_LOGS NO
 #define DESELECTED_BRIGHTNESS 0.4f
@@ -19,22 +20,102 @@
 //    UIColor *specialTintColor = [self specialTintColor];
 //    if (specialTintColor) return specialTintColor;
 	
-	return [UIColor colorWithRed:0.0f/255.0f green:71.0f/255.0f blue:127.0f/255.0f alpha:0.97f];
+    
+    switch (PQSReferenceManager.company) {
+        case PQSCompanyPHIL:
+            return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyBSCI:
+            return [UIColor colorWithRed:0.0f/255.0f green:71.0f/255.0f blue:127.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyHAI:
+        default:
+            return [UIColor colorWithRed:82.0f/255.0f green:128.0f/255.0f blue:51.0f/255.0f alpha:0.97f];
+            break;
+    }
+
+    return [UIColor colorWithRed:0.0f/255.0f green:71.0f/255.0f blue:127.0f/255.0f alpha:0.97f];
 }
 
 + (UIColor *)appColor1 {
-	return [UIColor colorWithRed:0.0f/255.0f green:36.0f/255.0f blue:63.0f/255.0f alpha:0.97f];
+    
+    switch (PQSReferenceManager.company) {
+        case PQSCompanyPHIL:
+            return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyBSCI:
+            return [UIColor colorWithRed:0.0f/255.0f green:36.0f/255.0f blue:63.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyHAI:
+        default:
+            return [UIColor colorWithRed:82.0f/255.0f green:128.0f/255.0f blue:51.0f/255.0f alpha:0.97f];
+            break;
+    }
+    
+    return [UIColor colorWithRed:0.0f/255.0f green:36.0f/255.0f blue:63.0f/255.0f alpha:0.97f];
 }
 
 + (UIColor *)appColor2 {
-	return [UIColor colorWithRed:0.0f/255.0f green:71.0f/255.0f blue:127.0f/255.0f alpha:0.97f];
+    
+    switch (PQSReferenceManager.company) {
+        case PQSCompanyPHIL:
+            return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyBSCI:
+            return [UIColor colorWithRed:0.0f/255.0f green:71.0f/255.0f blue:127.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyHAI:
+        default:
+            return [UIColor colorWithRed:49.0f/255.0f green:37.0f/255.0f blue:41.0f/255.0f alpha:0.97f];
+            break;
+    }
+    
+    return [UIColor colorWithRed:0.0f/255.0f green:71.0f/255.0f blue:127.0f/255.0f alpha:0.97f];
 }
 
 + (UIColor *)appColor3 {
-	return [UIColor colorWithRed:122.0f/255.0f green:164.0f/255.0f blue:192.0f/255.0f alpha:0.97f];
+    
+    switch (PQSReferenceManager.company) {
+        case PQSCompanyPHIL:
+            return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyBSCI:
+            return [UIColor colorWithRed:122.0f/255.0f green:164.0f/255.0f blue:192.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyHAI:
+        default:
+            return [UIColor colorWithRed:69.0f/255.0f green:84.0f/255.0f blue:47.0f/255.0f alpha:0.97f];
+            break;
+    }
+    
+    return [UIColor colorWithRed:122.0f/255.0f green:164.0f/255.0f blue:192.0f/255.0f alpha:0.97f];
 }
 
 + (UIColor *)appColor4 {
+    
+    switch (PQSReferenceManager.company) {
+        case PQSCompanyPHIL:
+            return [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:100.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyBSCI:
+            return [UIColor colorWithRed:232.0f/255.0f green:190.0f/255.0f blue:48.0f/255.0f alpha:0.97f];
+            break;
+            
+        case PQSCompanyHAI:
+        default:
+            return [UIColor colorWithRed:158.0f/255.0f green:78.0f/255.0f blue:104.0f/255.0f alpha:0.97f];
+            break;
+    }
+    
     return [UIColor colorWithRed:232.0f/255.0f green:190.0f/255.0f blue:48.0f/255.0f alpha:0.97f];
 }
 
