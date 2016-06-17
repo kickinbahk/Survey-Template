@@ -201,7 +201,16 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 		_showTitleLabel.adjustsFontSizeToFitWidth = YES;
 		_showTitleLabel.clipsToBounds = NO;
 		_showTitleLabel.font = [UIFont fontWithName:@"OfficinaSerifLT-Bold" size:32.0f];
-		_showTitleLabel.textColor = [UIColor white];
+        
+        switch (PQSReferenceManager.company) {
+            case PQSCompanyPHIL:
+                _showTitleLabel.textColor = [UIColor appColor1];
+                break;
+                
+            default:
+                _showTitleLabel.textColor = [UIColor white];
+                break;
+        }
 		_showTitleLabel.textAlignment = NSTextAlignmentLeft;
 		_showTitleLabel.text = [[PQSReferenceManager sharedReferenceManager] currentShowTitle];
 	}
@@ -830,6 +839,15 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 	if (self.instructionsView.frame.origin.y == 0.0f) {
 		return UIStatusBarStyleDefault;
 	}
+    
+    switch (PQSReferenceManager.company) {
+        case PQSCompanyPHIL:
+            return UIStatusBarStyleDefault;
+            break;
+            
+        default:
+            break;
+    }
 	
 	return UIStatusBarStyleLightContent;
 }
