@@ -551,7 +551,7 @@
     if (locationOfString == NSNotFound) {
         [self boldText:self.question];
     } else {
-        locationOfString += demarcationString.length;
+        //locationOfString += demarcationString.length; // Adding this included the string itself to be bolded
     }
     
     if (locationOfString < self.question.length) {
@@ -663,6 +663,7 @@
     question.questionType = PQSQuestionType1to10;
     question.minimumScale = 1;
     question.maximumScale = 10;
+    question.scaleInterval = 1;
     
     return question;
 }
@@ -720,6 +721,7 @@
     
     timeQuestion.questionType = PQSQuestionTypeTime;
     timeQuestion.scaleSuffix = @" Minutes  ";
+    timeQuestion.scaleInterval = 5;
 
     return timeQuestion;
 }
@@ -752,6 +754,8 @@
     PQSQuestion *question = PQSQuestion.new;
     
     question.questionType = PQSQuestionType2WayExclusivityRadioButtons;
+    question.minimumScale = 1;
+    question.maximumScale = 3;
     
     return question;
 }

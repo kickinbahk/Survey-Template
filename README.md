@@ -21,4 +21,5 @@ Add the questions to `PQSQuestionList` by following the example questions that a
 • Fix Clipping on second question for PQSQuestionTypeTrueFalseConditional2
 • Solve multiple dependencies on questions
 • Improve HAI branding (colors and layout)
-• Allow interaction with PQSMultipleChoiceQuestion table view
+• Allow interaction with PQSQuestionMultipleChoice table view
+• Improve layout for PQSQuestionSplitPercentage with more than 3 sliders
