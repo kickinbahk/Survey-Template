@@ -21,6 +21,7 @@
 - (void)setupQuestions {
     PQSQuestion *plainHeader = PQSQuestion.plainHeader;
     plainHeader.question = @"Plain Header";
+    plainHeader.fixedHeight = 80.0f;
     [self addObject:plainHeader];
     
     PQSQuestion *detail0 = PQSQuestion.detailHeader;
@@ -47,6 +48,13 @@
     [self addObject:timeQuestion];
     
     
+    PQSQuestion *fixedHeightQuestion = PQSQuestion.yesNoQuestion;
+    fixedHeightQuestion.question = @"This question is a fixed height. This is useful for layout adjustments.";
+    fixedHeightQuestion.maximumHeight = 100.0f;
+    [self addObject:fixedHeightQuestion];
+    
+    
+    
     
     
     
@@ -55,18 +63,24 @@
     [self addObject:header1];
     
     
-    PQSQuestion *question0a = PQSQuestion.textFieldQuestion;
-    question0a.question = @"Participant Name";
-    question0a.placeholderText = @"Participant Name";
-    [self addObject:question0a];
+    
+    PQSQuestion *textViewQuestion = PQSQuestion.textViewQuestion;
+    textViewQuestion.question = @"Text VIEW Question";
+    textViewQuestion.placeholderText = @"Type something long in here";
+    [self addObject:textViewQuestion];
+    
+    PQSQuestion *textFieldQuestion = PQSQuestion.textFieldQuestion;
+    textFieldQuestion.question = @"Text FIELD Question";
+    textFieldQuestion.placeholderText = @"Type something shorter in here";
+    [self addObject:textFieldQuestion];
     
     PQSQuestion *question0b = PQSQuestion.textFieldQuestion;
-    question0b.question = @"Questions can have different placeholder text.";;
-    question0b.placeholderText = @"This is my alternate placeholder text";
+    question0b.question = @"Typing questions can have different placeholder text.";;
+    question0b.placeholderText = @"This is placeholder text";
     [self addObject:question0b];
     
     PQSQuestion *stickyQuestion = PQSQuestion.textFieldQuestion;
-    stickyQuestion.question = @"This question will remember your preference between submissions";
+    stickyQuestion.question = @"This question will remember your preference between submissions. This makes the question \"Sticky\"";
     stickyQuestion.placeholderText = @"Useful for names that don't change";
     stickyQuestion.isSticky = YES;
     [self addObject:stickyQuestion];
@@ -75,42 +89,41 @@
     PQSQuestion *question1 = PQSQuestion.largeNumberQuestion;
     question1.question = @"This allows typing in any number. Usefull for Large Numbers";
     [question1 boldText:@"Large Numbers"];
-    question1.scaleSuffix = @"Eggs";
-    question1.placeholderText = @"Eggs";
+    question1.scaleSuffix = @"Things";
+    question1.placeholderText = @"Things";
     question1.minimumScale = 0;
     question1.maximumScale = 500;
     [self addObject:question1];
     
     
-    PQSQuestion *question2 = PQSQuestion.incrementalQuestion;
-    question2.question = @"Bolding words in a sentence. Often times, the client will want to stylize the text of the question.";
-    [question2 boldTexts:@[@"Bold", @"sentence"]];
-    question2.scaleSuffix = @" Things";
-    question2.scaleInterval = 5;
-    question2.minimumScale = 0;
-    question2.maximumScale = 100;
-    question2.placeholderText = [NSString stringWithFormat:@"%g - %g", question2.minimumScale, question2.maximumScale];
-    [self addObject:question2];
-				
+    PQSQuestion *boldQuestion = PQSQuestion.incrementalQuestion;
+    boldQuestion.question = @"Bolding words in a sentence. Often times, the client will want to stylize the text of the question.";
+    [boldQuestion boldTexts:@[@"Bold", @"sentence"]];
+    boldQuestion.scaleSuffix = @" Things";
+    boldQuestion.scaleInterval = 5;
+    boldQuestion.minimumScale = 0;
+    boldQuestion.maximumScale = 100;
+    boldQuestion.placeholderText = [NSString stringWithFormat:@"%g - %g", boldQuestion.minimumScale, boldQuestion.maximumScale];
+    [self addObject:boldQuestion];
+    
+    PQSQuestion *attributedQuestion = PQSQuestion.textFieldQuestion;
+    attributedQuestion.question = @"Text can be bold, underline, or italics. As well as any combination of them.";
+    [attributedQuestion boldText:@"bold"];
+    [attributedQuestion underlineText:@"underline"];
+    [attributedQuestion italicizeText:@"italics"];
+    [attributedQuestion boldAndUnderlineText:@"well"];
+    [attributedQuestion boldAndItalicizeText:@"any"];
+    [attributedQuestion underlineAndItalicizeText:@"as"];
+    [attributedQuestion boldUnderlineAndItalicizeText:@"combination"];
+    [attributedQuestion appendAndItalicizedText:@"†"];
+    attributedQuestion.placeholderText = @"Placeholder text cannot be altered.";
+    [self addObject:attributedQuestion];
     
     
     
     
     
-    PQSQuestion *header2 = PQSQuestion.plainHeader;
-    header2.question = @"Header";
-    [self addObject:header2];
     
-    
-    PQSQuestion *textViewQuestion = PQSQuestion.textViewQuestion;
-    textViewQuestion.question = @"Text VIEW Question";
-    textViewQuestion.placeholderText = @"Type something long in here";
-    [self addObject:textViewQuestion];
-    
-    PQSQuestion *textFieldQuestion = PQSQuestion.textFieldQuestion;
-    textFieldQuestion.question = @"Text Field Question";
-    textFieldQuestion.placeholderText = @"Type something shorter in here";
-    [self addObject:textFieldQuestion];
     
     
     
@@ -119,8 +132,10 @@
     header3.fixedHeight = 52.0f;
     [self addObject:header3];
     
+    
     PQSQuestion *trueFalseConditionalQuestion = PQSQuestion.trueFalseConditionalQuestion;
-    trueFalseConditionalQuestion.question = @"Primary Question";
+    trueFalseConditionalQuestion.question = @"Primary True/False Question";
+    [trueFalseConditionalQuestion appendAndItalicizedText:@" (True/False Conditional Question)"];
     [self addObject:trueFalseConditionalQuestion];
     
         PQSQuestion *trueFalseConditionalQuestionTrue = PQSQuestion.textFieldQuestion;
@@ -138,11 +153,12 @@
     
     
     PQSQuestion *yesNoConditionalQuestion = PQSQuestion.yesNoConditionalQuestion;
-    yesNoConditionalQuestion.question = @"Primary Question";
+    yesNoConditionalQuestion.question = @"Primary Yes/No Question";
+    [yesNoConditionalQuestion appendAndItalicizedText:@" (Yes/No Conditional Question)"];
     [self addObject:yesNoConditionalQuestion];
     
         PQSQuestion *yesNoConditionalQuestionTrue = PQSQuestion.textFieldQuestion;
-        yesNoConditionalQuestionTrue.question = @"Yes Question";
+        yesNoConditionalQuestionTrue.question = @"`Yes` Question";
         yesNoConditionalQuestionTrue.placeholderText = @"This only appears if the user selected \"Yes\"";
         yesNoConditionalQuestionTrue.preferredBackgroundTone = yesNoConditionalQuestion.preferredBackgroundTone;
         yesNoConditionalQuestion.trueConditionalQuestion     = yesNoConditionalQuestionTrue;
@@ -159,7 +175,8 @@
     
     
     PQSQuestion *question6a = PQSQuestion.yesNoConditional2Question;
-    question6a.question = @"Primary Question";
+    question6a.question = @"Primary Yes or No Question";
+    [question6a appendAndItalicizedText:@" (Yes/No Conditional 2 Question)"];
     [self addObject:question6a];
     
         PQSQuestion *question6b = PQSQuestion.textFieldQuestion;
@@ -176,6 +193,7 @@
     
     PQSQuestion *question6d = PQSQuestion.trueFalseConditional2Question;
     question6d.question = @"Primary True or False Question";
+    [question6d appendAndItalicizedText:@" (True/False Conditional 2 Question)"];
     [self addObject:question6d];
     
         PQSQuestion *question6e = PQSQuestion.textFieldQuestion;
@@ -188,6 +206,11 @@
         question6f.preferredBackgroundTone  = question6d.preferredBackgroundTone;
         question6d.falseConditionalQuestion2= question6f;
     
+        PQSQuestion *question6g = PQSQuestion.textFieldQuestion;
+        question6g.question = @"0, 1, or 2 questions can be used conditionally a True/False or Yes/No question.";
+        question6g.preferredBackgroundTone = question6d.preferredBackgroundTone;
+        question6d.trueConditionalQuestion = question6g;
+    
     
     
     
@@ -199,7 +222,9 @@
     incrementalQuestion.minimumScale = 0;
     incrementalQuestion.maximumScale = 5;
     incrementalQuestion.question = @"How many eggs in Huevos Rancheros?";
+    [incrementalQuestion appendAndItalicizedText:@" (Incremental Question)"];
     [incrementalQuestion boldAndUnderlineText:@"Huevos"];
+    incrementalQuestion.scaleSuffix = @" Eggs";
     [self addObject:incrementalQuestion];
     
     PQSQuestion *tacoQuestion = PQSQuestion.scaleQuestion;
@@ -209,12 +234,14 @@
     tacoQuestion.showScaleValues = YES;
     tacoQuestion.scaleInterval = 1;
     tacoQuestion.scaleSuffix = @"Tacos";
+    [tacoQuestion appendAndItalicizedText:@" (Scale Question)"];
     [self addObject:tacoQuestion];
     
     PQSQuestion *percentageQuestion = PQSQuestion.percentageQuestion;
     percentageQuestion.question = @"What percent of your meals would you like to be south of the border?";
     [percentageQuestion italicizeText:@"south"];
     percentageQuestion.startingPoint = 50.0f;
+    [percentageQuestion appendAndItalicizedText:@" (Percentage Question)"];
     [self addObject:percentageQuestion];
     
     PQSQuestion *splitPercentageQuestion = PQSQuestion.splitPercentageQuestion;
@@ -222,6 +249,7 @@
     [splitPercentageQuestion.possibleAnswers addObjectsFromArray:@[@"Tacos",
                                                                    @"Burritos",
                                                                    @"Other"]];
+    [splitPercentageQuestion appendAndItalicizedText:@" (Split Percentage Question)"];
     [self addObject:splitPercentageQuestion];
     
     
@@ -230,14 +258,9 @@
     
     
     
-    PQSQuestion *header3a = PQSQuestion.plainHeader;
-    header3a.question = @"Main Header";
-    [self addObject:header3a];
-    
-    PQSQuestion *question7 = PQSQuestion.yesNoQuestion;
-    question7.question = @"This question is a fixed height. This is useful for layout adjustments.";
-    question7.maximumHeight = 100.0f;
-    [self addObject:question7];
+    PQSQuestion *multipleChoiceHeader = PQSQuestion.plainHeader;
+    multipleChoiceHeader.question = @"Multiple Choice Options";
+    [self addObject:multipleChoiceHeader];
     
     
     PQSQuestion *radioButtonQuestion = PQSQuestion.radioButtonsQuestion;
@@ -252,38 +275,56 @@
     multipleChoiceQuestion.question = @"This is useful when each answer has longer text";
     [multipleChoiceQuestion.possibleAnswers addObjectsFromArray:@[@"Bacon ipsum dolor amet rump short loin beef meatloaf frankfurter jerky cow, hamburger t-bone kielbasa flank tenderloin",
                                                                   @"Ball tip sirloin flank swine porchetta ground round",
-                                                                  @"Corned beef landjaeger doner tail, meatloaf bacon prosciutto tongue pork chop meatball turkey ground round"]];
+                                                                  @"Corned beef landjaeger doner"]];
+    [multipleChoiceQuestion appendAndItalicizedText:@" (Multiple Choice Question)"];
     [self addObject:multipleChoiceQuestion];
     
     
     PQSQuestion *oneToTenQuestion = PQSQuestion.oneToTenQuestion;
     oneToTenQuestion.leftLabelText = @"Minimum Label";
     oneToTenQuestion.rightLabelText = @"Maximum Label";
-    oneToTenQuestion.question = @"Range";
+    oneToTenQuestion.question = @"One to Ten";
     [self addObject:oneToTenQuestion];
     
     
+    PQSQuestion *checkBoxQuestion = PQSQuestion.checkBoxesQuestion;
+    checkBoxQuestion.question = @"Select your condiments";
+    [checkBoxQuestion.possibleAnswers addObjectsFromArray:@[@"Cheese",
+                                                            @"Lettuce",
+                                                            @"Beef",
+                                                            @"Salsa",
+                                                            @"Sour Cream"]];
+    [checkBoxQuestion appendAndItalicizedText:@" (Checkbox Question)"];
+    [self addObject:checkBoxQuestion];
     
     
     
-    PQSQuestion *header3b = PQSQuestion.subHeader;
-    header3b.question = @"Sometimes, there are a bunch of questions in a row that are really similar.";
-    [self addObject:header3b];
     
-    PQSQuestion *header3c = PQSQuestion.subHeader;
-    header3c.question = @"If you select \"LoVe Worse\" then a follow up question is asked.";
-    header3c.fixedHeight = 50.0f;
-    [self addObject:header3c];
     
-    NSArray *similarQuestions = @[@"Similar Question 1",
-                                  @"Similar Question 2",
-                                  @"Similar Question 3"];
+    
+    PQSQuestion *specialHeader = PQSQuestion.plainHeader;
+    specialHeader.question = @"Special Questions";
+    [self addObject:specialHeader];
+    
+    PQSQuestion *specialHeaderSub = PQSQuestion.subHeader;
+    specialHeaderSub.question = @"Sometimes, there are a bunch of questions in a row that are really similar.";
+    [self addObject:specialHeaderSub];
+    
+    PQSQuestion *specialHeaderSub2 = PQSQuestion.subHeader;
+    specialHeaderSub2.question = @"If you select \"Love Worse\" then a follow up question is asked.";
+    specialHeaderSub2.fixedHeight = 50.0f;
+    [self addObject:specialHeaderSub2];
+    
+    NSArray *similarQuestions = @[@"Question 1",
+                                  @"Question 2",
+                                  @"Question 3"];
     
     
     for (NSString *questionText in similarQuestions) {
         PQSQuestion *rootQuestion = PQSQuestion.multiColumnConditionalQuestion;
         rootQuestion.question = questionText;
-        [rootQuestion boldTextUntilString:@":"];
+        [rootQuestion boldTextAfterString:@" "];
+        [rootQuestion appendAndItalicizedText:@" (Multi Column Conditional Question)"];
         
         [self addObject:rootQuestion];
         
@@ -293,7 +334,7 @@
         PQSQuestion *radioButtonSubQuestion = PQSQuestion.radioButtonsQuestion;
         radioButtonSubQuestion.question = @"How does Love compare to hate?†";
         [radioButtonSubQuestion appendAndItalicizedText:@"(Optional)"];
-        [radioButtonSubQuestion.possibleAnswers addObjectsFromArray:@[@"LoVe much better", @"LoVe better", @"Same", @"LoVe worse\n(Please describe)"]];
+        [radioButtonSubQuestion.possibleAnswers addObjectsFromArray:@[@"Love much better", @"Love better", @"Same", @"Love worse\n(Please describe)"]];
         radioButtonSubQuestion.triggerAnswer = [radioButtonSubQuestion.possibleAnswers lastObject];
         
         PQSQuestion *conditionalQuestion = PQSQuestion.textViewQuestion;
@@ -309,6 +350,7 @@
     
     PQSQuestion *twoWayExclusivityQuestion = PQSQuestion.twoWayExclusivityQuestion;
     twoWayExclusivityQuestion.question = @"Rank the following as your first, second, and third choice.";
+    [twoWayExclusivityQuestion appendAndItalicizedText:@" (Two Way Exclusivity Question)"];
     [twoWayExclusivityQuestion.possibleAnswers addObjectsFromArray:@[@"Option 1",
                                                                      @"Option 2",
                                                                      @"Option 3",
@@ -318,22 +360,7 @@
     twoWayExclusivityQuestion.maximumScale = 3;
     [self addObject:twoWayExclusivityQuestion];
     
-    PQSQuestion *checkBoxQuestion = PQSQuestion.checkBoxesQuestion;
-    checkBoxQuestion.question = @"Select your condiments";
-    [checkBoxQuestion.possibleAnswers addObjectsFromArray:@[@"Cheese",
-                                                            @"Lettuce",
-                                                            @"Beef",
-                                                            @"Salsa",
-                                                            @"Sour Cream"]];
-    [self addObject:checkBoxQuestion];
     
-    
-    
-    
-    PQSQuestion *question18 = PQSQuestion.textViewQuestion;
-    question18.question = @"Additional Comments";
-    question18.placeholderText = @"Comments";
-    [self addObject:question18];
     
     PQSQuestion *finePrint = PQSQuestion.finePrintHeader;
     finePrint.question = @"*Fine Print\n†Other Fine Print";
@@ -350,409 +377,6 @@
     return self;
 }
 
-- (NSMutableAttributedString *)boldText:(NSArray *)texts inString:(NSString *)source {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
-                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
-    for (NSString *textToBold in texts) {
-        NSRange textRange = [source rangeOfString:textToBold];
-        if (textRange.location != NSNotFound) {
-            [attributedString addAttribute:NSFontAttributeName
-                                     value:[UIFont boldAppFont]
-                                     range:textRange];
-        }
-    }
-    
-    return attributedString;
-}
-
-- (NSMutableAttributedString *)underlineText:(NSArray *)texts inString:(NSString *)source {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
-                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
-    for (NSString *textToBold in texts) {
-        NSRange textRange = [source rangeOfString:textToBold];
-        if (textRange.location != NSNotFound) {
-            [attributedString addAttribute:NSUnderlineStyleAttributeName
-                                     value:@(1)
-                                     range:textRange];
-        }
-    }
-    
-    return attributedString;
-}
-
-
-- (NSMutableAttributedString *)italicizeText:(NSArray *)texts inString:(NSString *)source {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
-                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
-    for (NSString *textToItalicize in texts) {
-        NSRange textRange = [source rangeOfString:textToItalicize];
-        if (textRange.location != NSNotFound) {
-            [attributedString addAttribute:NSFontAttributeName
-                                     value:[UIFont italicAppFont]
-                                     range:textRange];
-        }
-    }
-    
-    return attributedString;
-}
-
-- (NSMutableAttributedString *)boldAndUnderlineText:(NSArray *)texts inString:(NSString *)source {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
-                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
-    for (NSString *textToBold in texts) {
-        NSRange textRange = [source rangeOfString:textToBold];
-        if (textRange.location != NSNotFound) {
-            [attributedString addAttribute:NSFontAttributeName
-                                     value:[UIFont boldAppFont]
-                                     range:textRange];
-            [attributedString addAttribute:NSUnderlineStyleAttributeName
-                                     value:@(1)
-                                     range:textRange];
-        }
-    }
-    
-    return attributedString;
-}
-
-- (NSMutableAttributedString *)boldItalicAndUnderlineText:(NSArray *)texts inString:(NSString *)source {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
-                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
-    for (NSString *textToBold in texts) {
-        NSRange textRange = [source rangeOfString:textToBold];
-        if (textRange.location != NSNotFound) {
-            [attributedString addAttribute:NSFontAttributeName
-                                     value:[UIFont boldItalicAppFont]
-                                     range:textRange];
-            [attributedString addAttribute:NSUnderlineStyleAttributeName
-                                     value:@(1)
-                                     range:textRange];
-        }
-    }
-    
-    return attributedString;
-}
-
-- (NSMutableAttributedString *)boldAndUnderlineText:(NSArray *)boldAndUnderlineTexts italicizeText:(NSArray *)italicizeTexts inString:(NSString *)source {
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:source
-                                                                                         attributes:@{NSFontAttributeName : [UIFont appFont]}];
-    for (NSString *textToItalicize in italicizeTexts) {
-        NSRange textRange = [source rangeOfString:textToItalicize];
-        if (textRange.location != NSNotFound) {
-            [attributedString addAttribute:NSFontAttributeName
-                                     value:[UIFont italicAppFont]
-                                     range:textRange];
-        }
-    }
-    
-    for (NSString *textToBoldAndUnderline in boldAndUnderlineTexts) {
-        NSRange textRange = [source rangeOfString:textToBoldAndUnderline];
-        if (textRange.location != NSNotFound) {
-            [attributedString addAttribute:NSFontAttributeName
-                                     value:[UIFont boldAppFont]
-                                     range:textRange];
-            [attributedString addAttribute:NSUnderlineStyleAttributeName
-                                     value:@(1)
-                                     range:textRange];
-        }
-    }
-    
-    return attributedString;
-}
-
-- (NSMutableAttributedString *)appendItalicizedText:(NSString *)textToItalicize toString:(NSAttributedString *)source {
-    NSMutableAttributedString *mutableSource = [[NSMutableAttributedString alloc] initWithAttributedString:source];
-    
-    NSAttributedString *italicString = [[NSAttributedString alloc] initWithString:textToItalicize attributes:@{NSFontAttributeName : [UIFont italicAppFont]}];
-    
-    [mutableSource appendAttributedString:italicString];
-    
-    return mutableSource;
-}
-
-- (PQSQuestion *)whichCountryQuestion {
-    PQSQuestion *whichCountryQuestion = PQSQuestion.longListQuestion;
-    NSMutableAttributedString *whichCountryQuestionAttributedString = [[NSMutableAttributedString alloc]initWithString:
-                                                                       @"In which country do you practice?"];
-    UIFont *whichCountryQuestionAttributedStringFont1 = [UIFont appFont];
-    UIFont *whichCountryQuestionAttributedStringFont2 = [UIFont boldAppFont];
-    [whichCountryQuestionAttributedString addAttribute:NSFontAttributeName value:whichCountryQuestionAttributedStringFont1 range:NSMakeRange(0,9)];
-    [whichCountryQuestionAttributedString addAttribute:NSUnderlineStyleAttributeName value:@(1) range:NSMakeRange(9,7)];
-    [whichCountryQuestionAttributedString addAttribute:NSFontAttributeName value:whichCountryQuestionAttributedStringFont2 range:NSMakeRange(9,7)];
-    [whichCountryQuestionAttributedString addAttribute:NSFontAttributeName value:whichCountryQuestionAttributedStringFont1 range:NSMakeRange(17,16)];
-    whichCountryQuestion.attributedQuestion = whichCountryQuestionAttributedString;
-    whichCountryQuestion.question = whichCountryQuestionAttributedString.string;
-    whichCountryQuestion.placeholderText = PQSReferenceManager.defaultCountry;
-    whichCountryQuestion.longListTitle = @"Select Country";
-    whichCountryQuestion.hideBorder = NO;
-    whichCountryQuestion.questionNumber = 1;
-    [self countryCodeList];
-    [whichCountryQuestion.possibleAnswers addObjectsFromArray:_countryCodeList.allKeys];
-    [whichCountryQuestion.possibleAnswers sortUsingSelector:@selector(caseInsensitiveCompare:)];
-    [whichCountryQuestion.urlKeys addEntriesFromDictionary:@{@"country" : @"In_what_country_do_you_practice"}];
-    
-    return whichCountryQuestion;
-}
-
-- (NSDictionary *)countryCodeList {
-    if (!_countryCodeList) {
-        NSDictionary *backwardsList = @{@"AFG" : @"Afghanistan",
-                                        @"ALA" : @"Åland Islands",
-                                        @"ALB" : @"Albania",
-                                        @"DZA" : @"Algeria",
-                                        @"ASM" : @"American Samoa",
-                                        @"AND" : @"Andorra",
-                                        @"AGO" : @"Angola",
-                                        @"AIA" : @"Anguilla",
-                                        @"ATA" : @"Antarctica",
-                                        @"ATG" : @"Antigua and Barbuda",
-                                        @"ARG" : @"Argentina",
-                                        @"ARM" : @"Armenia",
-                                        @"ABW" : @"Aruba",
-                                        @"AUS" : @"Australia",
-                                        @"AUT" : @"Austria",
-                                        @"AZE" : @"Azerbaijan",
-                                        @"BHS" : @"Bahamas",
-                                        @"BHR" : @"Bahrain",
-                                        @"BGD" : @"Bangladesh",
-                                        @"BRB" : @"Barbados",
-                                        @"BLR" : @"Belarus",
-                                        @"BEL" : @"Belgium",
-                                        @"BLZ" : @"Belize",
-                                        @"BEN" : @"Benin",
-                                        @"BMU" : @"Bermuda",
-                                        @"BTN" : @"Bhutan",
-                                        @"BOL" : @"Bolivia, Plurinational State of",
-                                        @"BES" : @"Bonaire, Sint Eustatius and Saba",
-                                        @"BIH" : @"Bosnia and Herzegovina",
-                                        @"BWA" : @"Botswana",
-                                        @"BVT" : @"Bouvet Island",
-                                        @"BRA" : @"Brazil",
-                                        @"IOT" : @"British Indian Ocean Territory",
-                                        @"BRN" : @"Brunei Darussalam",
-                                        @"BGR" : @"Bulgaria",
-                                        @"BFA" : @"Burkina Faso",
-                                        @"BDI" : @"Burundi",
-                                        @"KHM" : @"Cambodia",
-                                        @"CMR" : @"Cameroon",
-                                        @"CAN" : @"Canada",
-                                        @"CPV" : @"Cape Verde",
-                                        @"CYM" : @"Cayman Islands",
-                                        @"CAF" : @"Central African Republic",
-                                        @"TCD" : @"Chad",
-                                        @"CHL" : @"Chile",
-                                        @"CHN" : @"China",
-                                        @"CXR" : @"Christmas Island",
-                                        @"CCK" : @"Cocos (Keeling) Islands",
-                                        @"COL" : @"Colombia",
-                                        @"COM" : @"Comoros",
-                                        @"COG" : @"Congo",
-                                        @"COD" : @"Congo, the Democratic Republic of the",
-                                        @"COK" : @"Cook Islands",
-                                        @"CRI" : @"Costa Rica",
-                                        @"CIV" : @"Côte d'Ivoire",
-                                        @"HRV" : @"Croatia",
-                                        @"CUB" : @"Cuba",
-                                        @"CUW" : @"Curaçao",
-                                        @"CYP" : @"Cyprus",
-                                        @"CZE" : @"Czech Republic",
-                                        @"DNK" : @"Denmark",
-                                        @"DJI" : @"Djibouti",
-                                        @"DMA" : @"Dominica",
-                                        @"DOM" : @"Dominican Republic",
-                                        @"ECU" : @"Ecuador",
-                                        @"EGY" : @"Egypt",
-                                        @"SLV" : @"El Salvador",
-                                        @"GNQ" : @"Equatorial Guinea",
-                                        @"ERI" : @"Eritrea",
-                                        @"EST" : @"Estonia",
-                                        @"ETH" : @"Ethiopia",
-                                        @"FLK" : @"Falkland Islands (Malvinas)",
-                                        @"FRO" : @"Faroe Islands",
-                                        @"FJI" : @"Fiji",
-                                        @"FIN" : @"Finland",
-                                        @"FRA" : @"France",
-                                        @"GUF" : @"French Guiana",
-                                        @"PYF" : @"French Polynesia",
-                                        @"ATF" : @"French Southern Territories",
-                                        @"GAB" : @"Gabon",
-                                        @"GMB" : @"Gambia",
-                                        @"GEO" : @"Georgia",
-                                        @"DEU" : @"Germany",
-                                        @"GHA" : @"Ghana",
-                                        @"GIB" : @"Gibraltar",
-                                        @"GRC" : @"Greece",
-                                        @"GRL" : @"Greenland",
-                                        @"GRD" : @"Grenada",
-                                        @"GLP" : @"Guadeloupe",
-                                        @"GUM" : @"Guam",
-                                        @"GTM" : @"Guatemala",
-                                        @"GGY" : @"Guernsey",
-                                        @"GIN" : @"Guinea",
-                                        @"GNB" : @"Guinea-Bissau",
-                                        @"GUY" : @"Guyana",
-                                        @"HTI" : @"Haiti",
-                                        @"HMD" : @"Heard Island and McDonald Islands",
-                                        @"VAT" : @"Holy See (Vatican City State)",
-                                        @"HND" : @"Honduras",
-                                        @"HKG" : @"Hong Kong",
-                                        @"HUN" : @"Hungary",
-                                        @"ISL" : @"Iceland",
-                                        @"IND" : @"India",
-                                        @"IDN" : @"Indonesia",
-                                        @"IRN" : @"Iran, Islamic Republic of",
-                                        @"IRQ" : @"Iraq",
-                                        @"IRL" : @"Ireland",
-                                        @"IMN" : @"Isle of Man",
-                                        @"ISR" : @"Israel",
-                                        @"ITA" : @"Italy",
-                                        @"JAM" : @"Jamaica",
-                                        @"JPN" : @"Japan",
-                                        @"JEY" : @"Jersey",
-                                        @"JOR" : @"Jordan",
-                                        @"KAZ" : @"Kazakhstan",
-                                        @"KEN" : @"Kenya",
-                                        @"KIR" : @"Kiribati",
-                                        @"PRK" : @"Korea, Democratic People's Republic of",
-                                        @"KOR" : @"Korea, Republic of",
-                                        @"KWT" : @"Kuwait",
-                                        @"KGZ" : @"Kyrgyzstan",
-                                        @"LAO" : @"Lao People's Democratic Republic",
-                                        @"LVA" : @"Latvia",
-                                        @"LBN" : @"Lebanon",
-                                        @"LSO" : @"Lesotho",
-                                        @"LBR" : @"Liberia",
-                                        @"LBY" : @"Libya",
-                                        @"LIE" : @"Liechtenstein",
-                                        @"LTU" : @"Lithuania",
-                                        @"LUX" : @"Luxembourg",
-                                        @"MAC" : @"Macao",
-                                        @"MKD" : @"Macedonia, the former Yugoslav Republic of",
-                                        @"MDG" : @"Madagascar",
-                                        @"MWI" : @"Malawi",
-                                        @"MYS" : @"Malaysia",
-                                        @"MDV" : @"Maldives",
-                                        @"MLI" : @"Mali",
-                                        @"MLT" : @"Malta",
-                                        @"MHL" : @"Marshall Islands",
-                                        @"MTQ" : @"Martinique",
-                                        @"MRT" : @"Mauritania",
-                                        @"MUS" : @"Mauritius",
-                                        @"MYT" : @"Mayotte",
-                                        @"MEX" : @"Mexico",
-                                        @"FSM" : @"Micronesia, Federated States of",
-                                        @"MDA" : @"Moldova, Republic of",
-                                        @"MCO" : @"Monaco",
-                                        @"MNG" : @"Mongolia",
-                                        @"MNE" : @"Montenegro",
-                                        @"MSR" : @"Montserrat",
-                                        @"MAR" : @"Morocco",
-                                        @"MOZ" : @"Mozambique",
-                                        @"MMR" : @"Myanmar",
-                                        @"NAM" : @"Namibia",
-                                        @"NRU" : @"Nauru",
-                                        @"NPL" : @"Nepal",
-                                        @"NLD" : @"Netherlands",
-                                        @"NCL" : @"New Caledonia",
-                                        @"NZL" : @"New Zealand",
-                                        @"NIC" : @"Nicaragua",
-                                        @"NER" : @"Niger",
-                                        @"NGA" : @"Nigeria",
-                                        @"NIU" : @"Niue",
-                                        @"NFK" : @"Norfolk Island",
-                                        @"MNP" : @"Northern Mariana Islands",
-                                        @"NOR" : @"Norway",
-                                        @"OMN" : @"Oman",
-                                        @"PAK" : @"Pakistan",
-                                        @"PLW" : @"Palau",
-                                        @"PSE" : @"Palestinian Territory, Occupied",
-                                        @"PAN" : @"Panama",
-                                        @"PNG" : @"Papua New Guinea",
-                                        @"PRY" : @"Paraguay",
-                                        @"PER" : @"Peru",
-                                        @"PHL" : @"Philippines",
-                                        @"PCN" : @"Pitcairn",
-                                        @"POL" : @"Poland",
-                                        @"PRT" : @"Portugal",
-                                        @"PRI" : @"Puerto Rico",
-                                        @"QAT" : @"Qatar",
-                                        @"REU" : @"Réunion",
-                                        @"ROU" : @"Romania",
-                                        @"RUS" : @"Russian Federation",
-                                        @"RWA" : @"Rwanda",
-                                        @"BLM" : @"Saint Barthélemy",
-                                        @"SHN" : @"Saint Helena, Ascension and Tristan da Cunha",
-                                        @"KNA" : @"Saint Kitts and Nevis",
-                                        @"LCA" : @"Saint Lucia",
-                                        @"MAF" : @"Saint Martin (French part)",
-                                        @"SPM" : @"Saint Pierre and Miquelon",
-                                        @"VCT" : @"Saint Vincent and the Grenadines",
-                                        @"WSM" : @"Samoa",
-                                        @"SMR" : @"San Marino",
-                                        @"STP" : @"Sao Tome and Principe",
-                                        @"SAU" : @"Saudi Arabia",
-                                        @"SEN" : @"Senegal",
-                                        @"SRB" : @"Serbia",
-                                        @"SYC" : @"Seychelles",
-                                        @"SLE" : @"Sierra Leone",
-                                        @"SGP" : @"Singapore",
-                                        @"SXM" : @"Sint Maarten (Dutch part)",
-                                        @"SVK" : @"Slovakia",
-                                        @"SVN" : @"Slovenia",
-                                        @"SLB" : @"Solomon Islands",
-                                        @"SOM" : @"Somalia",
-                                        @"ZAF" : @"South Africa",
-                                        @"SGS" : @"South Georgia and the South Sandwich Islands",
-                                        @"SSD" : @"South Sudan",
-                                        @"ESP" : @"Spain",
-                                        @"LKA" : @"Sri Lanka",
-                                        @"SDN" : @"Sudan",
-                                        @"SUR" : @"Suriname",
-                                        @"SJM" : @"Svalbard and Jan Mayen",
-                                        @"SWZ" : @"Swaziland",
-                                        @"SWE" : @"Sweden",
-                                        @"CHE" : @"Switzerland",
-                                        @"SYR" : @"Syrian Arab Republic",
-                                        @"TWN" : @"Taiwan, Province of China",
-                                        @"TJK" : @"Tajikistan",
-                                        @"TZA" : @"Tanzania, United Republic of",
-                                        @"THA" : @"Thailand",
-                                        @"TLS" : @"Timor-Leste",
-                                        @"TGO" : @"Togo",
-                                        @"TKL" : @"Tokelau",
-                                        @"TON" : @"Tonga",
-                                        @"TTO" : @"Trinidad and Tobago",
-                                        @"TUN" : @"Tunisia",
-                                        @"TUR" : @"Turkey",
-                                        @"TKM" : @"Turkmenistan",
-                                        @"TCA" : @"Turks and Caicos Islands",
-                                        @"TUV" : @"Tuvalu",
-                                        @"UGA" : @"Uganda",
-                                        @"UKR" : @"Ukraine",
-                                        @"ARE" : @"United Arab Emirates",
-                                        @"GBR" : @"United Kingdom",
-                                        @"USA" : @"United States",
-                                        @"UMI" : @"United States Minor Outlying Islands",
-                                        @"URY" : @"Uruguay",
-                                        @"UZB" : @"Uzbekistan",
-                                        @"VUT" : @"Vanuatu",
-                                        @"VEN" : @"Venezuela, Bolivarian Republic of",
-                                        @"VNM" : @"Viet Nam",
-                                        @"VGB" : @"Virgin Islands, British",
-                                        @"VIR" : @"Virgin Islands, U.S.",
-                                        @"WLF" : @"Wallis and Futuna",
-                                        @"ESH" : @"Western Sahara",
-                                        @"YEM" : @"Yemen",
-                                        @"ZMB" : @"Zambia",
-                                        @"ZWE" : @"Zimbabwe",
-                                        };
-        _countryCodeList = [[NSMutableDictionary alloc] initWithCapacity:backwardsList.count];
-        for (NSString *key in backwardsList) {
-            [_countryCodeList setObject:key forKey:[backwardsList objectForKey:key]];
-        }
-    }
-    
-    return _countryCodeList;
-}
 
 
 
