@@ -113,17 +113,23 @@ static NSString * const questionsTableViewCellIdentifier = @"questionsTableViewC
 - (UITableView *)questionTableView {
 	if (!_questionTableView) {
 		_questionTableView = [[UITableView alloc] initWithFrame:[self questionTableViewFrame] style:UITableViewStylePlain];
-		_questionTableView.scrollIndicatorInsets = [self questionTableViewContentInsets];
-		_questionTableView.showsVerticalScrollIndicator = YES;
-		_questionTableView.contentInset = UIEdgeInsetsMake(self.brandImageView.frame.origin.y + self.brandImageView.frame.size.height - 40.0f, 0.0f, tableViewMargin, 0.0f);
-		_questionTableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.brandImageView.frame.origin.y + self.brandImageView.frame.size.height, -tableViewMargin, 0.0f, -tableViewMargin);
-		_questionTableView.delegate = self;
-		_questionTableView.dataSource = self;
-		_questionTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-		_questionTableView.allowsSelection = NO;
-		_questionTableView.clipsToBounds = NO;
-		_questionTableView.backgroundColor = [UIColor clearColor];
-		_questionTableView.userInteractionEnabled = YES;
+        _questionTableView.delegate = self;
+        _questionTableView.dataSource = self;
+        _questionTableView.showsVerticalScrollIndicator = YES;
+        _questionTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _questionTableView.allowsSelection = NO;
+        _questionTableView.clipsToBounds = NO;
+        _questionTableView.backgroundColor = [UIColor clearColor];
+        _questionTableView.userInteractionEnabled = YES;
+        _questionTableView.scrollIndicatorInsets = [self questionTableViewContentInsets];
+		_questionTableView.contentInset = UIEdgeInsetsMake(self.brandImageView.frame.origin.y + self.brandImageView.frame.size.height - 40.0f,
+                                                           0.0f,
+                                                           tableViewMargin,
+                                                           0.0f);
+		_questionTableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.brandImageView.frame.origin.y + self.brandImageView.frame.size.height,
+                                                                    -tableViewMargin,
+                                                                    0.0f,
+                                                                    -tableViewMargin);
 		
 		[_questionTableView registerClass:[PQSTableViewCell class]
 				   forCellReuseIdentifier:questionsTableViewCellIdentifier];
