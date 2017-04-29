@@ -32,7 +32,6 @@
 		276B83ED1CCA403F00B9989C /* apnumberpad_backspace_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B83EB1CCA403F00B9989C /* apnumberpad_backspace_icon@2x.png */; };
 		276B83EF1CCA404800B9989C /* Background Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B83EE1CCA404800B9989C /* Background Image.png */; };
 		276B83F11CCA405400B9989C /* headerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 276B83F01CCA405400B9989C /* headerBackground.png */; };
-		276B83F31CCA406900B9989C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 276B83F21CCA406900B9989C /* Info.plist */; };
 		276B83FA1CCA409200B9989C /* MultiSelectSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83F51CCA409200B9989C /* MultiSelectSegmentedControl.m */; };
 		276B83FB1CCA409200B9989C /* NGAParallaxMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83F71CCA409200B9989C /* NGAParallaxMotion.m */; };
 		276B83FC1CCA409200B9989C /* NSString+AppFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 276B83F91CCA409200B9989C /* NSString+AppFunctions.m */; };
@@ -370,7 +369,7 @@
 		276B838A1CCA3FF000B9989C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Nathan Fennel";
 				TargetAttributes = {
 					276B83911CCA3FF000B9989C = {
@@ -417,7 +416,6 @@
 				276B84221CCA410400B9989C /* Default-568h@2x.png in Resources */,
 				2763F9B01D11C5C800BEFAE8 /* questionaire_backgroundHAI.png in Resources */,
 				276B83DE1CCA401200B9989C /* LICENCE.txt in Resources */,
-				276B83F31CCA406900B9989C /* Info.plist in Resources */,
 				276B83A51CCA3FF000B9989C /* LaunchScreen.storyboard in Resources */,
 				2763F9B11D11C5C800BEFAE8 /* questionaire_backgroundPhilips.png in Resources */,
 				276B83A21CCA3FF000B9989C /* Assets.xcassets in Resources */,
@@ -544,8 +542,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -589,8 +589,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
